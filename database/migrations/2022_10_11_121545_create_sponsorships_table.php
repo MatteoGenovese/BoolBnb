@@ -18,6 +18,7 @@ class CreateSponsorshipsTable extends Migration
 
             $table->string('name', 10);
             $table->tinyInteger('duration');
+            $table->float('price', 3,2);
 
             $table->timestamps();
         });

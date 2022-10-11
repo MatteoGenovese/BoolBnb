@@ -67,6 +67,7 @@ class UsersTableSeeder extends Seeder
             $newUser->date_of_birth = $user['date_of_birth'];
             $newUser->email = $user['email'];
             $newUser->password = Hash::make($user['password']);
+            $newUser->save();
         }
     }
 }

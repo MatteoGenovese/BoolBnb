@@ -145,7 +145,7 @@ class ApartmentsTableSeeder extends Seeder
                 'is_available' => true,
             ],
             [
-                'user_id' => '',
+                'user_id' => 5,
                 'title' => 'Monolocale indipendente a Milano',
                 'description' => 'Piccolo monolocale soppalcato.
                         L\'appartamento si trova al piano terreno di un condominio molto popolare.

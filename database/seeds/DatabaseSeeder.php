@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             VisualsTableSeeder::class,
 
             // ? Pivot
-
+            ApartmentServiceTableSeeder::class,
+            ApartmentSponsorshipTableSeeder::class,
         ]);
     }
 }

@@ -16,17 +16,17 @@ class SponsorshipsTableSeeder extends Seeder
             [
                 'name' => 'bronze',
                 'price' => 2.99,
-                'duration' => 24,
+                'duration' => 1,
             ],
             [
                 'name' => 'silver',
                 'price' => 5.99,
-                'duration' => 72,
+                'duration' => 3,
             ],
             [
                 'name' => 'gold',
                 'price' => 9.99,
-                'duration' => 144,
+                'duration' => 6,
             ]
         ];
 

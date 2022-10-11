@@ -11,6 +11,6 @@ class Service extends Model
     ];
     //
     public function apartments() {
-        return $this->belongsToMany('App\Models\Apartment');
+        return $this->belongsToMany('App\Models\Apartment')->withTimestamps();
     }
 }

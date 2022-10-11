@@ -16,18 +16,13 @@ class ApartmentSponsorshipTableSeeder extends Seeder
         // TODO To seed when needed
 
         $apartments = Apartment::inRandomOrder()->limit(2)->get();
-        $sponsorships = Sponsorship::all();
+        $selectedSponsorship = Sponsorship::find(3);
 
         foreach ($apartments as $apartment) {
-            
-            $randomsponsorships = Sponsorship::inRandomOrder()->limit(2)->get();
 
-            // $apartment->sponsorships()->attach([
-            //     1 => ['expires' => $expires],
-            //     2 => ['expires' => $expires],
-            // ]);
-            
-            $apartment->sponsorships()->attach($sponsorship->id, ['expiration_date' => ]);
+            $expirationDate = now()->addDays($selectedSponsorship->duration);
+
+            $apartment->sponsorships()->attach($selectedSponsorship, ['expiration_date' => $expirationDate ]);
 
         }
     }

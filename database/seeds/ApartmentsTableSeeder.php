@@ -19,10 +19,11 @@ class ApartmentsTableSeeder extends Seeder
                 'description' => "Bellissimo appartamento con vista Navigli, spazioso, home cinema, tavolo da biliardo e grill all'aperto",
                 'bathroom_no' => 1,
                 'bed_no' => 1,
+                'room_no' => 1,
                 'square_meters' => 50,
                 'address' => 'Milano',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -31,10 +32,11 @@ class ApartmentsTableSeeder extends Seeder
                 'description' => 'Splendido monolocale di design. Vicino metropolitana MM1 Molino Dorino e MM1 PERO a una sola fermata da Fiera Milano Rho. Ideato per confort tipo hotel suite, completo di ogni servizio. Connessione WIFI gratuita, TV, cucina, lavastoviglie, lavatrice. Stabile elegante con portineria. Situato nella via principale. Di fronte all\'immobile ci sono un Carrefour Market, lavanderia, ristoranti e pizzerie.  Parcheggio auto comodo. Gorgeous design studio.Near the underground MM1 Molino Dorino and MM1 PERO',
                 'bathroom_no' => 1,
                 'bed_no' => 1,
+                'room_no' => 1,
                 'square_meters' => 80,
                 'address' => 'Pero, Lombardia, Italia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -47,10 +49,11 @@ class ApartmentsTableSeeder extends Seeder
                     Piccolo alloggio senza acqua. Doccia e servizi igienici nel prossimo edificio. L\'annuncio riguarda principalmente i pernottamenti. Altri servizi disponibili a un costo aggiuntivo nelle vicinanze nello stesso cortile. Il sito fa parte dell\'attività (Alanko Old Cowhouse).',
                 'bathroom_no' => 2,
                 'bed_no' => 3,
+                'room_no' => 1,
                 'square_meters' => 90,
                 'address' => 'Tornio, Finlandia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -64,10 +67,11 @@ class ApartmentsTableSeeder extends Seeder
                     E’ possibile noleggiare biciclette, ci sono wi-fi e parcheggio gratuiti.',
                 'bathroom_no' => 1,
                 'bed_no' => 6,
+                'room_no' => 1,
                 'square_meters' => 35,
                 'address' => 'Monza, Lombardia, Italia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -76,10 +80,11 @@ class ApartmentsTableSeeder extends Seeder
                 'description' => 'Ampia Villa a Roma Sud,parcheggio con posto auto dedicato. Giardino condiviso e spaziosa piscina a disposizione dei condomini. ',
                 'bathroom_no' => 4,
                 'bed_no' => 10,
+                'room_no' => 1,
                 'square_meters' => 300,
                 'address' => 'Roma',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -89,10 +94,11 @@ class ApartmentsTableSeeder extends Seeder
                     La nostra accogliente Logcabin è il luogo ideale dove soggiornare tutto l\'anno! Quando la neve si scioglie, è un po\' più difficile raggiungere la baita. La cabina non è collegata alla corrente, ma c\'è la possibilità di ricaricare il tuo cellulare. Non c\'è acqua corrente in cabina, ma noi portiamo le taniche d\'acqua per te. La casetta si trova a circa 800 metri dal nostro alloggio (dove si trova il bagno degli ospiti e anche il vostro veicolo parcheggerà ) e si deve salire a piedi . Un annesso si trova vicino alla cabina.',
                 'bathroom_no' => 2,
                 'bed_no' => 4,
+                'room_no' => 1,
                 'square_meters' => 120,
                 'address' => 'Arjeplog, Norrbotten County, Svezia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -106,10 +112,11 @@ class ApartmentsTableSeeder extends Seeder
                     The flat is new just painted',
                 'bathroom_no' => 1,
                 'bed_no' => 2,
+                'room_no' => 1,
                 'square_meters' => 60,
                 'address' => 'Milano, Lombardia, Italia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -118,10 +125,11 @@ class ApartmentsTableSeeder extends Seeder
                 'description' => 'The Iris. Splendido troglodyte situato in un centro di un villaggio abitato. Attrezzature di alta qualità, molto confortevoli. Esperienza unica in un ambiente eccezionale. Giardino e terrazze. Parcheggio',
                 'bathroom_no' => 2,
                 'bed_no' => 2,
+                'room_no' => 1,
                 'square_meters' => 125,
                 'address' => 'Troo, Centre-Val de Loire, Francia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -138,10 +146,11 @@ class ApartmentsTableSeeder extends Seeder
                     È possibile organizzare eventi e sono disponibili servizi extra su richiesta.',
                 'bathroom_no' => 11,
                 'bed_no' => 23,
+                'room_no' => 1,
                 'square_meters' => '500',
                 'address' => 'Terni',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
             [
@@ -156,10 +165,11 @@ class ApartmentsTableSeeder extends Seeder
                         E\' disponibile un piccolo spazio all\'aperto privato dove è possibile fumare o leggere un libro.',
                 'bathroom_no' => 1,
                 'bed_no' => 2,
+                'room_no' => 1,
                 'square_meters' => 55,
                 'address' => 'Milano, Lombardia, Italia',
-                'latitute' => '',
-                'longitude' => '',
+                'latitude' => 123.123123,
+                'longitude' => 123.123123,
                 'is_available' => true,
             ],
         ];
@@ -167,11 +177,12 @@ class ApartmentsTableSeeder extends Seeder
         foreach ($apartments as $apartment) {
             
             $newApartment = new Apartment();
-            $newApartment->user_is = $apartment['user_id'];
+            $newApartment->user_id = $apartment['user_id'];
             $newApartment->title = $apartment['title'];
             $newApartment->description = $apartment['description'];
             $newApartment->bathroom_no = $apartment['bathroom_no'];
             $newApartment->bed_no = $apartment['bed_no'];
+            $newApartment->room_no = $apartment['room_no'];
             $newApartment->square_meters = $apartment['square_meters'];
             $newApartment->address = $apartment['address'];
             $newApartment->latitude = $apartment['latitude'];

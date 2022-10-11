@@ -17,35 +17,35 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Gianni',
                 'surname' => 'Rossi',
-                'date_of_birth' => '20/03/1990',
+                'date_of_birth' => '1990/03/20',
                 'email' => 'gianni@gmail.com',
                 'password' => 'dslofhisd',
             ],
             [
                 'name' => 'Gianni',
                 'surname' => 'Bianchi',
-                'date_of_birth' => '10/02/1940',
+                'date_of_birth' => '1940/02/10',
                 'email' => 'bian@gmail.com',
                 'password' => 'dslofhisd',
             ],
             [
                 'name' => 'Federico',
                 'surname' => 'Rossini',
-                'date_of_birth' => '10/04/1996',
+                'date_of_birth' => '1996/04/10',
                 'email' => 'federossi@gmail.com',
                 'password' => 'dslofhisd',
             ],
             [
                 'name' => 'Donata',
                 'surname' => 'Cervelli',
-                'date_of_birth' => '20/07/1960',
+                'date_of_birth' => '1960/07/20',
                 'email' => 'donny@gmail.com',
                 'password' => 'dslofhisd',
             ],
             [
                 'name' => 'Alessandra',
                 'surname' => 'Rossini',
-                'date_of_birth' => '02/02/1990',
+                'date_of_birth' => '1990/02/02',
                 'email' => 'aleros@gmail.com',
                 'password' => 'dslofhisd',
             ],
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
         $devUser = new User();
         $devUser->name = 'Gianni';
         $devUser->surname = 'Morandi';
-        $devUser->date_of_birth = '10/10/1985';
+        $devUser->date_of_birth = '1985/10/10';
         $devUser->email = 'dev@gmail.com';
         $devUser->password = Hash::make('ciaociaociao');
         $devUser->save();

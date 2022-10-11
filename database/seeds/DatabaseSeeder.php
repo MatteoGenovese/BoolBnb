@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // ? Indipendenti
-            UserTableSeeder::class,
+            UsersTableSeeder::class,
             ApartmentsTableSeeder::class,
 
             // ? Dipendenti

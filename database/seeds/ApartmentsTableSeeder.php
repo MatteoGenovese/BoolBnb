@@ -68,7 +68,7 @@ class ApartmentsTableSeeder extends Seeder
                 'address' => 'Monza, Lombardia, Italia',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
             [
                 'user_id' => 2,
@@ -80,7 +80,7 @@ class ApartmentsTableSeeder extends Seeder
                 'address' => 'Roma',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
             [
                 'user_id' => 2,
@@ -93,7 +93,7 @@ class ApartmentsTableSeeder extends Seeder
                 'address' => 'Arjeplog, Norrbotten County, Svezia',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
             [
                 'user_id' => 5,
@@ -110,7 +110,7 @@ class ApartmentsTableSeeder extends Seeder
                 'address' => 'Milano, Lombardia, Italia',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
             [
                 'user_id' => 5,
@@ -122,7 +122,7 @@ class ApartmentsTableSeeder extends Seeder
                 'address' => 'Troo, Centre-Val de Loire, Francia',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
             [
                 'user_id' => 2,
@@ -136,13 +136,13 @@ class ApartmentsTableSeeder extends Seeder
                     Sulla sommità della collina, con vista spettacolare su Spoleto, si trova una grande piscina soleggiata (14x7 m) circondata dagli ulivi e dotata di spogliatoio e bagno.
                     Sul retro dell’edificio principale si trova la CAPPELLA PRIVATA della Villa, perfetta per cerimonie di ogni genere. Nel lato sud del parco c’è un Giardino Segreto con antichi elementi architettonici come muri, scale, una fontana, un piccolo tempio e una meridiana.
                     È possibile organizzare eventi e sono disponibili servizi extra su richiesta.',
-               'bathroom_no' => 11,
+                'bathroom_no' => 11,
                 'bed_no' => 23,
                 'square_meters' => '500',
                 'address' => 'Terni',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
             [
                 'user_id' => '',
@@ -160,7 +160,7 @@ class ApartmentsTableSeeder extends Seeder
                 'address' => 'Milano, Lombardia, Italia',
                 'latitute' => '',
                 'longitude' => '',
-                'is_avaiable' => true,
+                'is_available' => true,
             ],
         ];
 
@@ -176,8 +176,8 @@ class ApartmentsTableSeeder extends Seeder
             $newApartment->address = $apartment['address'];
             $newApartment->latitude = $apartment['latitude'];
             $newApartment->longitude = $apartment['longitude'];
-            $newApartment->is_avaiable = $apartment['is_avaiable'];
-            
+            $newApartment->is_available = $apartment['is_available'];
+            $newApartment->save();
         };
 
     }

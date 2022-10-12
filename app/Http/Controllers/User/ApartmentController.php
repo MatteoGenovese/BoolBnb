@@ -51,7 +51,7 @@ class ApartmentController extends Controller
         // $sentData['is_available']= true;
         $newApartment->create($sentData);
 
-        return redirect()->route('user.apartment.index');
+        return redirect()->route('user.apartments.index');
 
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +13,39 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::middleware("auth")->resource("/apartments", "User\ApartmentController");
+
+// Route::middleware('auth')
+//     ->namespace('User')
+//     ->name('apartments.')
+//     ->prefix('admin')
+//     ->group(function () {
+//         Route::get('/', 'AdminController@dashboard')->name('dashboard');
+//         Route::resource('apartments', 'ApartmentController');
+//         Route::resource('messages', 'MessageController');
+//     });
+
+
+    Route::middleware('auth')
+    //# aggiorna la cartella all'interno della quale si trovano i controller
+    ->namespace('User')
+    // § aggiorna il name di ogni "subroute" con un prefisso admin.
+    ->name('user.')
+    // aggiorna ogni url con un prefisso admin/
+    ->prefix('user')
+    //ragqruppa varie rotte
+    ->group(function (){
+            // Route::get('/', 'HomeController@index')->name('home');
+            Route::resource('/apartments', 'ApartmentController');
+            // Route::resource('/categories', 'CategoryController');
+            // Route::resource('/tags', 'TagController');
+
+});

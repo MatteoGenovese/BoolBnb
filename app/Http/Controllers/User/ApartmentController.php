@@ -4,9 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Photo;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -46,17 +48,29 @@ class ApartmentController extends Controller
     {
         //
         $sentData = $request->all();
+        // dd($sentData);
+
         $newApartment = new Apartment();
         $sentData['user_id']= Auth::id();
         $sentData['latitude']= 40.71455;
         $sentData['longitude']= 40.71455;
         // $sentData['is_available']= true;
 
+        $newApartment->fill($sentData);
+        $newApartment->save();
         if($request->services) {
-            $newApartment->services()->sync($request->services);
+            $newApartment->services()->sync($sentData['services']);
         }
+        
 
-        $newApartment->create($sentData);
+        $photo =  new Photo();
+        
+        $sentData['file_name'] = Storage::put("uploads/" . Auth::user()->name . "/photo", $request->file_name); 
+        $sentData['apartment_id'] =  $newApartment->id;
+        $sentData['is_cover_photo'] =  true;
+        $photo->fill($sentData);
+        $photo->save();
+
 
         return redirect()->route('user.apartments.index');
 

@@ -17,6 +17,8 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::all();
 
+        // dd($apartments);
+
         return view("user.apartment.index", compact("apartments"));
     }
 
@@ -27,7 +29,9 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        $apartment = new Apartment();
+
+        return view("user.apartment.create", compact("apartment"));
     }
 
     /**

@@ -45,6 +45,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     ->group(function (){
             // Route::get('/', 'HomeController@index')->name('home');
             Route::resource('/apartments', 'ApartmentController');
+            // Route::resource('/sponsorships', 'SponsorshipController');
             // Route::resource('/categories', 'CategoryController');
             // Route::resource('/tags', 'TagController');
 

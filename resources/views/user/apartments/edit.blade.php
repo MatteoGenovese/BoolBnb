@@ -8,10 +8,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('user.apartments.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('user.apartments.update', $apartment->id ) }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('post')
-                        @include('user.apartment.includes.form')
+                        @method('put')
+                        @include('user.apartments.includes.form')
                     </form>
                 </div>
             </div>

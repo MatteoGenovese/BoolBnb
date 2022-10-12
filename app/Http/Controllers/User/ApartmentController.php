@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -19,7 +20,7 @@ class ApartmentController extends Controller
 
         // dd($apartments);
 
-        return view("user.apartment.index", compact("apartments"));
+        return view("user.apartments.index", compact("apartments"));
     }
 
     /**
@@ -30,8 +31,7 @@ class ApartmentController extends Controller
     public function create()
     {
         $apartment = new Apartment();
-
-        return view("user.apartment.create", compact("apartment"));
+        return view("user.apartments.create", compact("apartment"));
     }
 
     /**
@@ -43,6 +43,16 @@ class ApartmentController extends Controller
     public function store(Request $request)
     {
         //
+        $sentData = $request->all();
+        $newApartment = new Apartment();
+        $sentData['user_id']= Auth::id();
+        $sentData['latitude']= 40.71455;
+        $sentData['longitude']= 40.71455;
+        // $sentData['is_available']= true;
+        $newApartment->create($sentData);
+
+        return redirect()->route('user.apartment.index');
+
     }
 
     /**
@@ -54,6 +64,9 @@ class ApartmentController extends Controller
     public function show($id)
     {
         //
+        $apartment = Apartment::findOrFail($id);
+        return view("user.apartments.show", compact("apartment"));
+
     }
 
     /**
@@ -65,6 +78,8 @@ class ApartmentController extends Controller
     public function edit($id)
     {
         //
+        $apartment = Apartment::findOrFail($id);
+        return view("user.apartments.edit", compact("apartment"));
     }
 
     /**
@@ -76,7 +91,14 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sentData = $request->all();
+        $apartment = Apartment::findOrFail($id);
+        // $sentData['latitude']= 40.71455;
+        // $sentData['longitude']= 40.71455;
+        // $sentData['is_available']= true;
+        $apartment->update($sentData);
+
+        return redirect()->route('user.apartments.show', compact('apartment'));
     }
 
     /**
@@ -87,6 +109,10 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+        $apartment->delete();
+        return redirect()->route('user.apartments.index');
+
+
     }
 }

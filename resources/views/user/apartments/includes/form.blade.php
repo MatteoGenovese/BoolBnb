@@ -72,9 +72,23 @@
 
 </div>
 
-<div class="form-group mt-4">
-    <label for="address">Indirizzo</label>
-    <input type="text" class="form-control" id="address"  placeholder="Inserisci l'indirizzo" name="address" value="{{ old('address', $apartment->address) }}">
+<div class="row">
+
+    <div class="col-6 col-md-9">
+        <div class="form-group mt-4">
+            <label for="address">Indirizzo</label>
+            <input type="text" class="form-control" id="address"  placeholder="Inserisci l'indirizzo" name="address" value="{{ old('address', $apartment->address) }}">
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="form-group mt-4">
+            <label for="upload">Inserisci una foto</label>
+
+            <input type="file" class="form-control" id="upload"  placeholder="Inserisci una foto" name="file_name" >
+
+            {{-- value="{{ old('file_name', $apartment->file_name) }}" --}}
+        </div>
+    </div>
 </div>
 
 

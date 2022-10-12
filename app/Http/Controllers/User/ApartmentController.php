@@ -86,7 +86,9 @@ class ApartmentController extends Controller
     {
         //
         $apartment = Apartment::findOrFail($id);
-        return view("user.apartments.show", compact("apartment"));
+        $foto = $apartment->photos;
+        // dd($apartment, $foto);
+        return view("user.apartments.show", compact("apartment", 'foto'));
 
     }
 

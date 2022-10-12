@@ -51,6 +51,11 @@ class ApartmentController extends Controller
         $sentData['latitude']= 40.71455;
         $sentData['longitude']= 40.71455;
         // $sentData['is_available']= true;
+
+        if($request->services) {
+            $newApartment->services()->sync($request->services);
+        }
+
         $newApartment->create($sentData);
 
         return redirect()->route('user.apartments.index');
@@ -82,6 +87,10 @@ class ApartmentController extends Controller
         //
         $apartment = Apartment::findOrFail($id);
         $services = Service::all();
+
+
+
+
         return view("user.apartments.edit", compact("apartment", "services"));
     }
 
@@ -99,6 +108,13 @@ class ApartmentController extends Controller
         // $sentData['latitude']= 40.71455;
         // $sentData['longitude']= 40.71455;
         // $sentData['is_available']= true;
+
+        if($request->services) {
+            $apartment->services()->sync($request->services);
+        } else {
+            $apartment->services()->detach();
+        }
+
         $apartment->update($sentData);
 
         return redirect()->route('user.apartments.show', compact('apartment'));

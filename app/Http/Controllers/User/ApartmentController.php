@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,7 +32,8 @@ class ApartmentController extends Controller
     public function create()
     {
         $apartment = new Apartment();
-        return view("user.apartments.create", compact("apartment"));
+        $services = Service::all();
+        return view("user.apartments.create", compact("apartment",'services'));
     }
 
     /**
@@ -79,7 +81,8 @@ class ApartmentController extends Controller
     {
         //
         $apartment = Apartment::findOrFail($id);
-        return view("user.apartments.edit", compact("apartment"));
+        $services = Service::all();
+        return view("user.apartments.edit", compact("apartment", "services"));
     }
 
     /**

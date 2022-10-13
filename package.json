@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "bootstrap": "^5.2.2"
+        "bootstrap": "^5.2.2",
+        "moment": "^2.29.4"
     }
 }

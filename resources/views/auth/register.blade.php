@@ -105,8 +105,9 @@
 </div>
 @endsection
 
+
 @section('bottom-scripts')
-    <script type="application/javascript" defer>
+<script type="application/javascript" defer>
         
         const formElement = document.querySelector('form');
         const name = document.getElementById('name');
@@ -124,19 +125,27 @@
         })
 
         function setError(input){
+            input.classList.remove('is-valid');
             input.classList.add('is-invalid');
         }
         
         function setSuccess(input){
+            input.classList.remove('is-invalid');
             input.classList.add('is-valid');
         }
+        const currentDate = moment().format("YYYY-M-D");
+
+        const date = new Date();
+
+        console.log(date);
+
 
         function checkInputs(){
             const nameValue = name.value.trim();
             const surnameValue = surname.value.trim();
             const emailValue = email.value.trim();
             const passwordValue = password.value.trim();
-            const passwordConfirmValue = passwordConform.value.trim();
+            const passwordConfirmValue = passwordConfirm.value.trim();
             const date_of_birthValue = date_of_birth.value;
 
             if(!nameValue.length === 0){
@@ -165,17 +174,28 @@
                 setSuccess(email);
             }
 
-            if(passwordValue.length <= 8 || passwordValue.length > 10 || !(/\d/.test(passwordValue)) ){
+            if(passwordValue.length <= 8 || passwordValue.length > 10 || !(/[0-9]/.test(passwordValue)) ){
                 setError(password);
             }else{
                 setSuccess(password);
             }
+
+            if(passwordValue === passwordConfirmValue) {
+                setSuccess(passwordConfirm)
+            } else {
+                setError(passwordConfirm)
+            }
+            console.log(date_of_birthValue);
+            if(date_of_birthValue < superCurrentDate) {
+                console.warn("daje")
+            }
+
+            
         }
 
         formElement.addEventListener('submit', function(submit) {
 
             submit.preventDefault();
-
             checkInputs();
         })
 

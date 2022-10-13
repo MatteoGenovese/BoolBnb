@@ -118,6 +118,8 @@
         const registerButton = document.getElementById('register-button');
         let isValid = true;
 
+        const currentDate = new Date();
+
         function setError(input){
             input.classList.remove('is-valid');
             input.classList.add('is-invalid');
@@ -128,84 +130,25 @@
             input.classList.add('is-valid');
         }
 
-        function isEmail(email) {
-            return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+        function removeValid(input){
+            input.classList.remove('is-invalid');
+            input.classList.remove('is-valid');
         }
 
-        function checkInputs(){
-            const nameValue = name.value.trim();
-            const surnameValue = surname.value.trim();
-            const emailValue = email.value.trim();
-            const passwordValue = password.value.trim();
-            const passwordConfirmValue = passwordConfirm.value.trim();
-            const date_of_birthValue = date_of_birth.value;
-            const inputFields = document.querySelectorAll("input");
-
-            const currentDate = new Date();
-            const birthDate = new Date(date_of_birthValue);
-
-            if(!nameValue.length === 0){
-                if(nameValue.length <= 3 || nameValue.length > 20){
-                    setError(name);
-                }else{
-                    setSuccess(name);
-                }
-            }
-
-            if(!surnameValue.length === 0){
-                if(surnameValue.length <= 2 || surnameValue.length > 25){
-                    setError(surname);
-                }else{
-                    setSuccess(surname);
-                }
-            }
-
-            if(emailValue.length === 0 || !isEmail(emailValue)){
-                setError(email);
-            }else{
-                setSuccess(email);
-            }
-
-            if(passwordValue.length <= 8 || passwordValue.length > 10 || !(/[0-9]/.test(passwordValue)) ){
-                setError(password);
-            }else{
-                setSuccess(password);
-            }
-
-            if(passwordValue === passwordConfirmValue) {
-                setSuccess(passwordConfirm)
-            } else {
-                setError(passwordConfirm)
-            }
-
-            if(birthDate <= currentDate) {
-                setSuccess(date_of_birth);
-            } else {
-                setError(date_of_birth)
-            }
-
-            inputFields.forEach(input => {
-                if (input.classList.contains("is-invalid")) {
-                    isValid = false;
-            }})
-
-            console.log(isValid)
-
-            
+        function isEmail(email) {
+            return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
         }
 
         function typeCheck(input, conditionOne, conditionTwo) {
             input.addEventListener('keyup', function(){
                 if(input.value.trim() == ''){
-                    input.classList.remove('is-invalid');
-                    input.classList.remove('is-valid');
+                    removeValid(input);
                     registerButton.removeAttribute('disabled', "");
                 }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
-                    input.classList.add('is-invalid')
+                    setError(input);
                     registerButton.setAttribute('disabled', "");
                 }else{ 
-                    input.classList.remove('is-invalid');
-                    input.classList.add('is-valid')
+                    setSuccess(input);
                     registerButton.removeAttribute('disabled', "");
                 }
             })
@@ -213,78 +156,86 @@
 
         email.addEventListener('keyup', function(){
         if(email.value.trim() == ''){
-            email.classList.remove('is-invalid');
-            email.classList.remove('is-valid');
+            removeValid(email)
             registerButton.removeAttribute('disabled', "");
-        }else if(email.value.length === 0 || !isEmail(email.value)){
-            email.classList.add('is-invalid')
+        }else if(!isEmail(email.value)){
+            setError(email);
             registerButton.setAttribute('disabled', "");
         }else{ 
-            email.classList.remove('is-invalid');
-            email.classList.add('is-valid')
+            setSuccess(email);
             registerButton.removeAttribute('disabled', "");
         }
     });
 
     password.addEventListener('keyup', function(){
         if(password.value.trim() == ''){
-            password.classList.remove('is-invalid');
-            password.classList.remove('is-valid');
+            removeValid(password);
             registerButton.removeAttribute('disabled', "");
-
             passcheck();
-
         }else if(password.value.length <= 8 || password.value.length > 30 || !(/[0-9]/.test(password.value))){
-            password.classList.add('is-invalid')
+            setError(password);
             registerButton.setAttribute('disabled', "");
-
             passcheck()
-
         }else{ 
-            password.classList.remove('is-invalid');
-            password.classList.add('is-valid')
+            setSuccess(password);
             registerButton.removeAttribute('disabled', "");
-
             passcheck()
         }
     });
 
     function passcheck(){
         if(password.value !== passwordConfirm.value){
-            passwordConfirm.classList.add('is-invalid')
+            setError(passwordConfirm);
             registerButton.setAttribute('disabled', "");
         }
     }
 
     passwordConfirm.addEventListener('keyup', function(){
         if(passwordConfirm.value.trim() == ''){
-            passwordConfirm.classList.remove('is-invalid');
-            passwordConfirm.classList.remove('is-valid');
+            removeValid(passwordConfirm);
             registerButton.removeAttribute('disabled', "");
         }else if(password.value !== passwordConfirm.value){
-            passwordConfirm.classList.add('is-invalid')
+            setError(passwordConfirm);
             registerButton.setAttribute('disabled', "");
         }else{ 
-            passwordConfirm.classList.remove('is-invalid');
-            passwordConfirm.classList.add('is-valid')
+            setSuccess(passwordConfirm);
             registerButton.removeAttribute('disabled', "");
         }
     
     });
 
+    date_of_birth.addEventListener('change', function(){
+
+        const birthDateCheck = new Date(date_of_birth.value);
+
+        if(birthDateCheck <= currentDate) {
+            setSuccess(date_of_birth);
+            registerButton.removeAttribute('disabled', "");
+        } else {
+            setError(date_of_birth);
+            registerButton.setAttribute('disabled', "");
+        }
+    });
+
     typeCheck(name, 3, 20);
     typeCheck(surname, 2, 25);
 
-        formElement.addEventListener('submit', function(submit) {
+    const inputFields = document.querySelectorAll("input");
 
-            submit.preventDefault();
-            isValid = true;
-            checkInputs();
+    formElement.addEventListener('submit', function(submit) {
 
-            if (isValid === true) {
-                formElement.submit()
-            }
-        })
+        submit.preventDefault();
+        isValid = true;
+        inputFields.forEach(input => {
+            if (input.classList.contains("is-invalid")) {
+                isValid = false;
+        }})
+
+
+        if (isValid === true) {
+            formElement.submit()
+        }
+    })
 
 
     </script>

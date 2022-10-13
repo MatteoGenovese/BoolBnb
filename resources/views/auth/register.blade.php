@@ -97,7 +97,6 @@
                             </div>
                         </div>
                     </form>
-                    <button id="bottone">bottone</button>
                 </div>
             </div>
         </div>
@@ -117,12 +116,7 @@
         const passwordConfirm = document.getElementById('password-confirm');
         const date_of_birth = document.getElementById('date_of_birth');
         const registerButton = document.getElementById('register-button');
-        const bottone = document.getElementById('bottone');
-        let isValid = false;
-
-        bottone.addEventListener("click", function() {
-            alert("ciao")
-        })
+        let isValid = true;
 
         function setError(input){
             input.classList.remove('is-valid');
@@ -133,12 +127,6 @@
             input.classList.remove('is-invalid');
             input.classList.add('is-valid');
         }
-        const currentDate = moment().format("YYYY-M-D");
-
-        const date = new Date();
-
-        console.log(date);
-
 
         function checkInputs(){
             const nameValue = name.value.trim();
@@ -147,6 +135,10 @@
             const passwordValue = password.value.trim();
             const passwordConfirmValue = passwordConfirm.value.trim();
             const date_of_birthValue = date_of_birth.value;
+            const inputFields = document.querySelectorAll("input");
+
+            const currentDate = new Date();
+            const birthDate = new Date(date_of_birthValue);
 
             if(!nameValue.length === 0){
                 if(nameValue.length <= 3 || nameValue.length > 20){
@@ -185,10 +177,19 @@
             } else {
                 setError(passwordConfirm)
             }
-            console.log(date_of_birthValue);
-            if(date_of_birthValue < superCurrentDate) {
-                console.warn("daje")
+
+            if(birthDate <= currentDate) {
+                setSuccess(date_of_birth);
+            } else {
+                setError(date_of_birth)
             }
+
+            inputFields.forEach(input => {
+                if (input.classList.contains("is-invalid")) {
+                    isValid = false;
+            }})
+
+            console.log(isValid)
 
             
         }
@@ -196,7 +197,12 @@
         formElement.addEventListener('submit', function(submit) {
 
             submit.preventDefault();
+            isValid = true;
             checkInputs();
+
+            if (isValid === true) {
+                formElement.submit()
+            }
         })
 
 

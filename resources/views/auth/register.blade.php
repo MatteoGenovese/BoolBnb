@@ -91,12 +91,13 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button id="register-button" type="submit" class="btn btn-primary" disabled>
+                                <button id="register-button" type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <button id="bottone">bottone</button>
                 </div>
             </div>
         </div>
@@ -107,7 +108,7 @@
 @section('bottom-scripts')
     <script type="application/javascript" defer>
         
-        const form = document.querySelector('form');
+        const formElement = document.querySelector('form');
         const name = document.getElementById('name');
         const surname = document.getElementById('surname');
         const email = document.getElementById('email');
@@ -115,22 +116,20 @@
         const passwordConfirm = document.getElementById('password-confirm');
         const date_of_birth = document.getElementById('date_of_birth');
         const registerButton = document.getElementById('register-button');
+        const bottone = document.getElementById('bottone');
         let isValid = false;
 
-        function setError(input){
-            input.classListAdd('is-invalid');
-        }
-
-        function setSuccess(input){
-            input.classListAdd('is-valid');
-        }
-
-        form.addEventListener('submit', (submit) => {
-
-            submit.preventDefault();
-
-            checkInputs();
+        bottone.addEventListener("click", function() {
+            alert("ciao")
         })
+
+        function setError(input){
+            input.classList.add('is-invalid');
+        }
+        
+        function setSuccess(input){
+            input.classList.add('is-valid');
+        }
 
         function checkInputs(){
             const nameValue = name.value.trim();
@@ -141,7 +140,7 @@
             const date_of_birthValue = date_of_birth.value;
 
             if(!nameValue.length === 0){
-                if(nameValue.length =< 3 || nameValue.length > 20){
+                if(nameValue.length <= 3 || nameValue.length > 20){
                     setError(name);
                 }else{
                     setSuccess(name);
@@ -149,7 +148,7 @@
             }
 
             if(!surnameValue.length === 0){
-                if(surnameValue.length =< 2 || surnameValue.length > 25){
+                if(surnameValue.length <= 2 || surnameValue.length > 25){
                     setError(surname);
                 }else{
                     setSuccess(surname);
@@ -166,14 +165,19 @@
                 setSuccess(email);
             }
 
-            if(passwordValue.length =< 8 || passwordValue.length > 30 || !(/\d/.test(passwordValue)) ){
+            if(passwordValue.length <= 8 || passwordValue.length > 10 || !(/\d/.test(passwordValue)) ){
                 setError(password);
             }else{
                 setSuccess(password);
             }
-
-
         }
+
+        formElement.addEventListener('submit', function(submit) {
+
+            submit.preventDefault();
+
+            checkInputs();
+        })
 
 
     </script>

@@ -172,9 +172,10 @@ class ApartmentController extends Controller
     public function assignSponsorship($id)
     {
 
-        $apartment = new Apartment();
+        $apartment = Apartment::findOrFail($id);
         $sponsorships = Sponsorship::all();
 
-        return view("user.apartments.assignSponsor", compact("apartment",'sponsorships'));
+        return view("user.apartments.assignSponsor", compact('apartment','sponsorships'));
+
     }
 }

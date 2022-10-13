@@ -43,9 +43,13 @@ Route::get('/home', 'HomeController@index')->name('home');
     ->prefix('user')
     //ragqruppa varie rotte
     ->group(function (){
-            // Route::get('/', 'HomeController@index')->name('home');
+        // Route::get('/', 'HomeController@index')->name('home');
+            // Route::get('/apartments/{apartment}', 'ApartmentController@assignSponsorship');
             Route::resource('/apartments', 'ApartmentController');
-            // Route::resource('/sponsorships', 'SponsorshipController');
+            Route::resource('/sponsorships', 'SponsorshipController');
+
+
+
             // Route::resource('/categories', 'CategoryController');
             // Route::resource('/tags', 'TagController');
 

@@ -19,10 +19,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::all();
 
-        // dd($apartments);
-
+        $apartments = Apartment::where('user_id', Auth::id())->get();
         return view("user.apartments.index", compact("apartments"));
     }
 
@@ -48,29 +46,25 @@ class ApartmentController extends Controller
     {
         //
         $sentData = $request->all();
-        // dd($sentData);
-
         $newApartment = new Apartment();
         $sentData['user_id']= Auth::id();
         $sentData['latitude']= 40.71455;
         $sentData['longitude']= 40.71455;
-        // $sentData['is_available']= true;
+        $sentData['is_available']= true;
 
         $newApartment->fill($sentData);
         $newApartment->save();
         if($request->services) {
             $newApartment->services()->sync($sentData['services']);
         }
-        
 
         $photo =  new Photo();
-        
-        $sentData['file_name'] = Storage::put("uploads/" . Auth::user()->name . "/photo", $request->file_name); 
+        $sentData['file_name'] = Storage::put("uploads/" . Auth::user()->name . "/photo", $request->file_name);
         $sentData['apartment_id'] =  $newApartment->id;
         $sentData['is_cover_photo'] =  true;
+
         $photo->fill($sentData);
         $photo->save();
-
 
         return redirect()->route('user.apartments.index');
 
@@ -85,11 +79,14 @@ class ApartmentController extends Controller
     public function show($id)
     {
         //
-        $apartment = Apartment::findOrFail($id);
-        $foto = $apartment->photos;
-        // dd($apartment, $foto);
-        return view("user.apartments.show", compact("apartment", 'foto'));
 
+        $apartment = Apartment::findOrFail($id);
+        if (Auth::id() != $apartment->user_id) abort(401);
+        else{
+            $photo = $apartment->photos;
+            // dd($apartment, $photo);
+            return view("user.apartments.show", compact("apartment", 'photo'));
+        }
     }
 
     /**
@@ -103,11 +100,10 @@ class ApartmentController extends Controller
         //
         $apartment = Apartment::findOrFail($id);
         $services = Service::all();
-
-
-
-
-        return view("user.apartments.edit", compact("apartment", "services"));
+        if (Auth::id() != $apartment->user_id) abort(401);
+        else{
+            return view("user.apartments.edit", compact("apartment", "services"));
+        }
     }
 
     /**
@@ -130,9 +126,7 @@ class ApartmentController extends Controller
         } else {
             $apartment->services()->detach();
         }
-
         $apartment->update($sentData);
-
         return redirect()->route('user.apartments.show', compact('apartment'));
     }
 
@@ -147,7 +141,5 @@ class ApartmentController extends Controller
         $apartment = Apartment::findOrFail($id);
         $apartment->delete();
         return redirect()->route('user.apartments.index');
-
-
     }
 }

@@ -37,8 +37,6 @@ class Apartment extends Model
 
     public function sponsorships() {
         return $this->belongsToMany('App\Models\Sponsorship')->withPivot('expiration_date')->withTimestamps();
-
-        // TODO: verificare il funzionamento del timestamp
     }
 
     public function visuals(){

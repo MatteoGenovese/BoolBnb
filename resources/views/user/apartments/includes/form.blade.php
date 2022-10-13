@@ -1,9 +1,19 @@
-
-
 <div class="form-group col-12">
     <label for="title">Titolo</label>
     <input type="text" class="form-control" id="title"  placeholder="Inserisci il titolo" name="title" value="{{ old('title', $apartment->title) }}">
+
+    @error('title')
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ $message }}</strong>
+        </div>
+    @enderror
 </div>
+
+
+
+
+
+
 
 <div class="row d-flex">
 
@@ -14,6 +24,11 @@
                 {{ old('description', $apartment->description) }}
             </textarea>
         </div>
+        @error('description')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
     </div>
 
     <div class="col-5 col-sm-4 col-lg-2 mt-4">
@@ -48,6 +63,11 @@
             <label for="bathroom-no">Numero di bagni</label>
             <input type="number" class="form-control" id="bathroom-no"  placeholder="Inserisci il numero di bagni" name="bathroom_no" value="{{ old('bathroom_no', $apartment->bathroom_no) }}">
         </div>
+        @error('bathroom_no')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
     </div>
 
     <div class="col-6 col-md-3">
@@ -56,18 +76,34 @@
             <label for="bed-no">Numero di letti</label>
             <input type="number" class="form-control" id="bed-no"  placeholder="Inserisci il numero di letti" name="bed_no" value="{{ old('bed_no', $apartment->bed_no) }}">
         </div>
+            @error('bed_no')
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @enderror
     </div>
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
             <label for="rooms-no">Numero di stanze</label>
             <input type="number" class="form-control" id="rooms-no"  placeholder="Inserisci il numero di stanze" name="room_no" value="{{ old('room_no', $apartment->room_no) }}">
         </div>
+
+            @error('room_no')
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @enderror
     </div>
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
             <label for="square-meters">Metri quadri</label>
             <input type="number" class="form-control" id="square-meters"  placeholder="Inserisci il numero di metri quadri dell'abitazione" name="square_meters" value="{{ old('square_meters', $apartment->square_meters) }}">
         </div>
+        @error('square_meters')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
     </div>
 
 </div>
@@ -79,6 +115,11 @@
             <label for="address">Indirizzo</label>
             <input type="text" class="form-control" id="address"  placeholder="Inserisci l'indirizzo" name="address" value="{{ old('address', $apartment->address) }}">
         </div>
+        @error('address')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
     </div>
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
@@ -88,6 +129,11 @@
 
             {{-- value="{{ old('file_name', $apartment->file_name) }}" --}}
         </div>
+        @error('file_name')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
     </div>
 </div>
 

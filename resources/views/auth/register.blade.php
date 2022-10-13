@@ -8,13 +8,13 @@
                 <div class="card-header">{{ __('Registrazione') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" class="needs-validation">
                         @csrf
 
-                        <div class="form-group row mt-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nome</label>
+                        <div class="form-group row mt-4 position-relative">
+                            <label for="name" class="col-md-4 col-form-label mt-3 text-end">Nome</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3 mt-2">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                 @error('name')
@@ -22,17 +22,18 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                    
+                                <div class="invalid-tooltip mt-1">
+                                    Il nome deve essere lungo almeno 4 caratteri e più corto di 20.
+                                </div>
                             </div>
 
-                            <div class="valid-tooltip">
-                                Looks good!
-                            </div>
                         </div>
 
-                        <div class="form-group row mt-3">
-                            <label for="surname" class="col-md-4 col-form-label text-md-right">Cognome</label>
+                        <div class="form-group row mt-4 position-relative">
+                            <label for="surname" class="col-md-4 col-form-label mt-3 text-end">Cognome</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" autocomplete="surname" autofocus>
 
                                 @error('surname')
@@ -40,49 +41,64 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                    
+                                <div class="invalid-tooltip mt-1">
+                                    Il cognome deve essere lungo almeno 3 caratteri e più corto di 25.
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mt-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">E-mail</label>
+                        <div class="form-group row mt-4 position-relative">
+                            <label for="email" class="col-md-4 col-form-label mt-3 text-end">E-mail</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror    
+                                <div class="invalid-tooltip mt-1">
+                                    L'e-mail non è valida.
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mt-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                        <div class="form-group row mt-4 position-relative">
+                            <label for="password" class="col-md-4 col-form-label mt-3 text-end">Password</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror    
+                                <div class="invalid-tooltip mt-1">
+                                    La password deve essere lunga almeno 9 caratteri e contenere almeno un numero.
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mt-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Conferma la password</label>
+                        <div class="form-group row mt-4 position-relative">
+                            <label for="password-confirm" class="col-md-4 col-form-label mt-3 text-end">Conferma la password</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    
+                                <div class="invalid-tooltip mt-1">
+                                    Le password non sono uguali.
+                                </div>
                             </div>
+                            
                         </div>
 
-                        <div class="form-group row mt-3">
-                            <label for="date_of_birth" class="col-md-4 col-form-label text-md-right">Data di nascita</label>
+                        <div class="form-group row mt-4 position-relative">
+                            <label for="date_of_birth" class="col-md-4 col-form-label mt-3 text-end">Data di nascita</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" autocomplete="date_of_birth">
                                 {{-- // FIXME: Messaggio di errore --}}
                                 @error('date_of_birth')
@@ -90,11 +106,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                    
+                                <div class="invalid-tooltip mt-1">
+                                    Vieni dal futuro?
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0 mt-3 text-end">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group row mb-0 mt-4 text-end">
+                            <div class="col-md-6 mt-3 offset-md-4">
                                 <button id="register-button" type="submit" class="btn btn-primary">
                                     Registrati
                                 </button>
@@ -176,7 +196,7 @@
             removeValid(password);
             registerButton.removeAttribute('disabled', "");
             passcheck();
-        }else if(password.value.length <= 8 || password.value.length > 30 || !(/[0-9]/.test(password.value))){
+        }else if(password.value.length < 8 || password.value.length > 100 || !(/[0-9]/.test(password.value))){
             setError(password);
             registerButton.setAttribute('disabled', "");
             passcheck()

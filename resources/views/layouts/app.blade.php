@@ -85,5 +85,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('bottom-scripts')
 </body>
 </html>

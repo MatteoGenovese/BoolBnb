@@ -128,6 +128,10 @@
             input.classList.add('is-valid');
         }
 
+        function isEmail(email) {
+            return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+        }
+
         function checkInputs(){
             const nameValue = name.value.trim();
             const surnameValue = surname.value.trim();
@@ -154,10 +158,6 @@
                 }else{
                     setSuccess(surname);
                 }
-            }
-
-            function isEmail(email) {
-                return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
             }
 
             if(emailValue.length === 0 || !isEmail(emailValue)){
@@ -193,6 +193,87 @@
 
             
         }
+
+        function typeCheck(input, conditionOne, conditionTwo) {
+            input.addEventListener('keyup', function(){
+                if(input.value.trim() == ''){
+                    input.classList.remove('is-invalid');
+                    input.classList.remove('is-valid');
+                    registerButton.removeAttribute('disabled', "");
+                }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
+                    input.classList.add('is-invalid')
+                    registerButton.setAttribute('disabled', "");
+                }else{ 
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid')
+                    registerButton.removeAttribute('disabled', "");
+                }
+            })
+        }
+
+        email.addEventListener('keyup', function(){
+        if(email.value.trim() == ''){
+            email.classList.remove('is-invalid');
+            email.classList.remove('is-valid');
+            registerButton.removeAttribute('disabled', "");
+        }else if(email.value.length === 0 || !isEmail(email.value)){
+            email.classList.add('is-invalid')
+            registerButton.setAttribute('disabled', "");
+        }else{ 
+            email.classList.remove('is-invalid');
+            email.classList.add('is-valid')
+            registerButton.removeAttribute('disabled', "");
+        }
+    });
+
+    password.addEventListener('keyup', function(){
+        if(password.value.trim() == ''){
+            password.classList.remove('is-invalid');
+            password.classList.remove('is-valid');
+            registerButton.removeAttribute('disabled', "");
+
+            passcheck();
+
+        }else if(password.value.length <= 8 || password.value.length > 30 || !(/[0-9]/.test(password.value))){
+            password.classList.add('is-invalid')
+            registerButton.setAttribute('disabled', "");
+
+            passcheck()
+
+        }else{ 
+            password.classList.remove('is-invalid');
+            password.classList.add('is-valid')
+            registerButton.removeAttribute('disabled', "");
+
+            passcheck()
+        }
+    });
+
+    function passcheck(){
+        if(password.value !== passwordConfirm.value){
+            passwordConfirm.classList.add('is-invalid')
+            registerButton.setAttribute('disabled', "");
+        }
+    }
+
+    passwordConfirm.addEventListener('keyup', function(){
+        if(passwordConfirm.value.trim() == ''){
+            passwordConfirm.classList.remove('is-invalid');
+            passwordConfirm.classList.remove('is-valid');
+            registerButton.removeAttribute('disabled', "");
+        }else if(password.value !== passwordConfirm.value){
+            passwordConfirm.classList.add('is-invalid')
+            registerButton.setAttribute('disabled', "");
+        }else{ 
+            passwordConfirm.classList.remove('is-invalid');
+            passwordConfirm.classList.add('is-valid')
+            registerButton.removeAttribute('disabled', "");
+        }
+    
+    });
+
+    typeCheck(name, 3, 20);
+    typeCheck(surname, 2, 25);
 
         formElement.addEventListener('submit', function(submit) {
 

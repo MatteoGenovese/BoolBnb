@@ -169,13 +169,45 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function assignSponsorship($id)
+    public function goToSponsorship($id)
     {
-
         $apartment = Apartment::findOrFail($id);
         $sponsorships = Sponsorship::all();
-
         return view("user.apartments.assignSponsor", compact('apartment','sponsorships'));
+    }
+
+            /**
+     * Assign a sponsor to apartment.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function assignSponsorship(Request $request)
+    {
+
+        //La creo
+        $sentData = $request->all();
+
+        dd($sentData);
+        // $post = Post::findOrFail($id);
+
+        // $post->fill($sentData);
+        // $post->save();
+
+        // $post->tags()->sync($sentData['tags']);
+        // return redirect()->route('admin.posts.index',compact('post'));
+
+
+
+        //cerco dentro la pivot se per l'id di un appartamento ho un expiration date maggiore di oggi
+
+
+        //se esiste aggiungo la duration
+
+        //altrimenti expiration date è uguale a now()+ duration
+
+
+        return view("user.apartments.index");
+
 
     }
 }

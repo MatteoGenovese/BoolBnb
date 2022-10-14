@@ -11,7 +11,9 @@
                     <form method="POST" action="{{ route('register') }}" class="needs-validation">
                         @csrf
 
+                        
                         <div class="form-group row mt-4 position-relative">
+    
                             <label for="name" class="col-md-4 col-form-label mt-3 text-end">Nome</label>
 
                             <div class="col-md-6 mt-3 mt-2">
@@ -49,10 +51,10 @@
                         </div>
 
                         <div class="form-group row mt-4 position-relative">
-                            <label for="email" class="col-md-4 col-form-label mt-3 text-end">E-mail</label>
+                            <label for="email" class="col-md-4 col-form-label mt-3 text-end">E-mail *</label>
 
                             <div class="col-md-6 mt-3">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required value="{{ old('email') }}"  autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -66,7 +68,7 @@
                         </div>
 
                         <div class="form-group row mt-4 position-relative">
-                            <label for="password" class="col-md-4 col-form-label mt-3 text-end">Password</label>
+                            <label for="password" class="col-md-4 col-form-label mt-3 text-end">Password *</label>
 
                             <div class="col-md-6 mt-3">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -83,7 +85,7 @@
                         </div>
 
                         <div class="form-group row mt-4 position-relative">
-                            <label for="password-confirm" class="col-md-4 col-form-label mt-3 text-end">Conferma la password</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label mt-3 text-end">Conferma la password *</label>
 
                             <div class="col-md-6 mt-3">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -113,8 +115,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0 mt-4 text-end">
-                            <div class="col-md-6 mt-3 offset-md-4">
+                        <div class="form-group row mb-0 mt-3 text-end">
+                            
+                            <div class="col-md-6 mt-3 offset-md-4 d-flex justify-content-between">
+                                
+                            <div class="text-start text-danger">
+                                * = Campi obbligatori
+                            </div>
+                                
                                 <button id="register-button" type="submit" class="btn btn-primary">
                                     Registrati
                                 </button>
@@ -181,6 +189,7 @@
         email.addEventListener('keyup', function(){
         if(email.value.trim() == ''){
             removeValid(email)
+            isValid = false;
             registerButton.removeAttribute('disabled', "");
         }else if(!isEmail(email.value)){
             setError(email);
@@ -194,6 +203,7 @@
     password.addEventListener('keyup', function(){
         if(password.value.trim() == ''){
             removeValid(password);
+            isValid = false;
             registerButton.removeAttribute('disabled', "");
             passcheck();
         }else if(password.value.length < 8 || password.value.length > 100 || !(/[0-9]/.test(password.value))){
@@ -217,6 +227,7 @@
     passwordConfirm.addEventListener('keyup', function(){
         if(passwordConfirm.value.trim() == ''){
             removeValid(passwordConfirm);
+            isValid = false;
             registerButton.removeAttribute('disabled', "");
         }else if(password.value !== passwordConfirm.value){
             setError(passwordConfirm);
@@ -249,11 +260,14 @@
     formElement.addEventListener('submit', function(submit) {
 
         submit.preventDefault();
+
         isValid = true;
         inputFields.forEach(input => {
-            if (input.classList.contains("is-invalid")) {
+            if (input.classList.contains("is-invalid") || email.value.length === 0 || password.value.length === 0 || passwordConfirm.value.length === 0) {
                 isValid = false;
         }})
+
+        console.log(isValid);
 
 
         if (isValid === true) {

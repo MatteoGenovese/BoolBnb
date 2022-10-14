@@ -27,9 +27,11 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     BoolBNB
                 </a>
-                <a class="navbar-item px-3" href="{{ route("user.apartments.index") }}">
-                    I tuoi annunci
-                </a>
+                @auth()
+                    <a class="navbar-item px-3" href="{{ route("user.apartments.index") }}">
+                        I tuoi annunci
+                    </a>
+                @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('user.apartments.update', $apartment->id ) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('user.apartments.update', $apartment->id ) }}" method="post" class="crud-form" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         @include('user.apartments.includes.form')
@@ -18,4 +18,8 @@
         </div>
     </main>
 
+@endsection
+
+@section("bottom-scripts")
+    @include("user.apartments.includes.form-scripts")
 @endsection

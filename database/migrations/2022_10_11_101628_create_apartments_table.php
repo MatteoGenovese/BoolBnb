@@ -25,7 +25,7 @@ class CreateApartmentsTable extends Migration
             $table->string('address', 100);
             $table->float('latitude', 9, 6);
             $table->float('longitude', 9, 6);
-            $table->boolean('is_available')->default(true);
+            $table->boolean('is_available')->default(false);
 
             $table->timestamps();
         });

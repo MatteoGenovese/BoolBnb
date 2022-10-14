@@ -20,9 +20,20 @@ class ApartmentController extends Controller
         'bathroom_no' => 'required|integer|min:1|max:10',
         'bed_no' => 'required|integer|min:1|max:10',
         'room_no' => 'required|integer|min:1|max:20',
-        'square_meters' => 'required|integer|min:1|max:500',
+        'square_meters' => 'required|integer|min:30|max:1000',
         'address' => 'required|min:3|max:255',
-        'file_name' => 'required|max:1024|mimes:jpeg,jpg,png',
+        'file_name' => 'required|max:5120|mimes:jpeg,jpg,png',
+    ];
+
+    protected $updateValidationRules = [
+        'title' => 'required|min:10|max:100',
+        'description' => 'required|min:10|max:1000',
+        'bathroom_no' => 'required|integer|min:1|max:10',
+        'bed_no' => 'required|integer|min:1|max:10',
+        'room_no' => 'required|integer|min:1|max:20',
+        'square_meters' => 'required|integer|min:30|max:1000',
+        'address' => 'required|min:3|max:255',
+        'file_name' => 'max:5120|mimes:jpeg,jpg,png',
     ];
 
     /**
@@ -67,7 +78,6 @@ class ApartmentController extends Controller
         $sentData['user_id']= Auth::id();
         $sentData['latitude']= 40.71455;
         $sentData['longitude']= 40.71455;
-        $sentData['is_available']= true;
 
         $newApartment->fill($sentData);
         $newApartment->save();
@@ -131,21 +141,39 @@ class ApartmentController extends Controller
     public function update(Request $request, $id)
     {
         $sentData = $request->all();
+        $validatedData = $request->validate($this->updateValidationRules);
 
-        $validatedData = $request->validate($this->validationRules);
+        if(!isset($sentData["is_available"])) {
+            $sentData["is_available"] = false;
+        } else {
+            $sentData["is_available"] = true;
+        }
 
         $apartment = Apartment::findOrFail($id);
         // $sentData['latitude']= 40.71455;
         // $sentData['longitude']= 40.71455;
-        // $sentData['is_available']= true;
 
         if($request->services) {
             $apartment->services()->sync($request->services);
         } else {
             $apartment->services()->detach();
         }
+
         $apartment->update($sentData);
-        return redirect()->route('user.apartments.show', compact('apartment'));
+        
+        $photo = Photo::where("apartment_id", $id)->first();
+        
+        if(is_null($request->file_name)) {
+            $sentData["file_name"] = $photo->file_name;
+        } else {
+            $sentData["file_name"] = Storage::put("uploads/" . Auth::user()->name . "/photo", $request->file_name);
+        }
+
+        $photo->fill($sentData);
+        
+        $photo->save();
+
+        return redirect()->route('user.apartments.show', compact('apartment', "photo"));
     }
 
     /**

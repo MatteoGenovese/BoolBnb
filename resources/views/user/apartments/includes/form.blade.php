@@ -1,5 +1,5 @@
 <div class="form-group col-12">
-    <label for="title">Titolo</label>
+    <label for="title">Titolo *</label>
     <input type="text" class="form-control" id="title"  placeholder="Inserisci il titolo" name="title" value="{{ old('title', $apartment->title) }}">
 
     @error('title')
@@ -9,17 +9,11 @@
     @enderror
 </div>
 
-
-
-
-
-
-
 <div class="row d-flex">
 
     <div class="col-7 col-sm-8 col-lg-10 ">
         <div class="form-group mt-4 ">
-            <label for="description">Descrizione</label>
+            <label for="description">Descrizione *</label>
             <textarea name="description" id="description" class="form-control" placeholder="Inserisci la descrizione" rows="13" style=" resize: none; ">
                 {{ old('description', $apartment->description) }}
             </textarea>
@@ -32,17 +26,17 @@
     </div>
 
     <div class="col-5 col-sm-4 col-lg-2 mt-4">
-        <label for="services">Servizi</label>
+        <label for="services">Servizi *</label>
         @forelse ($services as $service)
         <div class="form-check form-switch">
 
             @if ($errors->any())
-                <input name="services[]" class="form-check-input"
+                <input name="services[]" class="form-check-input  services-check"
                 value="{{ $service->id }}" type="checkbox" role="switch" id="services"
                 {{ in_array($service->id, old('services', [])) ? 'checked' : ''}}>
                 <label class="form-check-label" for="services">{{ $service->name }}</label>
             @else
-                <input name="services[]" class="form-check-input"
+                <input name="services[]" class="form-check-input  services-check"
                 value="{{ $service->id }}" type="checkbox" role="switch" id="services"
                 @isset($apartment) {{ $apartment->services->contains($service) ? 'checked' : '' }} @endisset>
                 <label class="form-check-label" for="services">{{ $service->name }}</label>
@@ -60,7 +54,7 @@
 
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
-            <label for="bathroom-no">Numero di bagni</label>
+            <label for="bathroom-no">Numero di bagni *</label>
             <input type="number" class="form-control" id="bathroom-no"  placeholder="Inserisci il numero di bagni" name="bathroom_no" value="{{ old('bathroom_no', $apartment->bathroom_no) }}">
         </div>
         @error('bathroom_no')
@@ -73,7 +67,7 @@
     <div class="col-6 col-md-3">
 
         <div class="form-group mt-4">
-            <label for="bed-no">Numero di letti</label>
+            <label for="bed-no">Numero di letti *</label>
             <input type="number" class="form-control" id="bed-no"  placeholder="Inserisci il numero di letti" name="bed_no" value="{{ old('bed_no', $apartment->bed_no) }}">
         </div>
             @error('bed_no')
@@ -84,7 +78,7 @@
     </div>
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
-            <label for="rooms-no">Numero di stanze</label>
+            <label for="rooms-no">Numero di stanze *</label>
             <input type="number" class="form-control" id="rooms-no"  placeholder="Inserisci il numero di stanze" name="room_no" value="{{ old('room_no', $apartment->room_no) }}">
         </div>
 
@@ -96,7 +90,7 @@
     </div>
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
-            <label for="square-meters">Metri quadri</label>
+            <label for="square-meters">Metri quadri *</label>
             <input type="number" class="form-control" id="square-meters"  placeholder="Inserisci il numero di metri quadri dell'abitazione" name="square_meters" value="{{ old('square_meters', $apartment->square_meters) }}">
         </div>
         @error('square_meters')
@@ -112,7 +106,7 @@
 
     <div class="col-6 col-md-9">
         <div class="form-group mt-4">
-            <label for="address">Indirizzo</label>
+            <label for="address">Indirizzo *</label>
             <input type="text" class="form-control" id="address"  placeholder="Inserisci l'indirizzo" name="address" value="{{ old('address', $apartment->address) }}">
         </div>
         @error('address')
@@ -123,9 +117,9 @@
     </div>
     <div class="col-6 col-md-3">
         <div class="form-group mt-4">
-            <label for="upload">Inserisci una foto</label>
+            <label for="upload">Foto *</label>
 
-            <input type="file" class="form-control" id="upload"  placeholder="Inserisci una foto" name="file_name" >
+            <input type="file" class="form-control" id="upload" placeholder="Inserisci una foto" name="file_name">
 
             {{-- value="{{ old('file_name', $apartment->file_name) }}" --}}
         </div>
@@ -141,6 +135,20 @@
 
 
 
+<div class="d-flex justify-content-between mt-4">
+    <div class="text-danger">
+        * = Campi obbligatori
+    </div>
+    <div class="d-flex align-items-center">
+        <div class="form-check form-switch">
+            <label for="available-check">Disponibile</label>
+            @if ($errors->any())
+                <input type="checkbox" name="is_available" id="available-check" class="form-check-input" value="1" {{ old("is_available") == true ? "checked" : " " }}>
+            @else
+                <input type="checkbox" name="is_available" id="available-check" class="form-check-input" value="1" {{ $apartment->is_available == 1 ? "checked" : " " }}>
+            @endif
 
-
-<button type="submit" class="btn btn-success mt-4">Invia</button>
+        </div>
+        <button type="submit" class="btn btn-success mx-3" id="submit-button">Invia</button>
+    </div>
+</div>

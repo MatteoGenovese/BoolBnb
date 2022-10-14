@@ -14,6 +14,8 @@ class CreateApartmentSponsorshipTable extends Migration
     public function up()
     {
         Schema::create('apartment_sponsorship', function (Blueprint $table) {
+            $table->id();
+
             $table->unsignedBigInteger('apartment_id');
 
             $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
@@ -23,11 +25,10 @@ class CreateApartmentSponsorshipTable extends Migration
 
             $table->foreign('sponsorship_id')->references('id')->on('sponsorships')->onDelete('cascade');
 
-            $table->primary(['apartment_id', 'sponsorship_id']);
+            $table->timestamps();
 
             $table->dateTime('expiration_date');
 
-            $table->timestamps();
         });
     }
 

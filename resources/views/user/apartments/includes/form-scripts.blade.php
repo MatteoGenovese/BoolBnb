@@ -1,18 +1,18 @@
 <script>
-
+    const formElement = document.querySelector(".crud-form");
     const title = document.getElementById("title");
     const description = document.getElementById("description");
-    const services = document.getElementById("services");
+    const services = document.querySelectorAll(".services-check");
     const bathroomNo = document.getElementById("bathroom-no");
     const bedNo = document.getElementById("bed-no");
     const roomsNo = document.getElementById("rooms-no");
     const squareMeters = document.getElementById("square-meters");
     const address = document.getElementById("address");
-    const upload = document.getElementById("upload");
     const submitButton = document.getElementById('submit-button');
-    let isValid = true;
+    const inputFields = document.querySelectorAll("input:not(#upload)");
+    let isValid = false;
 
-    function setError(input){
+        function setError(input){
             input.classList.remove('is-valid');
             input.classList.add('is-invalid');
         }
@@ -36,7 +36,7 @@
                 }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
                     setError(input);
                     submitButton.setAttribute('disabled', "");
-                }else{ 
+                }else{
                     setSuccess(input);
                     submitButton.removeAttribute('disabled', "");
                 }
@@ -51,15 +51,14 @@
                 }else if(input.value < conditionOne || input.value > conditionTwo || isNaN(input.value)){
                     setError(input);
                     submitButton.setAttribute('disabled', "");
-                }else{ 
+                }else{
                     setSuccess(input);
                     submitButton.removeAttribute('disabled', "");
                 }
             })
         };
 
-
-
+        
         typeCheck(title, 10, 100);
         typeCheck(description, 10, 100);
         numberCheck(bathroomNo, 1, 10);
@@ -67,4 +66,28 @@
         numberCheck(roomsNo, 1, 20);
         numberCheck(squareMeters, 30, 1000);
         typeCheck(address, 5, 100);
+
+formElement.addEventListener('submit', function(submit) {
+
+    submit.preventDefault();
+    isValid = true;
+
+    let hasChecks = false;
+
+    services.forEach(service => {
+            if (service.hasAttributes("checked")) {
+                hasChecks = true;
+            }
+        })
+
+    inputFields.forEach(input => {
+            if (input.classList.contains("is-invalid") || input.value.length === 0 || description.classList.contains("is-invalid") || !hasChecks) {
+                isValid = false;
+        }})
+
+    if (isValid === true) {
+        formElement.submit()
+    }
+})
+
 </script>

@@ -31,12 +31,12 @@
         <div class="form-check form-switch">
 
             @if ($errors->any())
-                <input name="services[]" class="form-check-input"
+                <input name="services[]" class="form-check-input  services-check"
                 value="{{ $service->id }}" type="checkbox" role="switch" id="services"
                 {{ in_array($service->id, old('services', [])) ? 'checked' : ''}}>
                 <label class="form-check-label" for="services">{{ $service->name }}</label>
             @else
-                <input name="services[]" class="form-check-input"
+                <input name="services[]" class="form-check-input  services-check"
                 value="{{ $service->id }}" type="checkbox" role="switch" id="services"
                 @isset($apartment) {{ $apartment->services->contains($service) ? 'checked' : '' }} @endisset>
                 <label class="form-check-label" for="services">{{ $service->name }}</label>

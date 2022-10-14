@@ -159,9 +159,6 @@ class ApartmentController extends Controller
             $apartment->services()->detach();
         }
 
-        // $sentData["file_name"] = Storage::put("uploads/" . Auth::user()->name . "/photo", $request->file_name);
-
-        
         $apartment->update($sentData);
         
         $photo = Photo::where("apartment_id", $id)->first();

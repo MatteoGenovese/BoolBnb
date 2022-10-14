@@ -83,9 +83,7 @@ class ApartmentController extends Controller
         $apartment = Apartment::findOrFail($id);
         if (Auth::id() != $apartment->user_id) abort(401);
         else{
-            $photo = $apartment->photos;
-            // dd($apartment, $photo);
-            return view("user.apartments.show", compact("apartment", 'photo'));
+            return view("user.apartments.show", compact("apartment"));
         }
     }
 

@@ -19,3 +19,7 @@
     </main>
 
 @endsection
+
+@section("bottom-scripts")
+    @include("user.apartments.includes.form-scripts")
+@endsection

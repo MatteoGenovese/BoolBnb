@@ -16,17 +16,26 @@
     const apiUrl = "https://api.tomtom.com/search/2/search/";
     const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
     const country='IT';
+    let addressesResult = [];
 
-
-
-    address.addEventListener("keyup", function(){
-        // axios.get(apiUrl + address.value + ".json?key=" + apiKey + "&language=it-IT&countrySet=IT&limit=4")
-        axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true`)
-        .then(response => console.log(response))
+    function searchAddress() {
+        axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
+        .then(response => {
+            addressesResult = response.data.results;
+        })
+        
         .catch((error) => console.log(error));
+    }
 
+    let search;
+    address.addEventListener("keyup", function(){
+        clearTimeout(search);
+        search = setTimeout(searchAddress, 1000);
+        addressesResult.forEach(result => {
+            console.log(result.address.freeformAddress + ", " + result.address.countrySubdivision + " - " + result.position.lat + " / " + result.position.lon)
+        })
     })
-
+    
 
         function setError(input){
             input.classList.remove('is-valid');

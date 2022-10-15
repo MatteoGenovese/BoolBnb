@@ -107,7 +107,7 @@
     <div class="col-6 col-md-9">
         <div class="form-group mt-4">
             <label for="address">Indirizzo *</label>
-            <input type="text" class="form-control" id="address"  placeholder="Inserisci l'indirizzo" name="address" value="{{ old('address', $apartment->address) }}">
+            <input type="text" class="form-control" id="address"  placeholder="Indirizzo, Città, Provincia..." name="address" value="{{ old('address', $apartment->address) }}">
         </div>
         @error('address')
             <div class="alert alert-danger" role="alert">

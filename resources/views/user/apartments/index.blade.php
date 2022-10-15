@@ -78,7 +78,7 @@
 @endsection
 
 @section('bottom-scripts')
-<script type="application/javascript">
+<script defer>
 
     document.querySelectorAll('.delete-index-form').forEach(form => {
         form.addEventListener('submit', (e) => {

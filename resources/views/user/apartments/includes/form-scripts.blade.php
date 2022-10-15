@@ -1,4 +1,12 @@
 <script>
+
+const apiUrl = "https://api.tomtom.com/search/2/search/";
+    const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
+
+        axios.get(apiUrl + )
+        .then(response => console.log(response));
+
+
     const formElement = document.querySelector(".crud-form");
     const title = document.getElementById("title");
     const description = document.getElementById("description");

@@ -148,12 +148,6 @@
 @section("bottom-scripts")
     <script defer>
 
-        
-        axios.get("https://flynn.boolean.careers/exercises/api/array/music")
-        .then(response => console.log(response));
-
-
-
         const deleteForm = document.getElementById('showDeleteForm');
         console.log(deleteForm);
 

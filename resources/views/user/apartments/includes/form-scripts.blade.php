@@ -9,14 +9,20 @@
     const roomsNo = document.getElementById("rooms-no");
     const squareMeters = document.getElementById("square-meters");
     const address = document.getElementById("address");
+    const addresses = document.getElementById("addresses");
+    const lat = document.getElementById("lat");
+    const lon = document.getElementById("lon");
     const submitButton = document.getElementById('submit-button');
-    const inputFields = document.querySelectorAll("input:not(#upload)");
+    const inputFields = document.querySelectorAll("input:not(#upload, #lat, #lon)");
     let isValid = false;
 
     const apiUrl = "https://api.tomtom.com/search/2/search/";
     const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
     const country='IT';
     let addressesResult = [];
+    let latValues = [];
+    let lonValues = [];
+    let addressIndex = 0;
 
     function searchAddress() {
         axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
@@ -30,10 +36,25 @@
     let search;
     address.addEventListener("keyup", function(){
         clearTimeout(search);
-        search = setTimeout(searchAddress, 1000);
-        addressesResult.forEach(result => {
-            console.log(result.address.freeformAddress + ", " + result.address.countrySubdivision + " - " + result.position.lat + " / " + result.position.lon)
+        search = setTimeout(searchAddress, 500);
+
+        let addressAutocomplete;
+
+        addresses.innerHTML = "";
+
+        addressesResult.forEach((result, index) => {
+            latValues.push(result.position.lat);
+            lonValues.push(result.position.lon);
+            
+            addressAutocomplete = document.createElement("option");
+            addressAutocomplete.setAttribute("onclick", "addressIndex = index")
+            addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+            addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+            
+            addresses.append(addressAutocomplete);
+            
         })
+        
     })
     
 
@@ -96,6 +117,12 @@ formElement.addEventListener('submit', function(submit) {
 
     submit.preventDefault();
     isValid = true;
+
+    if(latValues.length !== 0) {
+        lat.value = latValues[addressIndex];
+        lon.value = lonValues[addressIndex];
+
+    }
 
     let hasChecks = false;
 

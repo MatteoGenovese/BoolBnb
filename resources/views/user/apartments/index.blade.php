@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row">
 
+        @if (session('session-change'))
+            <div class="col-12 alert {{ session('session-class') }}">
+                {{ session('session-change') }}
+            </div>
+        @endif
+
             <table class="table table-dark">
                 <thead>
                     <tr>

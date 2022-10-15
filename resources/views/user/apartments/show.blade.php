@@ -4,6 +4,13 @@
 @section("content")
     <div class="container">
         <div class="row">
+
+            @if (session('session-change'))
+                <div class="col-12 alert {{ session('session-class') }}">
+                    {{ session('session-change') }}
+                </div>
+            @endif
+            
             <div class="col-12 d-flex flex-column">
                 <div class="card">
                     @forelse ($apartment->photos as $photo)

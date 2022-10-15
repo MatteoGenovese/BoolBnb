@@ -140,7 +140,7 @@ class ApartmentController extends Controller
         $photo->fill($sentData);
         $photo->save();
 
-        return redirect()->route('user.apartments.index');
+        return redirect()->route('user.apartments.index')->with('session-change', $sentData['title'] . ' è stato creato con successo!')->with(['session-class' => 'alert-success']);
 
     }
 
@@ -218,7 +218,7 @@ class ApartmentController extends Controller
         
         $photo->save();
 
-        return redirect()->route('user.apartments.show', compact('apartment', "photo"));
+        return redirect()->route('user.apartments.show', compact('apartment', "photo"))->with('session-change', $sentData['title'] . ' è stato modificato con successo!')->with(['session-class' => 'alert-success']);
     }
 
     /**
@@ -231,7 +231,7 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::findOrFail($id);
         $apartment->delete();
-        return redirect()->route('user.apartments.index');
+        return redirect()->route('user.apartments.index')->with('session-change', $apartment->title . ' è stato canellato.')->with(['session-class' => 'alert-danger']);
     }
 
 

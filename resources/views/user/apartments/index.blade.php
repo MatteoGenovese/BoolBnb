@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', '| Abitazioni')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -41,7 +43,7 @@
                                     </svg>
                                 </a>
 
-                                <form class=" d-inline" action="{{ route('user.apartments.destroy', $apartment->id) }}" method="POST">
+                                <form class="delete-index-form d-inline" action="{{ route('user.apartments.destroy', $apartment->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
 

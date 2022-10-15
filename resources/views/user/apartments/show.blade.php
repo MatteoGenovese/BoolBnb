@@ -1,6 +1,8 @@
 {{-- // TODO: Aggiungere statistiche e sponsorship --}}
 @extends("layouts.app")
 
+@section('title', '| ' . $apartment->title )
+
 @section("content")
     <div class="container">
         <div class="row">
@@ -10,7 +12,7 @@
                     {{ session('session-change') }}
                 </div>
             @endif
-            
+
             <div class="col-12 d-flex flex-column">
                 <div class="card">
                     @forelse ($apartment->photos as $photo)

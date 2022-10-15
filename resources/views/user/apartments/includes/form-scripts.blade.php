@@ -13,12 +13,15 @@
     const inputFields = document.querySelectorAll("input:not(#upload)");
     let isValid = false;
 
-    const apiUrl = "api.tomtom.com/search/2/search/";
+    const apiUrl = "https://api.tomtom.com/search/2/search/";
     const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
+    const country='IT';
+
+
 
     address.addEventListener("keyup", function(){
         // axios.get(apiUrl + address.value + ".json?key=" + apiKey + "&language=it-IT&countrySet=IT&limit=4")
-        axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&language=it-IT&countrySet=IT&limit=4`)
+        axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true`)
         .then(response => console.log(response))
         .catch((error) => console.log(error));
 
@@ -29,7 +32,7 @@
             input.classList.remove('is-valid');
             input.classList.add('is-invalid');
         }
-        
+
         function setSuccess(input){
             input.classList.remove('is-invalid');
             input.classList.add('is-valid');
@@ -40,7 +43,7 @@
             input.classList.remove('is-valid');
         }
 
-        
+
         function typeCheck(input, conditionOne, conditionTwo) {
             input.addEventListener('keyup', function(){
                 if(input.value.trim() == ''){
@@ -55,7 +58,7 @@
                 }
             })
         };
-        
+
         function numberCheck(input, conditionOne, conditionTwo) {
             input.addEventListener('change', function(){
                 if(input.value == ''){
@@ -71,7 +74,7 @@
             })
         };
 
-        
+
         typeCheck(title, 10, 100);
         typeCheck(description, 10, 100);
         numberCheck(bathroomNo, 1, 10);

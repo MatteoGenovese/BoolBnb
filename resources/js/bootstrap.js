@@ -21,7 +21,9 @@ try {
 
 window.axios = require('axios');
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+//Removed after red ->>>>> https://stackoverflow.com/questions/57868274/axios-returns-request-header-field-x-requested-with-is-not-allowed-by-access-con
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

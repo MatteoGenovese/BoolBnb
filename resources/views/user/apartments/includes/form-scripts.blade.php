@@ -1,12 +1,5 @@
 <script>
 
-const apiUrl = "https://api.tomtom.com/search/2/search/";
-    const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
-
-        axios.get(apiUrl + )
-        .then(response => console.log(response));
-
-
     const formElement = document.querySelector(".crud-form");
     const title = document.getElementById("title");
     const description = document.getElementById("description");
@@ -16,15 +9,60 @@ const apiUrl = "https://api.tomtom.com/search/2/search/";
     const roomsNo = document.getElementById("rooms-no");
     const squareMeters = document.getElementById("square-meters");
     const address = document.getElementById("address");
+    const addresses = document.getElementById("addresses");
+    const lat = document.getElementById("lat");
+    const lon = document.getElementById("lon");
     const submitButton = document.getElementById('submit-button');
-    const inputFields = document.querySelectorAll("input:not(#upload)");
+    const inputFields = document.querySelectorAll("input:not(#upload, #lat, #lon)");
     let isValid = false;
+
+    const apiUrl = "https://api.tomtom.com/search/2/search/";
+    const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
+    const country='IT';
+    let addressesResult = [];
+    let latValues = [];
+    let lonValues = [];
+    let addressIndex = 0;
+
+    function searchAddress() {
+        axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
+        .then(response => {
+            addressesResult = response.data.results;
+        })
+        
+        .catch((error) => console.log(error));
+    }
+
+    let search;
+    address.addEventListener("keyup", function(){
+        clearTimeout(search);
+        search = setTimeout(searchAddress, 500);
+
+        let addressAutocomplete;
+
+        addresses.innerHTML = "";
+
+        addressesResult.forEach((result, index) => {
+            latValues.push(result.position.lat);
+            lonValues.push(result.position.lon);
+            
+            addressAutocomplete = document.createElement("option");
+            addressAutocomplete.setAttribute("onclick", "addressIndex = index")
+            addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+            addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+            
+            addresses.append(addressAutocomplete);
+            
+        })
+        
+    })
+    
 
         function setError(input){
             input.classList.remove('is-valid');
             input.classList.add('is-invalid');
         }
-        
+
         function setSuccess(input){
             input.classList.remove('is-invalid');
             input.classList.add('is-valid');
@@ -35,7 +73,7 @@ const apiUrl = "https://api.tomtom.com/search/2/search/";
             input.classList.remove('is-valid');
         }
 
-        
+
         function typeCheck(input, conditionOne, conditionTwo) {
             input.addEventListener('keyup', function(){
                 if(input.value.trim() == ''){
@@ -50,7 +88,7 @@ const apiUrl = "https://api.tomtom.com/search/2/search/";
                 }
             })
         };
-        
+
         function numberCheck(input, conditionOne, conditionTwo) {
             input.addEventListener('change', function(){
                 if(input.value == ''){
@@ -66,7 +104,7 @@ const apiUrl = "https://api.tomtom.com/search/2/search/";
             })
         };
 
-        
+
         typeCheck(title, 10, 100);
         typeCheck(description, 10, 100);
         numberCheck(bathroomNo, 1, 10);
@@ -79,6 +117,12 @@ formElement.addEventListener('submit', function(submit) {
 
     submit.preventDefault();
     isValid = true;
+
+    if(latValues.length !== 0) {
+        lat.value = latValues[addressIndex];
+        lon.value = lonValues[addressIndex];
+
+    }
 
     let hasChecks = false;
 

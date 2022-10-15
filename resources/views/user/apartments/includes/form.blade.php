@@ -107,7 +107,9 @@
     <div class="col-6 col-md-9">
         <div class="form-group mt-4">
             <label for="address">Indirizzo *</label>
-            <input type="text" class="form-control" id="address"  placeholder="Inserisci l'indirizzo" name="address" value="{{ old('address', $apartment->address) }}">
+            <input type="text" list="addresses" class="form-control" id="address"  placeholder="Indirizzo, Città, Provincia..." name="address" value="{{ old('address', $apartment->address) }}">
+            <datalist id="addresses" >
+            </datalist>
         </div>
         @error('address')
             <div class="alert alert-danger" role="alert">
@@ -130,6 +132,10 @@
         @enderror
     </div>
 </div>
+<label class="d-none" for="lat">lat</label>
+<input type="text" class="d-none" name="latitude" id="lat" value="{{ old("latitude", $apartment->latitude) }}">
+<label class="d-none" for="lon">lon</label>
+<input type="text" class="d-none" name="longitude" id="lon" value="{{ old("longitude", $apartment->longitude) }}">
 
 
 

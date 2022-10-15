@@ -74,10 +74,11 @@ class ApartmentController extends Controller
 
         $validatedData = $request->validate($this->validationRules);
 
+
         $newApartment = new Apartment();
         $sentData['user_id']= Auth::id();
-        $sentData['latitude']= 40.71455;
-        $sentData['longitude']= 40.71455;
+        $sentData['latitude']= $request->latitude;
+        $sentData['longitude']= $request->longitude;
 
         $newApartment->fill($sentData);
         $newApartment->save();
@@ -150,9 +151,7 @@ class ApartmentController extends Controller
         }
 
         $apartment = Apartment::findOrFail($id);
-        // $sentData['latitude']= 40.71455;
-        // $sentData['longitude']= 40.71455;
-
+        
         if($request->services) {
             $apartment->services()->sync($request->services);
         } else {

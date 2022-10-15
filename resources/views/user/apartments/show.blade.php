@@ -3,7 +3,6 @@
 
 @section("content")
     <div class="container">
-        <a href="#" onclick="">axios</a>
         <div class="row">
             <div class="col-12 d-flex flex-column">
                 <div class="card">
@@ -149,7 +148,6 @@
     <script defer>
 
         const deleteForm = document.getElementById('showDeleteForm');
-        console.log(deleteForm);
 
         deleteForm.addEventListener('submit', (e) => {
             let confirmDelete = false;

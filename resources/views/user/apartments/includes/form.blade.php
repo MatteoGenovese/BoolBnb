@@ -45,6 +45,11 @@
         @empty
 
         @endforelse
+        @error('services')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+        @enderror
     </div>
 </div>
 

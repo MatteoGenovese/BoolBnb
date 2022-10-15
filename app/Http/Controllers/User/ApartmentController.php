@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 class ApartmentController extends Controller
 {
 
+    // Create validations
     protected $validationRules = [
         'title' => 'required|min:10|max:100',
         'description' => 'required|min:10|max:1000',
@@ -23,8 +24,10 @@ class ApartmentController extends Controller
         'square_meters' => 'required|integer|min:30|max:1000',
         'address' => 'required|min:3|max:255',
         'file_name' => 'required|max:5120|mimes:jpeg,jpg,png',
+        'services' => 'required|min:1|exists:services,id',
     ];
 
+    // Edit validations
     protected $updateValidationRules = [
         'title' => 'required|min:10|max:100',
         'description' => 'required|min:10|max:1000',
@@ -34,6 +37,7 @@ class ApartmentController extends Controller
         'square_meters' => 'required|integer|min:30|max:1000',
         'address' => 'required|min:3|max:255',
         'file_name' => 'max:5120|mimes:jpeg,jpg,png',
+        'services' => 'required|min:1|exists:services,id',
     ];
 
     /**

@@ -1,12 +1,5 @@
 <script>
 
-const apiUrl = "https://api.tomtom.com/search/2/search/";
-    const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
-
-        axios.get(apiUrl + )
-        .then(response => console.log(response));
-
-
     const formElement = document.querySelector(".crud-form");
     const title = document.getElementById("title");
     const description = document.getElementById("description");
@@ -19,6 +12,18 @@ const apiUrl = "https://api.tomtom.com/search/2/search/";
     const submitButton = document.getElementById('submit-button');
     const inputFields = document.querySelectorAll("input:not(#upload)");
     let isValid = false;
+
+    const apiUrl = "api.tomtom.com/search/2/search/";
+    const apiKey = "idKostWqefAIHb9WKcGcOklsshiC2KtN";
+
+    address.addEventListener("keyup", function(){
+        // axios.get(apiUrl + address.value + ".json?key=" + apiKey + "&language=it-IT&countrySet=IT&limit=4")
+        axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&language=it-IT&countrySet=IT&limit=4`)
+        .then(response => console.log(response))
+        .catch((error) => console.log(error));
+
+    })
+
 
         function setError(input){
             input.classList.remove('is-valid');

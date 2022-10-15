@@ -76,3 +76,23 @@
     </div>
 </div>
 @endsection
+
+@section('bottom-scripts')
+<script defer>
+
+    document.querySelectorAll('.delete-index-form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let confirmDelete = false;
+            
+            confirmDelete = confirm("Sei sicuro di voler cancellare?");
+            
+            if(confirmDelete !== false){
+                 form.submit();
+            }
+        });
+     
+    });
+
+ </script>
+@endsection

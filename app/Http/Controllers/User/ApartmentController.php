@@ -231,7 +231,7 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::findOrFail($id);
         $apartment->delete();
-        return redirect()->route('user.apartments.index')->with('session-change', $apartment->title . ' è stato canellato.')->with(['session-class' => 'alert-danger']);
+        return redirect()->route('user.apartments.index')->with('session-change', $apartment->title . ' è stato cancellato.')->with(['session-class' => 'alert-danger']);
     }
 
 

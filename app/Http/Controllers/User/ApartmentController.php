@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Storage;
 class ApartmentController extends Controller
 {
 
-    protected $validationRules = [
+    // Create validations
+    // FIXME gestire le validazioni dell'address con l'api.
+    protected $validationRules = 
+    [
         'title' => 'required|min:10|max:100',
         'description' => 'required|min:10|max:1000',
         'bathroom_no' => 'required|integer|min:1|max:10',
@@ -23,8 +26,11 @@ class ApartmentController extends Controller
         'square_meters' => 'required|integer|min:30|max:1000',
         'address' => 'required|min:3|max:255',
         'file_name' => 'required|max:5120|mimes:jpeg,jpg,png',
+        'services' => 'required|min:1|exists:services,id',
     ];
 
+
+    // Edit validations
     protected $updateValidationRules = [
         'title' => 'required|min:10|max:100',
         'description' => 'required|min:10|max:1000',
@@ -34,6 +40,46 @@ class ApartmentController extends Controller
         'square_meters' => 'required|integer|min:30|max:1000',
         'address' => 'required|min:3|max:255',
         'file_name' => 'max:5120|mimes:jpeg,jpg,png',
+        'services' => 'required|min:1|exists:services,id',
+    ];
+
+    // Validation messages
+    protected $validationMessages = [
+        'title.required' => 'Il titolo è richiesto.',
+        'title.min' => 'Il titolo deve essere di almeno 10 caratteri',
+        'title.max' => 'Il titolo può avere massimo 100 caratteri.',
+
+        'description.required' => 'La descrizione è richiesta.',
+        'description.min' => 'La descrizione deve essere di almeno 10 caratteri.',
+        'description.max' => 'La descrizione può avere massimo 1000 caratteri.',
+
+        'bathroom_no.required' => 'Il numero di bagni è richiesto.',
+        'bathroom_no.min' => 'L\'abitazione dovrà avere almeno un bagno.',
+        'bathroom_no.max' => 'L\'abitazione può avere massimo 10 bagni.',
+        'bathroom_no.integer' => 'Il numero di bagni può essere espresso solo in numeri interi.',
+
+        'bed_no.required' => 'Il numero di letti è richiesto.',
+        'bed_no.min' => 'L\'abitazione dovrà avere almeno un letto.',
+        'bed_no.max' => 'L\'abitazione può avere massimo 10 letti.',
+        'bed_no.integer' => 'Il numero di letti può essere espresso solo in numeri interi.',
+
+        'room_no.required' => 'Il numero di stanze è richiesto.',
+        'room_no.min' => 'L\'abitazione dovrà avere almeno una stanza.',
+        'room_no.max' => 'L\'abitazione può avere massimo 10 stanze.',
+        'room_no.integer' => 'Il numero di stanze può essere espresso solo in numeri interi.',
+
+        'square_meters.required' => 'I metri quadrati dell\'abitazione sono richiesti',
+        'square_meters.min' => 'L\'abitazione dovrà essere di almeno 30 metri quadrati.',
+        'square_meters.max' => 'L\'abitazione può essere massimo 1000 metri quadrati.',
+        'square_meters.integer' => 'I metri quadrati possono essere espressi solo in numeri interi.',
+
+        'file_name.required' => 'La foto dell\'abitazione è richiesta.',        
+        'file_name.max' => 'La foto può pesare massimo 5MB',        
+        'file_name.mimes' => 'Le estensioni dei file può essere solo: jpeg, jpg o png.',        
+
+        'services.required' => 'La selezione dei servizi è richiesta.',
+        'services.min' => 'L\'abitazione dovrò avere almeno un servizio.',
+        'services.exists' => 'Il servizio deve esistere.',
     ];
 
     /**
@@ -72,7 +118,7 @@ class ApartmentController extends Controller
 
         $sentData = $request->all();
 
-        $validatedData = $request->validate($this->validationRules);
+        $validatedData = $request->validate($this->validationRules, $this->validationMessages);
 
 
         $newApartment = new Apartment();
@@ -142,7 +188,7 @@ class ApartmentController extends Controller
     public function update(Request $request, $id)
     {
         $sentData = $request->all();
-        $validatedData = $request->validate($this->updateValidationRules);
+        $validatedData = $request->validate($this->updateValidationRules, $this->validationMessages);
 
         if(!isset($sentData["is_available"])) {
             $sentData["is_available"] = false;

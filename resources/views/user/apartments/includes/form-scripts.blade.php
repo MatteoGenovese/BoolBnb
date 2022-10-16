@@ -23,11 +23,29 @@
     let latValues = [];
     let lonValues = [];
     let addressIndex = 0;
+    let isTimeoutCompleted = false;
 
     function searchAddress() {
         axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
         .then(response => {
             addressesResult = response.data.results;
+            let addressAutocomplete;
+
+            addresses.innerHTML = "";
+
+            addressesResult.forEach((result, index) => {
+                latValues.push(result.position.lat);
+                lonValues.push(result.position.lon);
+                
+                addressAutocomplete = document.createElement("option");
+                addressAutocomplete.setAttribute("onclick", "addressIndex = index")
+                addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+                addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+                
+                addresses.append(addressAutocomplete);
+                
+            })
+            isTimeoutCompleted = true;
         })
         
         .catch((error) => console.log(error));
@@ -35,26 +53,11 @@
 
     let search;
     address.addEventListener("keyup", function(){
+        isTimeoutCompleted = false;
         clearTimeout(search);
-        search = setTimeout(searchAddress, 500);
-
-        let addressAutocomplete;
-
-        addresses.innerHTML = "";
-
-        addressesResult.forEach((result, index) => {
-            latValues.push(result.position.lat);
-            lonValues.push(result.position.lon);
-            
-            addressAutocomplete = document.createElement("option");
-            addressAutocomplete.setAttribute("onclick", "addressIndex = index")
-            addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
-            addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
-            
-            addresses.append(addressAutocomplete);
-            
-        })
-        
+        if(address.value.length != 0) {
+            search = setTimeout(searchAddress, 500);
+        }
     })
     
 

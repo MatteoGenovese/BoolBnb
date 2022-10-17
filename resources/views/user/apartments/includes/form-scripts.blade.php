@@ -41,9 +41,6 @@
                     addressAutocomplete.classList.add("list-group-item", "list-group-item-action");
                     addressAutocomplete.setAttribute('role','button');
 
-
-
-                    addressAutocomplete.setAttribute('data', index)
                     addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
                     addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
 

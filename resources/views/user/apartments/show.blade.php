@@ -16,9 +16,9 @@
             <div class="col-12 d-flex flex-column">
                 <div class="card">
                     @forelse ($apartment->photos as $photo)
-                        <img src="{{ asset('storage/'. $photo->file_name) }}" class="w-50 align-self-center mt-5" alt="FOTONA">
+                        <img src="{{ asset('storage/'. $photo->file_name) }}" class="w-50 align-self-center mt-5" alt="Foto dell'abitazione {{ $apartment->title }}">
                         @empty
-                        No photo
+                        <span>Non ci sono foto.</span>
                     @endforelse
                     <div class="row card-body my-4">
                         <div class="col-12 text-center">

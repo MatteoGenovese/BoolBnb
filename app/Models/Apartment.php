@@ -25,7 +25,7 @@ class Apartment extends Model
     //
 
     public function user() {
-        return $this->belongsTo("app\User");
+        return $this->belongsTo("App\User");
     }
 
     public function messages(){

@@ -30,16 +30,13 @@
         .then(response => {
             addressesResult = response.data.results;
 
-            console.log(addressesResult);
-
             let addressAutocomplete;
 
             addresses.innerHTML = "";
 
             addressesResult.forEach((result, index) => {
 
-                if(result.type=="Street")
-                {
+
                     addressAutocomplete = document.createElement("li");
                     addressAutocomplete.classList.add("list-group-item", "list-group-item-action");
                     addressAutocomplete.setAttribute('role','button');
@@ -56,20 +53,14 @@
 
                         address.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
                         address.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
-
                         addresses.innerHTML = "";
 
                     })
 
-
-
                     addresses.append(addressAutocomplete);
-                }
+
 
             })
-
-
-            console.log(addresses);
             isTimeoutCompleted = true;
         })
 

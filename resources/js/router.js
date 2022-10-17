@@ -12,6 +12,8 @@ const router = new VueRouter ({
             path:'/',
             name:'HomePage',
             component:HomePage
-        }
+        },
     ]
 })
+
+export default router;

@@ -113,8 +113,8 @@
         <div class="form-group mt-4">
             <label for="address">Indirizzo *</label>
             <input type="text" list="addresses" class="form-control" id="address"  placeholder="Indirizzo, Città, Provincia..." name="address" value="{{ old('address', $apartment->address) }}">
-            <datalist id="addresses" >
-            </datalist>
+            <ul class="list-group" id="addresses" >
+            </ul>
         </div>
         @error('address')
             <div class="alert alert-danger" role="alert">

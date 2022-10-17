@@ -1,12 +1,14 @@
 <template>
   <div>
-    Header 
+    <h1>
+        Show
+    </h1>
   </div>
 </template>
 
 <script>
 export default {
-    name:"HeaderComponent"
+
 }
 </script>
 

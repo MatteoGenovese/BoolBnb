@@ -1,15 +1,20 @@
 <template>
-    <HeaderComponent />
-    <HomePage />
+    <div>
+        <HeaderComponent />
+        <MainComponent />
+    </div>
+    
 </template>
 
 <script>
-import HeaderComponent from '../components/HeaderComponent.vue'
-import HomePage from '../pages/HomePage.vue'
+import HeaderComponent from '../components/HeaderComponent.vue';
+import MainComponent from '../components/MainComponent.vue';
+
 export default {
+    name: "App",
     components: {
-        HomePage,
         HeaderComponent,
+        MainComponent
     }
 }
 </script>

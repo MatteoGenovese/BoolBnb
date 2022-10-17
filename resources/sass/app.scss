@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import './partials/brandVariables';
+@import './partials/btns';
+@import './partials/classes';
+@import './partials/mixins';
+@import './partials/utilities';

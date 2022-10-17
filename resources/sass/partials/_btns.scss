@@ -1,0 +1,37 @@
+@import './brandVariables';
+@import './mixins';
+
+// These buttons use btn class from bootstrap, 
+// you can add btn-lg or btn-sm in the html when needed
+.btn.brand-btn-1{
+    background-color: $btnPrime;
+}
+
+.btn.brand-btn-2{
+    background-color: $btnSecondary;
+}
+
+.btn.brand-btn-3{
+    background-color: $btnTertiary;
+}
+
+.btn.brand-btn-1, 
+.btn.brand-btn-2,
+.btn.brand-btn-3{
+    color: $brandTxtPrime;
+    filter: brightness(1.2);
+    &:hover{
+        transform: translatey(-0.3px) scale(1.02);
+        filter: brightness(1);
+        transition: all 150ms linear;
+    }
+}
+
+// Outlines
+// .btn.brand-btn-outline-1{
+//     border: 1px solid $btnPrime;
+//     color: $btnPrime;
+//     &:hover{
+
+//     }
+// }

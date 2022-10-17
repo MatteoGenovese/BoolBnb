@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import HomePage from './pages/HomePage.vue';
+import PropertyOverview from './pages/PropertyOverview.vue';
 
 const router = new VueRouter ({
     mode: 'history',
@@ -13,6 +14,11 @@ const router = new VueRouter ({
             name:'HomePage',
             component:HomePage
         },
+        {
+            path:'/abitazione/:id',
+            name: 'SingleHome',
+            component: PropertyOverview,
+        }
     ]
 })
 

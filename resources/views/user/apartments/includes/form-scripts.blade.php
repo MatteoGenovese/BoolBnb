@@ -29,25 +29,50 @@
         axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
         .then(response => {
             addressesResult = response.data.results;
+
+            console.log(addressesResult);
+
             let addressAutocomplete;
 
             addresses.innerHTML = "";
 
             addressesResult.forEach((result, index) => {
-                latValues.push(result.position.lat);
-                lonValues.push(result.position.lon);
-                
-                addressAutocomplete = document.createElement("option");
-                addressAutocomplete.setAttribute("onclick", "addressIndex = index")
-                addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
-                addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
-                
-                addresses.append(addressAutocomplete);
-                
+
+                if(result.type=="Street")
+                {
+                    addressAutocomplete = document.createElement("li");
+                    addressAutocomplete.classList.add("list-group-item", "list-group-item-action");
+                    addressAutocomplete.setAttribute('role','button');
+
+
+
+                    addressAutocomplete.setAttribute('data', index)
+                    addressAutocomplete.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+                    addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+
+                    addressAutocomplete.addEventListener("click", function(){
+                        lat.value = addressesResult[index].position.lat;
+                        lon.value = addressesResult[index].position.lon;
+
+                        address.value = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+                        address.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
+
+                        addresses.innerHTML = "";
+
+                    })
+
+
+
+                    addresses.append(addressAutocomplete);
+                }
+
             })
+
+
+            console.log(addresses);
             isTimeoutCompleted = true;
         })
-        
+
         .catch((error) => console.log(error));
     }
 
@@ -56,10 +81,13 @@
         isTimeoutCompleted = false;
         clearTimeout(search);
         if(address.value.length != 0) {
-            search = setTimeout(searchAddress, 500);
+            search = setTimeout(searchAddress,500);
         }
     })
-    
+
+
+
+
 
         function setError(input){
             input.classList.remove('is-valid');
@@ -121,11 +149,10 @@ formElement.addEventListener('submit', function(submit) {
     submit.preventDefault();
     isValid = true;
 
-    if(latValues.length !== 0) {
-        lat.value = latValues[addressIndex];
-        lon.value = lonValues[addressIndex];
-
-    }
+    // if(latValues.length !== 0) {
+    //     lat.value = latValues[addressIndex];
+    //     lon.value = lonValues[addressIndex];
+    // }
 
     let hasChecks = false;
 

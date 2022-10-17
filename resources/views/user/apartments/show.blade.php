@@ -66,7 +66,7 @@
                             </h3>
                         </div>
                         
-                        <div class="row mx-5">
+                        <div class="row col-10 offset-2 mt-4">
                             @forelse ($apartment->services as $service)
                                 <div class="col-4 g-3">{{ $service->name }}</div>
                             @empty
@@ -74,12 +74,28 @@
                             @endforelse
                         </div>
 
-                        <div class="col-8 m-auto mt-5">
+                        <div class="col-8 offset-2 mt-5">
                             <h3 class="card-title text-center my-2">Descrizione</h3>
                             <p class="card-text">
                                 {{ $apartment->description }}
                             </p>
                         </div>
+
+                        <div class="col-8 offset-2 mt-5">
+                            <h3 class="my-2">
+                                Disponibilità:
+                            </h3>
+                            @if ($apartment->is_available)
+                                <div>
+                                    L'abitazione è attualmente disponibile.
+                                </div>
+                            @else
+                                <div>
+                                    L'abitazione non è disponibile.
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="d-flex justify-content-end gap-3">
                             <a href="{{ route("user.apartments.edit", $apartment->id) }}" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">

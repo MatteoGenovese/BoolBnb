@@ -23,7 +23,7 @@
                 </ul>
             
 
-            <button class="btn brand-btn-1 btn-lg">
+            <button class="btn brand-btn-1 btn-lg" @click="$_sendJumbotronSearch()" @keyup.enter="$_sendJumbotronSearch()">
                 Cerca
             </button>
         
@@ -60,18 +60,15 @@ export default {
         isClicked: true,
     };
   },
-  // ricerca nel jumbo, suggeriti come abbiam fatto in php con il keyup
 
-  // altra funzione, all'invio, dopo che l'utente ha selezionato la ricerca corretta,
-  // emittiamo all'invio e con la pressione del pulsante { lon: parametro, lat: parametro } scelti
-
-  // $_sendJumbotronSearch(){
-  //     if(this.needle !== ''){
-  //         this.$emit('jumboSearch', this.needle.trim() );
-  //     }
-  // }
   methods: {
-    $_getSelectedCall(i){
+      $_sendJumbotronSearch(){
+            if(this.needle !== ''){
+
+                this.$emit('jumboSearch', { lat: this.lat, lon: this.lon } );
+            }
+      },
+      $_getSelectedCall(i){
         console.log(i)
         let { lat, lon } = this.houses[i].position;
         this.lat = lat;
@@ -102,9 +99,6 @@ export default {
             console.warn(response.data.results);
             
             this.houses = response.data.results;
-            // let { lat, lon } = response.data.results[0].position;
-            // this.lat = lat;
-            // this.lon = lon;
           })
           .catch((error) => {
             console.error(error);

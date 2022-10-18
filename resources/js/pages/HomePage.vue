@@ -1,7 +1,7 @@
 <template>
     <section class="container-fluid">
-        <!-- <Jumbotron @jumboSearch="$_getPosWithTomTom"/> -->
-        <Jumbotron />
+        <Jumbotron @jumboSearch="$_getPosWithTomTom"/>
+        <!-- <Jumbotron /> -->
     </section>
 </template>
 
@@ -20,9 +20,9 @@ export default {
         }
     },
     methods:{
-    //     $_getPosWithTomTom(needle){
-            
-    //     }
+        $_getPosWithTomTom(params){
+            console.log(params)
+        }
     }
 
 }

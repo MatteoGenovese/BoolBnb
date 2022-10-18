@@ -13,11 +13,12 @@
                 v-model="needle"
                 @keyup="$_getNeedle()" />
             
-                <ul class="list-group position-absolute w-100 top-100 start-0" v-if="houses.length > 0">
+                <ul class="list-group position-absolute w-100 top-100 start-0" :class="isClicked == true ? 'd-block' : 'd-none'" v-if="houses.length > 0">
                     <li v-for="(house, index) in houses" :key="index" @click="$_getSelectedCall(index)"
                         class="list-group-item list-group-item-action">
                         
                         {{ house.address.freeformAddress }}
+
                     </li>
                 </ul>
             
@@ -56,6 +57,7 @@ export default {
         lon: '',
         houses: [],
         isSearching: null,
+        isClicked: true,
     };
   },
   // ricerca nel jumbo, suggeriti come abbiam fatto in php con il keyup
@@ -70,15 +72,20 @@ export default {
   // }
   methods: {
     $_getSelectedCall(i){
-       console.log(this.houses[i]);
-       let { lat, lon } = this.houses[i].position;
-       this.lat = lat;
-       this.lon = lon;
+        console.log(i)
+        let { lat, lon } = this.houses[i].position;
+        this.lat = lat;
+        this.lon = lon;
+
+        this.isClicked = false;
+
+        this.houses = '';
     },
     $_getNeedle(){
+        this.isClicked = true;
         clearTimeout(this.isSearching);
         this.isSearching = setTimeout(() => {
-            this.$_getHouseTomTom(this.needle)
+            this.$_getHouseTomTom(this.needle);
         }, 500);
     },
     $_getHouseTomTom(needle) {

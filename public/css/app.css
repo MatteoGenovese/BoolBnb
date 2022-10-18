@@ -10819,3 +10819,28 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.btn.brand-btn-1 {
+  background-color: #272fcf;
+}
+
+.btn.brand-btn-2 {
+  background-color: blue;
+}
+
+.btn.brand-btn-3 {
+  background-color: green;
+}
+
+.btn.brand-btn-1,
+.btn.brand-btn-2,
+.btn.brand-btn-3 {
+  color: white;
+  filter: brightness(1.2);
+}
+.btn.brand-btn-1:hover,
+.btn.brand-btn-2:hover,
+.btn.brand-btn-3:hover {
+  transform: translatey(-0.3px) scale(1.02);
+  filter: brightness(1);
+  transition: all 150ms linear;
+}

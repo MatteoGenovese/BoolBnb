@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap%27');
+
+
+// Palette
+$primary: #0d7a80;
+$secondaryLight: #748a66;
+$secondaryDark: #5f8063;
+$tertiaryLight: #859db1;
+$tertiaryDark: #7c91a3;
+
+// Text-colors
+$brandTxtPrime: white;
+$brandTxtSecondary: black;
+$brandTxtTertiary: gray;
+
+// Font-size
+$brandFt-1: 1rem;
+$brandFt-2: 1.5rem;
+$brandFt-3: 2rem;
+
+// Headers
+$brandH-1: 3rem;
+$brandH-2: 2.6rem;
+$brandH-3: 2.2rem;
+
+// Font-style
+$brandTxtFam-1:  'Poppins', sans-serif;
+$brandTxtFam-2: 'Nunito', sans-serif;
+$brandTxtFam-3: 'Caveat', cursive;
+
+// Buttons
+$btnPrime: $primary;
+$btnSecondaryLight: $secondaryLight;
+$btnSecondaryDark: $secondaryDark;
+$btnTertiaryLight: $tertiaryLight;
+$btnTertiaryDark: $tertiaryDark;
+
+
+// Hoverable
+$brandHoverPrime: red;
+$brandHoverSecond: blue;
+
+// Backgrounds
+$brandBodyBg: $secondaryLight;
+$brandBgPrime: $tertiaryLight;
+$brandBgLight: white;
+$brandBgDark: black;
+
+

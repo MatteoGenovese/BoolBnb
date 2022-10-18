@@ -5,7 +5,7 @@
         <div class="mt-5">
           <h1>Scopri un posto in cui ti piacerà vivere</h1>
         </div>
-        <div class="search-bar">
+        <div class="search-bar position-relative">
       
             <input
                 type="text"
@@ -13,15 +13,14 @@
                 v-model="needle"
                 @keyup="$_getNeedle()" />
             
-            <div class="position-relative">
-                <ul class="list-group position-absolute " v-if="houses.length > 0">
-                    <li v-for="house in houses" :key="house.id" 
+                <ul class="list-group position-absolute w-100 top-100 start-0" v-if="houses.length > 0">
+                    <li v-for="(house, index) in houses" :key="index" @click="$_getSelectedCall(index)"
                         class="list-group-item list-group-item-action">
                         
-                        {{ house.address.localName }}
+                        {{ house.address.freeformAddress }}
                     </li>
                 </ul>
-            </div>
+            
 
             <button class="btn brand-btn-1 btn-lg">
                 Cerca
@@ -70,16 +69,22 @@ export default {
   //     }
   // }
   methods: {
+    $_getSelectedCall(i){
+       console.log(this.houses[i]);
+       let { lat, lon } = this.houses[i].position;
+       this.lat = lat;
+       this.lon = lon;
+    },
     $_getNeedle(){
         clearTimeout(this.isSearching);
         this.isSearching = setTimeout(() => {
-            this.$_getHouseTomTom()
+            this.$_getHouseTomTom(this.needle)
         }, 500);
     },
-    $_getHouseTomTom() {
-      if (this.needle.length > 3) {
+    $_getHouseTomTom(needle) {
+      if (needle.length > 3) {
         // axios.get(this.apiUrl + needle + this.apiKey + this.country + this.typeahead + '&limit=' + this.limit)
-        axios.get(this.apiUrl + this.needle + this.apiKey, {
+        axios.get(this.apiUrl + needle + this.apiKey, {
             params: {
               countrySet: this.country,
               typeahead: this.typeahead,

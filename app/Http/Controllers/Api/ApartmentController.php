@@ -91,7 +91,7 @@ class ApartmentController extends Controller
                 'reponse' => true,
                 "results" =>  $filteredApartments,
             ]);
-        } else return response('', 404);
+        } else return response('', 204);
 
 
     }

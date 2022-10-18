@@ -51,7 +51,7 @@ export default {
         },
 
         $_getApartment(){
-            axios.get('http://127.0.0.1:8000/api/apartments/filtered/' + this.lat + '&' + this.lon )
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon )
             .then((response)=>{
                 console.warn(response.data.results)
                 this.houses = response.data.results;

@@ -5,21 +5,24 @@
         <div class="mt-5">
           <h1>Scopri un posto in cui ti piacerà vivere</h1>
         </div>
-        <div class="search-bar position-relative">
+        <div class="search-bar">
       
             <input
                 type="text"
                 placeholder="Inserisci posizione"
                 v-model="needle"
-                @keyup="$_getHouseTomTom()" />
+                @keyup="$_getNeedle()" />
+            
+            <div class="position-relative">
+                <ul class="list-group position-absolute " v-if="houses.length > 0">
+                    <li v-for="house in houses" :key="house.id" 
+                        class="list-group-item list-group-item-action">
+                        
+                        {{ house.address.localName }}
+                    </li>
+                </ul>
+            </div>
 
-            <!-- <ul class="list-group position-absolute " v-if="houses.length > 0">
-                <li v-for="house in houses" :key="house.id" 
-                    class="list-group-item list-group-item-action">
-                    
-                    {{ house.address.localName }}
-                </li>
-            </ul> -->
             <button class="btn brand-btn-1 btn-lg">
                 Cerca
             </button>
@@ -53,6 +56,7 @@ export default {
         lat: '',
         lon: '',
         houses: [],
+        isSearching: null,
     };
   },
   // ricerca nel jumbo, suggeriti come abbiam fatto in php con il keyup
@@ -66,11 +70,16 @@ export default {
   //     }
   // }
   methods: {
+    $_getNeedle(){
+        clearTimeout(this.isSearching);
+        this.isSearching = setTimeout(() => {
+            this.$_getHouseTomTom()
+        }, 500);
+    },
     $_getHouseTomTom() {
-      if (this.needle !== '' && this.needle.length > 3) {
+      if (this.needle.length > 3) {
         // axios.get(this.apiUrl + needle + this.apiKey + this.country + this.typeahead + '&limit=' + this.limit)
-        axios
-          .get(this.apiUrl + this.needle + this.apiKey, {
+        axios.get(this.apiUrl + this.needle + this.apiKey, {
             params: {
               countrySet: this.country,
               typeahead: this.typeahead,
@@ -78,7 +87,6 @@ export default {
             },
           })
           .then((response) => {
-            console.warn(response);
             console.warn(response.data.results);
             
             this.houses = response.data.results;

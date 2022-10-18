@@ -27,6 +27,8 @@
           </li>
         </ul>
 
+        <button class="btn btn-lg text-white" @click="$emit('openFilterPanel', true)">Filtra</button>
+
         <button class="btn brand-btn-1 btn-lg" @click="$_sendJumbotronSearch()">
           Cerca
         </button>

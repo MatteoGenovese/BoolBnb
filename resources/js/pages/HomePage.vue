@@ -1,6 +1,7 @@
 <template>
     <section class="container">
-        <Jumbotron @jumboSearch="$_getLatAndLon"/>
+        <FiltersComponent v-if="isFilterPanelVisible" @openFilterPanel="showFilterPanel"/>
+        <Jumbotron @jumboSearch="$_getLatAndLon" @openFilterPanel="showFilterPanel"/>
 
         <div class="row mt-5">
             <PostCard v-for="(house, index) in houses" :key="index"
@@ -13,6 +14,8 @@
 
 <script>
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
+import FiltersComponent from "../components/FiltersComponent.vue"
+
 import axios from 'axios';
 
 
@@ -22,6 +25,7 @@ export default {
     name:"HomePage",
     components:{
         Jumbotron,
+        FiltersComponent,
         PostCard,
     },
     watch:{
@@ -37,6 +41,7 @@ export default {
             lat: '',
             lon: '',
             houses: [],
+            isFilterPanelVisible: false,
         }
     },
     methods:{
@@ -56,6 +61,10 @@ export default {
                 console.warn(response.data.results)
                 this.houses = response.data.results;
             })
+        },
+
+        showFilterPanel(value) {
+            this.isFilterPanelVisible = value;
         }
     },
     

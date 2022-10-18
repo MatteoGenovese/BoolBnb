@@ -20,7 +20,7 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', 'photos', 'user')->get();
 
         return response()->json([
-            'reponse' => true,
+            'response' => true,
             "results" =>  $apartments,
         ]);
     }
@@ -98,14 +98,14 @@ class ApartmentController extends Controller
             
         if($request->has("services")) {
             return response()->json([
-                'reponse' => true,
+                'response' => true,
                 "results" =>  $filteredApartmentsWithServices,
             ]);
         } else {
 
             if($filteredApartmentsWithoutServices) {
                 return response()->json([
-                    'reponse' => true,
+                    'response' => true,
                     "results" =>  $filteredApartmentsWithoutServices,
                 ]); 
             }  else return response('', 204);
@@ -145,7 +145,7 @@ class ApartmentController extends Controller
 
         if ($apartment) {
             return response()->json([
-                'reponse' => true,
+                'response' => true,
                 "results" => [
                     'data' => $apartment,
                 ]

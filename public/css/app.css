@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8"; /*!
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.google.com/specimen/Poppins?query=poppins);@import url(https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap%27);@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap);@import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap%27);@charset "UTF-8";
+/*!
  * Bootstrap  v5.2.2 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
  * Copyright 2011-2022 Twitter, Inc.
@@ -10820,15 +10821,22 @@ textarea.form-control-lg {
   }
 }
 .btn.brand-btn-1 {
-  background-color: #272fcf;
+  background-color: #0d7a80;
+}
+.btn.brand-btn-1:active {
+  background-color: #0d7a80;
+  color: white;
+  transform: translatey(-0.5px) scale(1.05);
+  filter: brightness(1);
+  transition: all 150ms linear;
 }
 
 .btn.brand-btn-2 {
-  background-color: blue;
+  background-color: #748a66;
 }
 
 .btn.brand-btn-3 {
-  background-color: green;
+  background-color: #859db1;
 }
 
 .btn.brand-btn-1,
@@ -10843,4 +10851,8 @@ textarea.form-control-lg {
   transform: translatey(-0.3px) scale(1.02);
   filter: brightness(1);
   transition: all 150ms linear;
+}
+
+.brand-ft-1 {
+  font-family: "Poppins", sans-serif;
 }

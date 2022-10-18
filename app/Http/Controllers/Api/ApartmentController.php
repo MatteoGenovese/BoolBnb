@@ -17,12 +17,84 @@ class ApartmentController extends Controller
     {
         // $apartments = Apartment :: with('user', 'category')->paginate(50);
 
-        $apartments = Apartment :: with('services', 'photos', 'user')->get();
+        $apartments = Apartment::with('services', 'photos', 'user')->get();
 
         return response()->json([
             'reponse' => true,
             "results" =>  $apartments,
-        ]);    }
+        ]);
+    }
+
+    public function filteredIndex($latitude, $longitude, $servicesIds) {
+
+        function degreesToRadians($degrees) {
+            return $degrees * pi() / 180;
+        };
+
+        $idsList = explode("-", $servicesIds);
+        
+        function distanceInKmBetweenEarthCoordinates($lat1, $lon1, $lat2, $lon2) {
+            $earthRadiusKm = 6371;
+        
+            $dLat = degreesToRadians($lat2 - $lat1);
+            $dLon = degreesToRadians($lon2 - $lon1);
+        
+            $lat1 = degreesToRadians($lat1);
+            $lat2 = degreesToRadians($lat2);
+        
+            $a = sin($dLat / 2) * sin($dLat / 2) +
+                sin($dLon / 2) * sin($dLon / 2) * cos($lat1) * cos($lat2);
+            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+            return $earthRadiusKm * $c;
+        }
+
+        function checkServicesInApartment($servicesIdList, $servicesPerApartment) {
+            
+            $exactMatchCount = 0;
+            $apartmentServicesIds = [];
+
+            for ($i=0; $i < count($servicesPerApartment) ; $i++) { 
+                $apartmentServicesIds[] = $servicesPerApartment[$i]->id;
+            }
+            foreach ($servicesIdList as $serviceId) {
+                if(in_array($serviceId, $apartmentServicesIds)) {
+                    $exactMatchCount++;
+                }
+            }
+            if($exactMatchCount == count($servicesIdList)) {
+                return true;
+            } else return false;
+        }
+
+       
+
+        $apartments = Apartment::with("services", "photos", "user")->get();
+
+        $filteredApartments = [];
+
+        $minBedNo = 2;
+        $minRoomNo = 1;
+
+        foreach($apartments as $apartment) {
+            $lat = $apartment->latitude;
+            $lon = $apartment->longitude;
+            if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < 100 &&
+            $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && checkServicesInApartment($idsList, $apartment->services)) {
+
+                $filteredApartments[] = $apartment;
+            };
+        }
+
+        
+        if($filteredApartments) {
+            return response()->json([
+                'reponse' => true,
+                "results" =>  $filteredApartments,
+            ]);
+        } else return response('', 404);
+
+
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -1,11 +1,11 @@
 <template>
       
-        <div class="col-10 col-md-5 col-lg-3 postcard border-animation m-3">
+        <div class="col-12 col-md-4 col-lg-4 postcard p-3">
             <div class="imagecontainer">
-               <img v-for="(photo, index) in house.photos" :key="index" :src="'/storage/' + photo.file_name" class="image w-100"/>
+               <img v-for="(photo, index) in house.photos" :key="index" :src="'/storage/' + photo.file_name" class="image"/>
          
             </div>
-            <div class="postcard-detail mt-1">
+            <div class="postcard-detail mt-1 ">
               <div class="d-flex justify-content-between">
                  <div class="mt-3">
                     <p class="rent mb-2">IN VENDITA</p>
@@ -39,6 +39,11 @@ export default {
     padding: 0;
     box-sizing: border-box;
 }
+.imagecontainer {
+    width: 100%;
+    margin: auto;
+    height: 150px;
+}
 .postcard{
    
     border-radius: .5rem;
@@ -49,6 +54,9 @@ export default {
 }
 .image{
     border-radius: .5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .icon{

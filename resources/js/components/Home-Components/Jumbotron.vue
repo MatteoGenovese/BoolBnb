@@ -33,7 +33,7 @@
       </div>
       <p>Cerca tra migliaia di inserzioni</p>
     </div>
-    <div class="col-md-6 col-sm-12 ">
+    <div class="col-md-6 col-sm-12 position-absolute  end-0">
       <img
         class="img-fluid"
         src="https://www.oknoplast.it/blog/wp-content/uploads/2017/12/Caricatura-del-trasloco-con-il-bambino-che-trasporta-i-pacchi-con-il-triciclo.jpg"
@@ -115,7 +115,7 @@ export default {
 
 <style lang='scss' scoped>
 #jumbotron {
-  height: 300px;
+  height: 450px;
 }
 .search-bar {
   width: 100%;

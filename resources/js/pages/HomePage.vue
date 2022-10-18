@@ -1,5 +1,5 @@
 <template>
-    <section class="container-fluid">
+    <section class="container">
         <Jumbotron @jumboSearch="$_getLatAndLon"/>
 
         <div class="row mt-5">

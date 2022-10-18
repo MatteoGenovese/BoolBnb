@@ -1,6 +1,6 @@
 <template>
     <section class="container">
-        <FiltersComponent v-if="isFilterPanelVisible" @openFilterPanel="showFilterPanel"/>
+        <FiltersComponent v-if="isFilterPanelVisible" @openFilterPanel="showFilterPanel" @sendFilters="getFilterParams" />
         <Jumbotron @jumboSearch="$_getLatAndLon" @openFilterPanel="showFilterPanel"/>
 
         <div class="row mt-5">
@@ -42,6 +42,12 @@ export default {
             lon: '',
             houses: [],
             isFilterPanelVisible: false,
+            bedNo: 0,
+            roomNo: 0,
+            bedNo: 0,
+            squareMeters: 0,
+            searchRange: 20,
+            services: [],
         }
     },
     methods:{
@@ -56,7 +62,18 @@ export default {
         },
 
         $_getApartment(){
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon )
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon + 
+            {params: {
+                "range": this.searchRange,
+                "meters": this.squareMeters,
+                "bedNo": this.bedNo,
+                "roomNo": this.roomNo,
+                "bathNo": this.bathNo,
+                "services": this.services,
+            }}
+            // '&range=' +this.searchRange + '&meters=' + this.squareMeters
+            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo 
+            )
             .then((response)=>{
                 console.warn(response.data.results)
                 this.houses = response.data.results;
@@ -65,6 +82,15 @@ export default {
 
         showFilterPanel(value) {
             this.isFilterPanelVisible = value;
+        },
+
+        getFilterParams(params) {
+            this.bathNo = params.bathNo;
+            this.roomNo = params.roomNo;
+            this.bedNo = params.bedNo,
+            this.squareMeters = params.squareMeters;
+            this.searchRange = params.searchRange;
+            this.services = params.apartmentServices;
         }
     },
     

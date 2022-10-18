@@ -17,6 +17,15 @@ export default {
     components:{
         Jumbotron
     },
+    watch:{
+        lat(oldLat, newLat){
+            if(newLat != oldLat){
+                this.$_getApartment();
+            }
+        
+
+        }
+    },
     data(){
         return{
             lat: '',
@@ -30,9 +39,19 @@ export default {
 
             this.lat = lat;
             this.lon = lon;
+
+            console.log(this.lat + '-' + this.lon)
         },
-        
-    }
+
+        $_getApartment(){
+            axios.get('http://127.0.0.1:8000/api/apartments/filtered/' + this.lat + '/' + this.lon + '/' + '1')
+            .then((response)=>{
+           
+                console.warn(response.data)
+            })
+        }
+    },
+    
 
 }
 </script>

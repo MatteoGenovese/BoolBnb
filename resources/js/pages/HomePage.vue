@@ -4,9 +4,13 @@
     </section>
 </template>
 
+
 <script>
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
 import axios from 'axios';
+
+
+import PostCard from '../components/Home-Components/PostCard.vue';
 
 export default {
     name:"HomePage",
@@ -33,6 +37,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 </style>

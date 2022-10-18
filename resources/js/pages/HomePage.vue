@@ -1,13 +1,12 @@
 <template>
     <section class="container-fluid">
-        <Jumbotron @jumboSearch="$_getPosWithTomTom"/>
-        <!-- <Jumbotron /> -->
+        <Jumbotron @jumboSearch="$_getLatAndLon"/>
     </section>
 </template>
 
 <script>
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
     name:"HomePage",
@@ -16,13 +15,19 @@ export default {
     },
     data(){
         return{
-            
+            lat: '',
+            lon: '',
         }
     },
     methods:{
-        $_getPosWithTomTom(params){
-            console.log(params)
-        }
+        $_getLatAndLon(params){
+
+            let { lat, lon } = params;
+
+            this.lat = lat;
+            this.lon = lon;
+        },
+        
     }
 
 }

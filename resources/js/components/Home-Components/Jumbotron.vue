@@ -23,7 +23,7 @@
                 </ul>
             
 
-            <button class="btn brand-btn-1 btn-lg" @click="$_sendJumbotronSearch()" @keyup.enter="$_sendJumbotronSearch()">
+            <button class="btn brand-btn-1 btn-lg" @click="$_sendJumbotronSearch()">
                 Cerca
             </button>
         
@@ -76,6 +76,8 @@ export default {
 
         this.isClicked = false;
 
+        this.$emit('jumboSearch', { lat: this.lat, lon: this.lon } );
+        
         this.houses = '';
     },
     $_getNeedle(){

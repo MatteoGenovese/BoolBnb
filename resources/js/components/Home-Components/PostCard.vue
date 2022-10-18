@@ -2,23 +2,21 @@
       
         <div class="col-10 col-md-5 col-lg-3 postcard border-animation m-3">
             <div class="imagecontainer">
-               <img :src="postcard.image" class="image w-100"/>
+               <img v-for="(photo, index) in house.photos" :key="index" :src="'/storage/' + photo.file_name" class="image w-100"/>
+         
             </div>
             <div class="postcard-detail mt-1">
               <div class="d-flex justify-content-between">
                  <div class="mt-3">
                     <p class="rent mb-2">IN VENDITA</p>
-                    <h2 class="title">{{postcard.title}}</h2>
-                    <p class="address">{{postcard.address}}</p>
-                 </div>
-                 <div class="d-flex align-items-center">
-                    <p class="price">€ {{postcard.price}}</p>
+                    <h2 class="title">{{ house.title }}</h2>
+                    <p class="address">{{ house.address }}</p>
                  </div>
               </div>
               <div class="d-flex justify-content-around">
-                 <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="" class="icon"><span>{{postcard.bedrooms}}</span>
-                 <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="" class="icon"><span >{{postcard.bathrooms}}</span>
-                 <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="" class="icon"><span>{{postcard.squareMeters}}</span>
+                 <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="" class="icon"><span>{{ house.bed_no}}</span>
+                 <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="" class="icon"><span >{{ house.bathroo_no }}</span>
+                 <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="" class="icon"><span>{{ house.square_meters }}</span>
               </div>
             </div>
         </div>
@@ -28,7 +26,9 @@
 <script>
 export default {
       name: 'postcard',
-      props: ['postcard'],
+      props: {
+        house: {type: Object, required: false},
+      },
 
 }
 </script>

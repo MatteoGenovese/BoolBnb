@@ -5,6 +5,15 @@
 // you can add btn-lg or btn-sm in the html when needed
 .btn.brand-btn-1{
     background-color: $btnPrime;
+
+    &:active{
+        background-color: $btnPrime;
+        color: $brandTxtPrime;
+        transform: translatey(-0.5px) scale(1.05);
+        filter: brightness(1);
+        transition: all 150ms linear;
+    }
+
 }
 
 .btn.brand-btn-2{

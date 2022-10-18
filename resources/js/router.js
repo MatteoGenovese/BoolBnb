@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import HomePage from './pages/HomePage.vue';
 import PropertyOverview from './pages/PropertyOverview.vue';
+import AdvancedSearch from './pages/AdvancedSearch.vue';
 
 const router = new VueRouter ({
     mode: 'history',
@@ -13,6 +14,11 @@ const router = new VueRouter ({
             path:'/',
             name:'HomePage',
             component:HomePage
+        },
+        {
+            path: '/ricerca-avanzata',
+            name: 'AdvancedSearch',
+            component: AdvancedSearch,
         },
         {
             path:'/abitazione/:id',

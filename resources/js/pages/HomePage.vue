@@ -1,14 +1,29 @@
 <template>
-    <section>
-        <h1>
-            HomePage
-        </h1>
+    <section class="container-fluid">
+        <!-- <Jumbotron @jumboSearch="$_getPosWithTomTom"/> -->
+        <Jumbotron />
     </section>
 </template>
 
 <script>
+import Jumbotron from '../components/Home-Components/Jumbotron.vue';
+// import axios from 'axios';
+
 export default {
-    name:"HomePage"
+    name:"HomePage",
+    components:{
+        Jumbotron
+    },
+    data(){
+        return{
+            
+        }
+    },
+    methods:{
+    //     $_getPosWithTomTom(needle){
+            
+    //     }
+    }
 
 }
 </script>

@@ -42,16 +42,16 @@ class ApartmentController extends Controller
         // if(count($servicesIds) != 0) {
         //     $idsList = explode("-", $servicesIds);
         // }
-        
+
         function distanceInKmBetweenEarthCoordinates($lat1, $lon1, $lat2, $lon2) {
             $earthRadiusKm = 6371;
-        
+
             $dLat = degreesToRadians($lat2 - $lat1);
             $dLon = degreesToRadians($lon2 - $lon1);
-        
+
             $lat1 = degreesToRadians($lat1);
             $lat2 = degreesToRadians($lat2);
-        
+
             $a = sin($dLat / 2) * sin($dLat / 2) +
                 sin($dLon / 2) * sin($dLon / 2) * cos($lat1) * cos($lat2);
             $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
@@ -59,11 +59,11 @@ class ApartmentController extends Controller
         }
 
         function checkServicesInApartment($servicesIdList, $servicesPerApartment) {
-            
+
             $exactMatchCount = 0;
             $apartmentServicesIds = [];
 
-            for ($i=0; $i < count($servicesPerApartment) ; $i++) { 
+            for ($i=0; $i < count($servicesPerApartment) ; $i++) {
                 $apartmentServicesIds[] = $servicesPerApartment[$i]->id;
             }
             foreach ($servicesIdList as $serviceId) {
@@ -87,25 +87,24 @@ class ApartmentController extends Controller
         $minSquareMeters = $request->meters;
         $rangeInMeters = intval($request->range . "000");
 
-            foreach($apartments as $apartment) {
-                $lat = $apartment->latitude;
-                $lon = $apartment->longitude;
-                // dd($servicesIds);
-                if(isset($servicesIds)) {
+        foreach($apartments as $apartment) {
+            $lat = $apartment->latitude;
+            $lon = $apartment->longitude;
+            // dd($servicesIds);
+            if(isset($servicesIds)) {
+                if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
+                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->bath_no >= $minBathNo && $apartment->square_meters >= $minSquareMeters
+                && checkServicesInApartment($servicesIds, $apartment->services)) {
 
-                    if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
-                    $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->bath_no >= $minBathNo && $apartment->square_meters >= $minSquareMeters
-                    && checkServicesInApartment($servicesIds, $apartment->services)) {
-                        
-                        $filteredApartmentsWithServices[] = $apartment;
-                    };
-                } elseif(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
-                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->bath_no >= $minBathNo && $apartment->square_meters >= $minSquareMeters) {
-                    
-                    $filteredApartmentsWithoutServices[] = $apartment;
+                    $filteredApartmentsWithServices[] = $apartment;
                 };
+            } elseif(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
+            $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->bath_no >= $minBathNo && $apartment->square_meters >= $minSquareMeters) {
+
+                $filteredApartmentsWithoutServices[] = $apartment;
             };
-            
+        };
+
         if(isset($request->services)) {
             return response()->json([
                 'response' => true,
@@ -113,13 +112,12 @@ class ApartmentController extends Controller
                 "results" =>  $filteredApartmentsWithServices,
             ]);
         } else {
-
             if($filteredApartmentsWithoutServices) {
                 return response()->json([
                     'response' => true,
                     "fanculo" => "fanculo",
                     "results" =>  $filteredApartmentsWithoutServices,
-                ]); 
+                ]);
             }  else return response('', 204);
         };
     }

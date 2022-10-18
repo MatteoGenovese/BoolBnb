@@ -33,7 +33,7 @@ export default {
             if(newLat != oldLat){
                 this.$_getApartment();
             }
-        
+
         }
     },
     data(){
@@ -62,7 +62,7 @@ export default {
         },
 
         $_getApartment(){
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon + 
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon ,
             {params: {
                 "range": this.searchRange,
                 "meters": this.squareMeters,
@@ -72,7 +72,7 @@ export default {
                 "services": this.services,
             }}
             // '&range=' +this.searchRange + '&meters=' + this.squareMeters
-            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo 
+            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo
             )
             .then((response)=>{
                 console.warn(response.data.results)
@@ -93,7 +93,7 @@ export default {
             this.services = params.apartmentServices;
         }
     },
-    
+
 
 }
 </script>

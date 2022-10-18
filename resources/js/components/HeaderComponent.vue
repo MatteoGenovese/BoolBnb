@@ -1,8 +1,8 @@
 <template>
-  <nav id="headerNavbar" class="navbar navbar-expand-lg bg-transparent">
+  <nav id="headerNavbar" class="navbar brand-ft-1 navbar-expand-lg bg-transparent">
     <div class="container">
       <router-link class="navbar-brand" :to="{ name: 'HomePage' }">
-        BoolBnB
+        <img :src="'/storage/asset/img/logo.jpg'" alt="brand logo">
       </router-link>
       <button
         class="navbar-toggler"
@@ -53,12 +53,26 @@ export default {
   name: "HeaderComponent",
   data: function () {
     return {
-      navLinks: [{ route: "/", pathTo: "HomePage", name: "Home" }],
+      navLinks: [
+        { route: "/", pathTo: "HomePage", name: "Home" },
+        { route: "/ricerca-avanzata", pathTo: "AdvancedSearch", name: "Ricerca" },
+      ],
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
+  .navbar-brand{
+    width: 4rem;
+    height: 4rem;
+
+    img{
+      object-fit:contain;  
+      width: 100%;
+      height: 100%;
+    }
+  }
 
 </style>

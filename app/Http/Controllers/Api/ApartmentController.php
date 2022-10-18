@@ -25,13 +25,18 @@ class ApartmentController extends Controller
         ]);
     }
 
-    public function filteredIndex($latitude, $longitude, $servicesIds) {
+    public function filteredIndex(Request $request, $latitude, $longitude) {
 
         function degreesToRadians($degrees) {
             return $degrees * pi() / 180;
         };
+        $servicesIds = $request->all();
 
-        $idsList = explode("-", $servicesIds);
+        $idsList = [];
+
+        if(count($servicesIds) != 0) {
+            $idsList = explode("-", $servicesIds["services"]);
+        }
         
         function distanceInKmBetweenEarthCoordinates($lat1, $lon1, $lat2, $lon2) {
             $earthRadiusKm = 6371;
@@ -66,34 +71,45 @@ class ApartmentController extends Controller
             } else return false;
         }
 
-       
-
         $apartments = Apartment::with("services", "photos", "user")->get();
 
-        $filteredApartments = [];
+        $filteredApartmentsWithServices = [];
+        $filteredApartmentsWithoutServices = [];
 
         $minBedNo = 2;
         $minRoomNo = 1;
 
-        foreach($apartments as $apartment) {
-            $lat = $apartment->latitude;
-            $lon = $apartment->longitude;
-            if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < 100 &&
-            $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && checkServicesInApartment($idsList, $apartment->services)) {
+            foreach($apartments as $apartment) {
+                $lat = $apartment->latitude;
+                $lon = $apartment->longitude;
+                if(count($idsList) != 0) {
 
-                $filteredApartments[] = $apartment;
-            };
-        }
-
-        
-        if($filteredApartments) {
+                    if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < 100 &&
+                    $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && checkServicesInApartment($idsList, $apartment->services)) {
+                        
+                        $filteredApartmentsWithServices[] = $apartment;
+                    };
+                } elseif(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < 100 &&
+                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo) {
+                    
+                    $filteredApartmentsWithoutServices[] = $apartment;
+                };
+            }
+            
+        if($request->has("services")) {
             return response()->json([
                 'reponse' => true,
-                "results" =>  $filteredApartments,
+                "results" =>  $filteredApartmentsWithServices,
             ]);
-        } else return response('', 204);
+        } else {
 
-
+            if($filteredApartmentsWithoutServices) {
+                return response()->json([
+                    'reponse' => true,
+                    "results" =>  $filteredApartmentsWithoutServices,
+                ]); 
+            }  else return response('', 204);
+        };
     }
 
     /**

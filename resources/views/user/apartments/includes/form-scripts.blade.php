@@ -53,6 +53,9 @@
                     addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
 
                     addressAutocomplete.addEventListener("click", function(){
+
+                        setSuccess(address);
+
                         lat.value = addressesResult[index].position.lat;
                         lon.value = addressesResult[index].position.lon;
 
@@ -78,6 +81,8 @@
         lat.value = '';
         lon.value = '';
 
+        setError(address);
+
         isTimeoutCompleted = false;
         clearTimeout(search);
         if(address.value.length != 0) {
@@ -85,65 +90,69 @@
         }
     })
 
+    function setError(input){
+        input.classList.remove('is-valid');
+        input.classList.add('is-invalid');
+    }
+
+    function setSuccess(input){
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+    }
+
+    function removeValid(input){
+        input.classList.remove('is-invalid');
+        input.classList.remove('is-valid');
+    }
 
 
+    function typeCheck(input, conditionOne, conditionTwo) {
+        input.addEventListener('keyup', function(){
+            if(input.value.trim() == ''){
+                removeValid(input);
+                submitButton.removeAttribute('disabled', "");
+            }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
+                setError(input);
+                submitButton.setAttribute('disabled', "");
+            }else{
+                setSuccess(input);
+                submitButton.removeAttribute('disabled', "");
+            }
+        })
+    };
 
+    function numberCheck(input, conditionOne, conditionTwo) {
+        input.addEventListener('change', function(){
+            if(input.value == ''){
+                removeValid(input);
+                submitButton.removeAttribute('disabled', "");
+            }else if(input.value < conditionOne || input.value > conditionTwo || isNaN(input.value)){
+                setError(input);
+                submitButton.setAttribute('disabled', "");
+            }else{
+                setSuccess(input);
+                submitButton.removeAttribute('disabled', "");
+            }
+        })
+    };
 
-        function setError(input){
-            input.classList.remove('is-valid');
-            input.classList.add('is-invalid');
+    photo.addEventListener('change', function() {
+        if(photo.files.length === 0){
+            setError(photo);
+        }else{
+            setSuccess(photo);
         }
-
-        function setSuccess(input){
-            input.classList.remove('is-invalid');
-            input.classList.add('is-valid');
-        }
-
-        function removeValid(input){
-            input.classList.remove('is-invalid');
-            input.classList.remove('is-valid');
-        }
+    });
 
 
-        function typeCheck(input, conditionOne, conditionTwo) {
-            input.addEventListener('keyup', function(){
-                if(input.value.trim() == ''){
-                    removeValid(input);
-                    submitButton.removeAttribute('disabled', "");
-                }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
-                    setError(input);
-                    submitButton.setAttribute('disabled', "");
-                }else{
-                    setSuccess(input);
-                    submitButton.removeAttribute('disabled', "");
-                }
-            })
-        };
+    services.forEach(service => {
+        service.addEventListener('change', function() {
+            if (service.checked) {
+                setSuccess(tagsCheck);
+            }
+        })
+    })
 
-        function numberCheck(input, conditionOne, conditionTwo) {
-            input.addEventListener('change', function(){
-                if(input.value == ''){
-                    removeValid(input);
-                    submitButton.removeAttribute('disabled', "");
-                }else if(input.value < conditionOne || input.value > conditionTwo || isNaN(input.value)){
-                    setError(input);
-                    submitButton.setAttribute('disabled', "");
-                }else{
-                    setSuccess(input);
-                    submitButton.removeAttribute('disabled', "");
-                }
-            })
-        };
-
-        // address.addEventListener('change', function() {
-        //     if(lat.value == ''){
-        //         setError(address);
-        //     }else{
-        //         setSuccess(address);
-        //     }
-        // });
-
-        
 
     typeCheck(title, 10, 100);
     typeCheck(description, 10, 100);
@@ -162,6 +171,12 @@ formElement.addEventListener('submit', function(submit) {
             setError(input);
         }
     });
+
+    if(lat.value == ''){
+        setError(address);
+    }else{
+        setSuccess(address);
+    }
 
     if(description.value.length === 0){
         setError(description);

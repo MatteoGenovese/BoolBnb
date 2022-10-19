@@ -7,7 +7,7 @@
       <div class="search-bar position-relative">
         <input
           type="text"
-          placeholder="Inserisci posizione"
+          placeholder="Inserisci l'indirizzo..."
           v-model="needle"
           @keyup="$_getNeedle()"
         />
@@ -27,7 +27,6 @@
           </li>
         </ul>
 
-        <button class="btn btn-lg text-white" @click="$emit('openFilterPanel', true)">Filtra</button>
 
         <button class="btn brand-btn-1 btn-lg" @click="$_sendJumbotronSearch()">
           Cerca

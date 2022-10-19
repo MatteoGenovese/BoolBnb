@@ -1,6 +1,5 @@
 <template>
     <section class="container">
-        <FiltersComponent v-if="isFilterPanelVisible" @openFilterPanel="showFilterPanel" @sendFilters="getFilterParams" />
         <Jumbotron @jumboSearch="$_getLatAndLon" @openFilterPanel="showFilterPanel"/>
 
         <div class="row mt-5">
@@ -14,7 +13,7 @@
 
 <script>
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
-import FiltersComponent from "../components/FiltersComponent.vue"
+
 
 import axios from 'axios';
 
@@ -25,7 +24,6 @@ export default {
     name:"HomePage",
     components:{
         Jumbotron,
-        FiltersComponent,
         PostCard,
     },
     watch:{

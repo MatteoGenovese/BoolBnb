@@ -1,12 +1,18 @@
 <template>
   <div>
-    ricerca avanzata
+    <h1>Ricerca avanzata</h1>
+    <filters-component />
   </div>
 </template>
 
 <script>
+import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
-    name:"AdvancedSearch"
+    name:"AdvancedSearch",
+    components: {
+      FiltersComponent,
+      }
+    
 }
 </script>
 

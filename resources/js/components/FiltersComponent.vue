@@ -1,9 +1,8 @@
 <template>
-  <section class="d-flex justify-content-center align-items-center" @click.self="$emit('openFilterPanel', false)">
+  <section class="d-flex justify-content-start align-items-center" @click.self="$emit('openFilterPanel', false)">
     <div>
-        <a href="#" @click="$emit('openFilterPanel', false)">X</a>
         <h2 class="mt-5 text-center">Filtri</h2>
-        <div class="d-flex flex-column justify-content-evenly align-items-center">
+        <div class="d-flex flex-column justify-content-evenly">
 
             <label for="room-no">Numero camere</label>
             <select name="room_no" id="room-no" v-model="roomNo">
@@ -99,29 +98,14 @@ export default {
 
 <style lang="scss" scoped>
     section {
-        position: absolute;
-        top: 0;
-        left: 0;
         height: 100vh;
         width: 100vw;
-        background-color: rgba(0,0,0,.4);
-        z-index: 10;
+       
 
         &>div {
             width: 500px;
             height: 600px;
             background-color: white;
-            position: relative;
-            z-index: 3;
-
-            a {
-                color: red;
-                text-decoration: none;
-                font-weight: bolder;
-                position: absolute;
-                top: 1rem;
-                right: 1.5rem;
-            }
         }
     }
 </style>

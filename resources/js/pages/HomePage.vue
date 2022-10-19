@@ -106,6 +106,8 @@ export default {
 
 .apartment-card {
     transition: all .3s;
+    text-decoration: none;
+    color: black;
     &:hover {
         transform: scale(1.1);
     }

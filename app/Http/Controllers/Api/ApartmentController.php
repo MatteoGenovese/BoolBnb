@@ -126,13 +126,13 @@ class ApartmentController extends Controller
             // dd($servicesIds);
             if(isset($servicesIds)) {
                 if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
-                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo &&
+                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->is_available &&
                 checkServicesInApartment($servicesIds, $apartment->services)) {
 
                     $filteredApartmentsWithServices[] = $apartment;
                 };
             } elseif(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
-            $apartment->bed_no >= $minBedNo &&
+            $apartment->bed_no >= $minBedNo && $apartment->is_available &&
             $apartment->room_no >= $minRoomNo) {
                 $filteredApartmentsWithoutServices[] = $apartment;
             };

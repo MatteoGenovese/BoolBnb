@@ -15,7 +15,7 @@
               </div>
               <div class="d-flex justify-content-around">
                  <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="" class="icon"><span>{{ house.bed_no}}</span>
-                 <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="" class="icon"><span >{{ house.bathroo_no }}</span>
+                 <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="" class="icon"><span >{{ house.bathroom_no }}</span>
                  <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="" class="icon"><span>{{ house.square_meters }}</span>
               </div>
             </div>

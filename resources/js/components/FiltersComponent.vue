@@ -5,19 +5,6 @@
         <h2 class="mt-5 text-center">Filtri</h2>
         <div class="d-flex flex-column justify-content-evenly align-items-center">
 
-            <label for="bath-no">Numero Bagni</label>
-            <select name="bath_no" id="bath-no" v-model="bathNo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
             <label for="room-no">Numero camere</label>
             <select name="room_no" id="room-no" v-model="roomNo">
                 <option value="1">1</option>
@@ -44,8 +31,7 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
             </select>
-            <label for="square-meters">Metri quadri</label>
-            <input type="number" name="square_meters" id="square-meters" v-model="squareMeters">
+        
             <div class="container my-3">
                 <div class="row">
 

@@ -15,8 +15,11 @@
 
 
             <button class="btn brand-btn-1 btn-lg" @click="$_sendDataToUpperLevel()">
-                Cerca
+                <router-link class="nav-link" :to=" '/ricerca-avanzata' " :coordinates="{'lat':lat, 'lon':lon}">
+                    Search
+                </router-link>
             </button>
+            
         </div>
 
     </div>
@@ -40,7 +43,8 @@ export default {
             adresses: [],
             timerBetweenTwoWords: false,
             newLetterWasTyped: true,
-        };
+        }
+           
     },
 
     methods: {
@@ -49,6 +53,7 @@ export default {
                 this.$emit("sentDataFromDownLevel", { lat: this.lat, lon: this.lon });
             }
         },
+
         $_getCoordinatesFromAddressClicked(index) {
 
 

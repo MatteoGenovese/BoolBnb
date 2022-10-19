@@ -22,6 +22,10 @@ import PostCard from '../components/Home-Components/PostCard.vue';
 import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
     name: "AdvancedSearch",
+    props: {
+        lat: number,
+        lon: number,
+    },
     components: {
         FiltersComponent,
         PostCard,

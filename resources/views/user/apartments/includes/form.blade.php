@@ -1,3 +1,7 @@
+<div class="col-2 text-danger">
+    *Campi obbligatori
+</div>
+
 <div class="form-group col-12 position-relative">
     <label for="title">Titolo *</label>
     <input type="text" class="form-control" id="title"  placeholder="Inserisci il titolo" name="title" value="{{ old('title', $apartment->title) }}">
@@ -167,15 +171,9 @@
 <label class="d-none" for="lon">lon</label>
 <input type="text" class="d-none" name="longitude" id="lon" value="{{ old("longitude", $apartment->longitude) }}">
 
+<div class="row mt-4">
 
-
-
-
-<div class="d-flex justify-content-between mt-4">
-    <div class="text-danger">
-        * = Campi obbligatori
-    </div>
-    <div class="d-flex align-items-center">
+    <div class="col-2">
         <div class="form-check form-switch">
             <label for="available-check">Disponibile</label>
             @if ($errors->any())
@@ -185,6 +183,10 @@
             @endif
 
         </div>
+    </div>
+
+
+    <div class="col-2 offset-8 text-end">
         <button type="submit" class="btn btn-success mx-3" id="submit-button">Invia</button>
     </div>
 </div>

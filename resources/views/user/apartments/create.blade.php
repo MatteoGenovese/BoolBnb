@@ -11,7 +11,7 @@
                     <form action="{{ route('user.apartments.store') }}" method="post" class="crud-form" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         @method('post')
-                        @include('user.apartments.includes.form')
+                        @include('user.apartments.includes.form', [ $isRequired = '*'])
                     </form>
 
             </div>

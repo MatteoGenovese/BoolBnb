@@ -1,33 +1,33 @@
 <template>
-      
+
         <div class="col-12 col-md-4 col-lg-4 postcard p-3">
             <div class="imagecontainer">
-               <img v-for="(photo, index) in house.photos" :key="index" :src="'/storage/' + photo.file_name" class="image"/>
-         
+               <img v-for="(photo, index) in apartment.photos" :key="index" :src="'/storage/' + photo.file_name" class="image"/>
+
             </div>
             <div class="postcard-detail mt-1 ">
               <div class="d-flex justify-content-between">
                  <div class="mt-3">
                     <p class="rent mb-2">IN VENDITA</p>
-                    <h2 class="title">{{ house.title }}</h2>
-                    <p class="address">{{ house.address }}</p>
+                    <h2 class="title">{{ apartment.title }}</h2>
+                    <p class="address">{{ apartment.address }}</p>
                  </div>
               </div>
               <div class="d-flex justify-content-around">
-                 <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="" class="icon"><span>{{ house.bed_no}}</span>
-                 <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="" class="icon"><span >{{ house.bathroom_no }}</span>
-                 <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="" class="icon"><span>{{ house.square_meters }}</span>
+                 <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="" class="icon"><span>{{ apartment.bed_no}}</span>
+                 <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="" class="icon"><span >{{ apartment.bathroom_no }}</span>
+                 <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="" class="icon"><span>{{ apartment.square_meters }}</span>
               </div>
             </div>
         </div>
-      
+
 </template>
 
 <script>
 export default {
       name: 'postcard',
       props: {
-        house: {type: Object, required: false},
+        apartment: {type: Object, required: false},
       },
 
 }
@@ -45,9 +45,9 @@ export default {
     height: 150px;
 }
 .postcard{
-   
+
     border-radius: .5rem;
-    
+
 }
 .postcard:hover{
     box-shadow: 0rem 0rem 2rem lightblue;

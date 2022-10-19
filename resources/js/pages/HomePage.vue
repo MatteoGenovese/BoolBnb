@@ -1,10 +1,13 @@
 <template>
     <section class="container">
-        <Jumbotron @jumboSearch="$_getLatAndLon" @openFilterPanel="showFilterPanel"/>
+        <Jumbotron />
+
+        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
+
 
         <div class="row mt-5">
-            <PostCard v-for="(house, index) in houses" :key="index"
-                :house="house"
+            <PostCard v-for="(apartment, index) in apartments" :key="index"
+                :apartment="apartment"
             />
         </div>
     </section>
@@ -12,20 +15,23 @@
 
 
 <script>
-import Jumbotron from '../components/Home-Components/Jumbotron.vue';
+
 
 
 import axios from 'axios';
 
 
+import Jumbotron from '../components/Home-Components/Jumbotron.vue';
 import PostCard from '../components/Home-Components/PostCard.vue';
+import SearchBar from '../components/Home-Components/SearchBar.vue';
 
 export default {
     name:"HomePage",
     components:{
-        Jumbotron,
-        PostCard,
-    },
+    PostCard,
+    SearchBar,
+    Jumbotron
+},
     watch:{
         lat(oldLat, newLat){
             if(newLat != oldLat){
@@ -38,7 +44,7 @@ export default {
         return{
             lat: '',
             lon: '',
-            houses: [],
+            apartments: [],
             isFilterPanelVisible: false,
             bedNo: 0,
             roomNo: 0,
@@ -57,6 +63,7 @@ export default {
             this.lon = lon;
 
             console.log(this.lat + '-' + this.lon)
+            this.$_getApartment()
         },
 
         $_getApartment(){
@@ -72,14 +79,9 @@ export default {
             )
             .then((response)=>{
                 console.warn(response.data.results)
-                this.houses = response.data.results;
+                this.apartments = response.data.results;
             })
         },
-
-        showFilterPanel(value) {
-            this.isFilterPanelVisible = value;
-        },
-
         getFilterParams(params) {
             this.bathNo = params.bathNo;
             this.roomNo = params.roomNo;

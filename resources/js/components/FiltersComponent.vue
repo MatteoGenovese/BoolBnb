@@ -1,55 +1,60 @@
 <template>
-  <section class="d-flex justify-content-start align-items-center" @click.self="$emit('openFilterPanel', false)">
-    <div>
-        <h2 class="mt-5 text-center">Filtri</h2>
-        <div class="d-flex flex-column justify-content-evenly">
+  <section class="d-flex" @click.self="$emit('openFilterPanel', false)">
+        <div class="d-flex justify-content-evenly justify-content-between w-100">
+            <div class=" mx-2">
+                <label for="room-no">Numero camere</label>
+                <select name="room_no" id="room-no" v-model="roomNo">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
 
-            <label for="room-no">Numero camere</label>
-            <select name="room_no" id="room-no" v-model="roomNo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <label for="bed-no">Posti letto</label>
-            <select name="bed_no" id="bed-no" v-model="bedNo">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-        
-            <div class="container my-3">
+            <div class=" mx-2">
+                <label for="bed-no">Posti letto</label>
+                <select name="bed_no" id="bed-no" v-model="bedNo">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+
+            <div class="container flex-grow-1 services mx-2">
                 <div class="row">
-
-                    <div class="col-4" v-for="service in services" :key="service.id">
+                    <div class="col-3" v-for="service in services" :key="service.id">
                         <input type="checkbox" :value="service.id" :name="service.name + '_check'" :id="service.name + '-check'" v-model="apartmentServices">
                         <label :for="service.name + '-check'">{{ service.name }}</label>
                     </div>
                 </div>
             </div>
 
-            <label for="search-range">Raggio di ricerca</label>
+            <div class=" mx-2">
+                <label for="search-range">Raggio di ricerca</label>
             <div class="d-flex align-items-center">
                 <input type="range" name="search_range" id="search-range" default="20" min="10" max="1000" step="10" oninput="this.nextElementSibling.value = this.value" v-model="searchRange">
                 <output class="ms-3">20 </output> <span class="ms-1"> km</span>
             </div>
-            
-            <button class="btn btn-lt btn-primary text-white" @click="sendFiltersData(), $emit('openFilterPanel', false)">Applica filtri</button>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-lt btn-primary text-white  mx-2" @click="sendFiltersData(), $emit('openFilterPanel', false)">Applica filtri</button>
+
+            </div>
+
         </div>
-    </div>
 
   </section>
 </template>
@@ -97,15 +102,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    section {
-        height: 100vh;
-        width: 100vw;
-       
 
-        &>div {
-            width: 500px;
-            height: 600px;
-            background-color: white;
-        }
+    button{
+        height: 60px;
     }
+    .services{
+        width: 475px;
+    }
+
 </style>

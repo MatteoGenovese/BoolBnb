@@ -20,33 +20,38 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', 'photos', 'user')->get();
 
         return response()->json([
-            'reponse' => true,
+            'response' => true,
             "results" =>  $apartments,
         ]);
     }
 
     public function filteredIndex(Request $request, $latitude, $longitude) {
-
+        // dd($request->all());
         function degreesToRadians($degrees) {
             return $degrees * pi() / 180;
         };
-        $servicesIds = $request->all();
 
-        $idsList = [];
-
-        if(count($servicesIds) != 0) {
-            $idsList = explode("-", $servicesIds["services"]);
+        if($request->has("services")) {
+            $servicesIds = explode("-", $request->services);
         }
-        
+
+        // dd($servicesIds);
+
+        // $idsList = [];
+
+        // if(count($servicesIds) != 0) {
+        //     $idsList = explode("-", $servicesIds);
+        // }
+
         function distanceInKmBetweenEarthCoordinates($lat1, $lon1, $lat2, $lon2) {
             $earthRadiusKm = 6371;
-        
+
             $dLat = degreesToRadians($lat2 - $lat1);
             $dLon = degreesToRadians($lon2 - $lon1);
-        
+
             $lat1 = degreesToRadians($lat1);
             $lat2 = degreesToRadians($lat2);
-        
+
             $a = sin($dLat / 2) * sin($dLat / 2) +
                 sin($dLon / 2) * sin($dLon / 2) * cos($lat1) * cos($lat2);
             $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
@@ -54,11 +59,11 @@ class ApartmentController extends Controller
         }
 
         function checkServicesInApartment($servicesIdList, $servicesPerApartment) {
-            
+
             $exactMatchCount = 0;
             $apartmentServicesIds = [];
 
-            for ($i=0; $i < count($servicesPerApartment) ; $i++) { 
+            for ($i=0; $i < count($servicesPerApartment) ; $i++) {
                 $apartmentServicesIds[] = $servicesPerApartment[$i]->id;
             }
             foreach ($servicesIdList as $serviceId) {
@@ -76,38 +81,43 @@ class ApartmentController extends Controller
         $filteredApartmentsWithServices = [];
         $filteredApartmentsWithoutServices = [];
 
-        $minBedNo = 2;
-        $minRoomNo = 1;
+        $minBedNo = $request->bedNo;
+        $minRoomNo = $request->roomNo;
+        $minBathNo = $request->bathNo;
+        $minSquareMeters = $request->meters;
+        $rangeInMeters = intval($request->range . "000");
 
-            foreach($apartments as $apartment) {
-                $lat = $apartment->latitude;
-                $lon = $apartment->longitude;
-                if(count($idsList) != 0) {
+        foreach($apartments as $apartment) {
+            $lat = $apartment->latitude;
+            $lon = $apartment->longitude;
+            // dd($servicesIds);
+            if(isset($servicesIds)) {
+                if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
+                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->bath_no >= $minBathNo && $apartment->square_meters >= $minSquareMeters
+                && checkServicesInApartment($servicesIds, $apartment->services)) {
 
-                    if(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < 100 &&
-                    $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && checkServicesInApartment($idsList, $apartment->services)) {
-                        
-                        $filteredApartmentsWithServices[] = $apartment;
-                    };
-                } elseif(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < 100 &&
-                $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo) {
-                    
-                    $filteredApartmentsWithoutServices[] = $apartment;
+                    $filteredApartmentsWithServices[] = $apartment;
                 };
-            }
-            
-        if($request->has("services")) {
+            } elseif(distanceInKmBetweenEarthCoordinates($latitude, $longitude, $lat, $lon) < $rangeInMeters &&
+            $apartment->bed_no >= $minBedNo && $apartment->room_no >= $minRoomNo && $apartment->bath_no >= $minBathNo && $apartment->square_meters >= $minSquareMeters) {
+
+                $filteredApartmentsWithoutServices[] = $apartment;
+            };
+        };
+
+        if(isset($request->services)) {
             return response()->json([
-                'reponse' => true,
+                'response' => true,
+                "ciao" => "ciao",
                 "results" =>  $filteredApartmentsWithServices,
             ]);
         } else {
-
             if($filteredApartmentsWithoutServices) {
                 return response()->json([
-                    'reponse' => true,
+                    'response' => true,
+                    "fanculo" => "fanculo",
                     "results" =>  $filteredApartmentsWithoutServices,
-                ]); 
+                ]);
             }  else return response('', 204);
         };
     }
@@ -145,7 +155,7 @@ class ApartmentController extends Controller
 
         if ($apartment) {
             return response()->json([
-                'reponse' => true,
+                'response' => true,
                 "results" => [
                     'data' => $apartment,
                 ]

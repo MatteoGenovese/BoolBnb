@@ -1,6 +1,7 @@
 <template>
     <section class="container">
-        <Jumbotron @jumboSearch="$_getLatAndLon"/>
+        <FiltersComponent v-if="isFilterPanelVisible" @openFilterPanel="showFilterPanel" @sendFilters="getFilterParams" />
+        <Jumbotron @jumboSearch="$_getLatAndLon" @openFilterPanel="showFilterPanel"/>
 
         <div class="row mt-5">
             <PostCard v-for="(house, index) in houses" :key="index"
@@ -13,6 +14,8 @@
 
 <script>
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
+import FiltersComponent from "../components/FiltersComponent.vue"
+
 import axios from 'axios';
 
 
@@ -22,6 +25,7 @@ export default {
     name:"HomePage",
     components:{
         Jumbotron,
+        FiltersComponent,
         PostCard,
     },
     watch:{
@@ -29,7 +33,7 @@ export default {
             if(newLat != oldLat){
                 this.$_getApartment();
             }
-        
+
         }
     },
     data(){
@@ -37,6 +41,13 @@ export default {
             lat: '',
             lon: '',
             houses: [],
+            isFilterPanelVisible: false,
+            bedNo: 0,
+            roomNo: 0,
+            bedNo: 0,
+            squareMeters: 0,
+            searchRange: 20,
+            services: [],
         }
     },
     methods:{
@@ -51,14 +62,38 @@ export default {
         },
 
         $_getApartment(){
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon )
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon ,
+            {params: {
+                "range": this.searchRange,
+                "meters": this.squareMeters,
+                "bedNo": this.bedNo,
+                "roomNo": this.roomNo,
+                "bathNo": this.bathNo,
+                "services": this.services,
+            }}
+            // '&range=' +this.searchRange + '&meters=' + this.squareMeters
+            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo
+            )
             .then((response)=>{
                 console.warn(response.data.results)
                 this.houses = response.data.results;
             })
+        },
+
+        showFilterPanel(value) {
+            this.isFilterPanelVisible = value;
+        },
+
+        getFilterParams(params) {
+            this.bathNo = params.bathNo;
+            this.roomNo = params.roomNo;
+            this.bedNo = params.bedNo,
+            this.squareMeters = params.squareMeters;
+            this.searchRange = params.searchRange;
+            this.services = params.apartmentServices;
         }
     },
-    
+
 
 }
 </script>

@@ -15,11 +15,11 @@
 
 
             <button class="btn brand-btn-1 btn-lg" @click="$_sendDataToUpperLevel()">
-                <router-link class="nav-link" :to=" '/ricerca-avanzata' " :coordinates="{'lat':lat, 'lon':lon}">
+                <router-link class="nav-link" :to=" '/ricerca-avanzata' " :coordinates="$_sendCoordinates()" :fromHomePage="true">
                     Search
                 </router-link>
             </button>
-            
+
         </div>
 
     </div>
@@ -30,6 +30,10 @@
 import axios from "axios";
 export default {
     name: "SearchBar",
+    props: {
+        latitude,
+        longitude
+    },
     data: function () {
         return {
             needle: "",
@@ -44,10 +48,16 @@ export default {
             timerBetweenTwoWords: false,
             newLetterWasTyped: true,
         }
-           
+
     },
 
     methods: {
+        $_sendCoordinates() {
+            let latitude=this.lat;
+            let longitude=this.lat;
+            return {latitude,longitude}
+        },
+
         $_sendDataToUpperLevel() {
             if (this.needle !== "") {
                 this.$emit("sentDataFromDownLevel", { lat: this.lat, lon: this.lon });

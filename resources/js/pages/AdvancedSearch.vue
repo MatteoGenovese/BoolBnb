@@ -3,10 +3,14 @@
         <h1>Ricerca avanzata</h1>
         <filters-component />
 
-        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
+        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" :coordinates="{latitude,
+        longitude}"/>
 
 
-        <div class="row mt-5">
+        <div v-if="fromHomePage" class="row mt-5">
+            <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
+        </div>
+        <div v-else class="row mt-5">
             <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
         </div>
     </div>
@@ -22,9 +26,20 @@ import PostCard from '../components/Home-Components/PostCard.vue';
 import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
     name: "AdvancedSearch",
+    watch:{
+
+        fromHomePage(value){
+            if(value==true){
+                this.lat=this.coordinates.latitude;
+                this.lon=this.coordinates.longitude;
+                $_getApartment();
+            }
+        }
+
+    },
     props: {
-        lat: number,
-        lon: number,
+        coordinates:Object,
+        fromHomePage:Boolean
     },
     components: {
         FiltersComponent,

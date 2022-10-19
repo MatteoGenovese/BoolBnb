@@ -14,9 +14,7 @@
     <div class="col-7 col-sm-8 col-lg-10 ">
         <div class="form-group mt-4 ">
             <label for="description">Descrizione *</label>
-            <textarea name="description" id="description" class="form-control" placeholder="Inserisci la descrizione" rows="13" style=" resize: none; ">
-                {{ old('description', $apartment->description) }}
-            </textarea>
+            <textarea name="description" id="description" class="form-control" placeholder="Inserisci la descrizione" rows="13" style=" resize: none; ">{{ old('description', $apartment->description) }}</textarea>
         </div>
         @error('description')
             <div class="alert alert-danger" role="alert">

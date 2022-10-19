@@ -11,7 +11,7 @@
                     <form action="{{ route('user.apartments.update', $apartment->id ) }}" method="post" autocomplete="off" class="crud-form" enctype="multipart/form-data">
                         @csrf
                         @method('put')
-                        @include('user.apartments.includes.form')
+                        @include('user.apartments.includes.form', [$isRequired = ''])
                     </form>
                 </div>
             </div>

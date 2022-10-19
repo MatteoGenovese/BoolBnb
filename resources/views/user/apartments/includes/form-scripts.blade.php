@@ -14,6 +14,9 @@
     const lon = document.getElementById("lon");
     const submitButton = document.getElementById('submit-button');
     const inputFields = document.querySelectorAll("input:not(#upload, #lat, #lon)");
+    const photo = document.getElementById('upload');
+    const tagsCheck = document.getElementById('tagsCheck');
+    const URLpath = window.location.href;
     let isValid = false;
 
     const apiUrl = "https://api.tomtom.com/search/2/search/";
@@ -24,6 +27,11 @@
     let lonValues = [];
     let addressIndex = 0;
     let isTimeoutCompleted = false;
+
+    // l'address inserito non deve essere valido se metto cose a cazzo
+    // deve avere una lat e lon ! se vuoti non si submitmitta 
+    //  se lat e lon non sono valide non convalidare l'indirizzo e le cancelliamo ad ogni ricerca
+    // ad ogni keyup resetto lat o lon 
 
     function searchAddress() {
         axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
@@ -66,6 +74,10 @@
 
     let search;
     address.addEventListener("keyup", function(){
+
+        lat.value = '';
+        lon.value = '';
+
         isTimeoutCompleted = false;
         clearTimeout(search);
         if(address.value.length != 0) {
@@ -123,37 +135,64 @@
             })
         };
 
+        // address.addEventListener('change', function() {
+        //     if(lat.value == ''){
+        //         setError(address);
+        //     }else{
+        //         setSuccess(address);
+        //     }
+        // });
 
-        typeCheck(title, 10, 100);
-        typeCheck(description, 10, 100);
-        numberCheck(bathroomNo, 1, 10);
-        numberCheck(bedNo, 1, 10);
-        numberCheck(roomsNo, 1, 20);
-        numberCheck(squareMeters, 30, 1000);
-        typeCheck(address, 5, 100);
+        
+
+    typeCheck(title, 10, 100);
+    typeCheck(description, 10, 100);
+    numberCheck(bathroomNo, 1, 10);
+    numberCheck(bedNo, 1, 10);
+    numberCheck(roomsNo, 1, 20);
+    numberCheck(squareMeters, 30, 1000);
 
 formElement.addEventListener('submit', function(submit) {
 
     submit.preventDefault();
     isValid = true;
 
-    // if(latValues.length !== 0) {
-    //     lat.value = latValues[addressIndex];
-    //     lon.value = lonValues[addressIndex];
-    // }
+    inputFields.forEach(input => {
+        if(input.value.length === 0){
+            setError(input);
+        }
+    });
+
+    if(description.value.length === 0){
+        setError(description);
+    }
+
+    if(!URLpath.includes('edit')){
+        if(photo.files.length === 0){
+            setError(photo);
+        }else{
+            setSuccess(photo);
+        }
+    }
 
     let hasChecks = false;
 
     services.forEach(service => {
-            if (service.hasAttributes("checked")) {
-                hasChecks = true;
-            }
-        })
+        if (service.checked) {
+            hasChecks = true;
+        }
+    })
+    
+    if(!hasChecks){
+        setError(tagsCheck);
+    }else{
+        setSuccess(tagsCheck);
+    }
 
     inputFields.forEach(input => {
-            if (input.classList.contains("is-invalid") || input.value.length === 0 || description.classList.contains("is-invalid") || !hasChecks) {
-                isValid = false;
-        }})
+        if (input.classList.contains("is-invalid") || description.classList.contains("is-invalid") || !hasChecks) {
+            isValid = false;
+    }})
 
     if (isValid === true) {
         formElement.submit()

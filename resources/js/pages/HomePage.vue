@@ -65,10 +65,8 @@ export default {
             axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon ,
             {params: {
                 "range": this.searchRange,
-                "meters": this.squareMeters,
                 "bedNo": this.bedNo,
                 "roomNo": this.roomNo,
-                "bathNo": this.bathNo,
                 "services": this.services,
             }}
             // '&range=' +this.searchRange + '&meters=' + this.squareMeters

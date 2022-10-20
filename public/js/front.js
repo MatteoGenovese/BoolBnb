@@ -2035,6 +2035,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchBar",
+  props: {},
+  watch: {
+    lat: function lat(oldLat, newLat) {
+      if (newLat != oldLat) {
+        this.$_getApartment();
+      }
+    }
+  },
   data: function data() {
     return {
       needle: "",
@@ -2047,31 +2055,38 @@ __webpack_require__.r(__webpack_exports__);
       lon: "",
       adresses: [],
       timerBetweenTwoWords: false,
-      newLetterWasTyped: true
+      newLetterWasTyped: true,
+      addressSelected: {}
     };
   },
   methods: {
+    $_qualcosa: function $_qualcosa() {
+      if (this.$route.name == 'HomePage') {
+        this.$router.push({
+          name: 'AdvancedSearch',
+          params: {
+            addressSelected: this.addressSelected
+          }
+        });
+      }
+      if (this.$route.name == 'AdvancedSearch') {
+        this.$emit("sentDataFromDownLevel", this.addressSelected);
+      }
+    },
     $_sendDataToUpperLevel: function $_sendDataToUpperLevel() {
       if (this.needle !== "") {
         this.$emit("sentDataFromDownLevel", {
-          lat: this.lat,
-          lon: this.lon
+          lat: this.addressSelected.position.lat,
+          lon: this.addressSelected.position.lon
         });
       }
     },
-    $_getCoordinatesFromAddressClicked: function $_getCoordinatesFromAddressClicked(index) {
-      var _this$adresses$index$ = this.adresses[index].position,
-        lat = _this$adresses$index$.lat,
-        lon = _this$adresses$index$.lon;
-      this.lat = lat;
-      this.lon = lon;
-      console.log(this.lat + '-' + this.lon);
+    $_getAdressObject: function $_getAdressObject(index) {
+      this.addressSelected = this.adresses[index];
       this.newLetterWasTyped = false;
-      this.$emit("sentDataFromDownLevel", {
-        lat: this.lat,
-        lon: this.lon
-      });
-      this.adresses = "";
+      console.log(this.adresses[index]);
+      this.needle = this.adresses[index].address.freeformAddress;
+      this.$_qualcosa();
     },
     $_sendNeedleAfter500ms: function $_sendNeedleAfter500ms() {
       var _this = this;
@@ -2084,7 +2099,6 @@ __webpack_require__.r(__webpack_exports__);
     $_getAddressFromApi: function $_getAddressFromApi(needle) {
       var _this2 = this;
       if (needle.length > 3) {
-        // axios.get(this.apiUrl + needle + this.apiKey + this.country + this.typeahead + '&limit=' + this.limit)
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.apiUrl + needle + '.json?key=' + this.apiKey, {
           params: {
             countrySet: this.country,
@@ -2092,7 +2106,6 @@ __webpack_require__.r(__webpack_exports__);
             limit: this.limit
           }
         }).then(function (response) {
-          console.warn(response.data.results);
           _this2.adresses = response.data.results;
         })["catch"](function (error) {
           console.error(error);
@@ -2140,6 +2153,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AdvancedSearch",
+  // watch:{
+
+  //     fromHomePage(value){
+  //         if(value==true){
+  //             this.lat=this.coordinates.latitude;
+  //             this.lon=this.coordinates.longitude;
+  //             $_getApartment();
+  //         }
+  //     }
+
+  // },
+  props: {
+    addressSelected: {
+      type: Object
+    }
+  },
   components: {
     FiltersComponent: _components_FiltersComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     PostCard: _components_Home_Components_PostCard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -2164,13 +2193,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, _defineProperty(_ref, "bedNo", 0), _defineProperty(_ref, "squareMeters", 0), _defineProperty(_ref, "searchRange", 20), _defineProperty(_ref, "services", []), _ref;
   },
   methods: {
+    $_passLocation: function $_passLocation() {
+      this.lat = this.addressSelected.position.lat;
+      this.lon = this.addressSelected.position.lon;
+      console.log(this.lat, this.lon);
+      this.$_getApartment();
+    },
     $_getLatAndLon: function $_getLatAndLon(params) {
-      var lat = params.lat,
-        lon = params.lon;
+      var _params$position = params.position,
+        lat = _params$position.lat,
+        lon = _params$position.lon;
       this.lat = lat;
       this.lon = lon;
-      console.log(this.lat + '-' + this.lon);
-      this.$_getApartment();
+
+      // console.log(params)
+
+      // console.log(this.lat, this.lon)
+
+      // this.$_getApartment()
     },
     $_getApartment: function $_getApartment() {
       var _this = this;
@@ -2196,6 +2236,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.searchRange = params.searchRange;
       this.services = params.apartmentServices;
     }
+  },
+  created: function created() {
+    this.$_passLocation();
   }
 });
 
@@ -2227,13 +2270,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     SearchBar: _components_Home_Components_SearchBar_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     Jumbotron: _components_Home_Components_Jumbotron_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  watch: {
-    lat: function lat(oldLat, newLat) {
-      if (newLat != oldLat) {
-        this.$_getApartment();
-      }
-    }
-  },
+  watch: {},
   data: function data() {
     var _ref;
     return _ref = {
@@ -2245,40 +2282,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       roomNo: 0
     }, _defineProperty(_ref, "bedNo", 0), _defineProperty(_ref, "squareMeters", 0), _defineProperty(_ref, "searchRange", 20), _defineProperty(_ref, "services", []), _ref;
   },
-  methods: {
-    $_getLatAndLon: function $_getLatAndLon(params) {
-      var lat = params.lat,
-        lon = params.lon;
-      this.lat = lat;
-      this.lon = lon;
-      console.log(this.lat + '-' + this.lon);
-      this.$_getApartment();
-    },
-    $_getApartment: function $_getApartment() {
-      var _this = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon, {
-        params: {
-          "range": this.searchRange,
-          "bedNo": this.bedNo,
-          "roomNo": this.roomNo,
-          "services": this.services
-        }
-      }
-      // '&range=' +this.searchRange + '&meters=' + this.squareMeters
-      // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo
-      ).then(function (response) {
-        console.warn(response.data.results);
-        _this.apartments = response.data.results;
-      });
-    },
-    getFilterParams: function getFilterParams(params) {
-      this.bathNo = params.bathNo;
-      this.roomNo = params.roomNo;
-      this.bedNo = params.bedNo, this.squareMeters = params.squareMeters;
-      this.searchRange = params.searchRange;
-      this.services = params.apartmentServices;
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -2342,9 +2346,9 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "d-flex justify-content-evenly justify-content-between w-100"
+    staticClass: "d-flex justify-content-evenly justify-content-between w-100 row"
   }, [_c("div", {
-    staticClass: "mx-2"
+    staticClass: "col-6 col-md-2 mx-2"
   }, [_c("label", {
     attrs: {
       "for": "room-no"
@@ -2412,7 +2416,7 @@ var render = function render() {
       value: "10"
     }
   }, [_vm._v("10")])])]), _vm._v(" "), _c("div", {
-    staticClass: "mx-2"
+    staticClass: "col-6 col-md-2 mx-2"
   }, [_c("label", {
     attrs: {
       "for": "bed-no"
@@ -2480,13 +2484,13 @@ var render = function render() {
       value: "10"
     }
   }, [_vm._v("10")])])]), _vm._v(" "), _c("div", {
-    staticClass: "container flex-grow-1 services mx-2"
+    staticClass: "col-12 col-md-6 container flex-grow-1 services mx-2"
   }, [_c("div", {
     staticClass: "row"
   }, _vm._l(_vm.services, function (service) {
     return _c("div", {
       key: service.id,
-      staticClass: "col-3"
+      staticClass: "col-5 col-md-4 col-lg-3"
     }, [_c("input", {
       directives: [{
         name: "model",
@@ -2527,7 +2531,7 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(service.name))])]);
   }), 0)]), _vm._v(" "), _c("div", {
-    staticClass: "mx-2"
+    staticClass: "col-8 col-md-2 mx-2"
   }, [_c("label", {
     attrs: {
       "for": "search-range"
@@ -2564,7 +2568,7 @@ var render = function render() {
   }, [_vm._v("20 ")]), _vm._v(" "), _c("span", {
     staticClass: "ms-1"
   }, [_vm._v(" km")])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex justify-content-end"
+    staticClass: "col-4 col-md-2 d-flex justify-content-end"
   }, [_c("button", {
     staticClass: "btn btn-lt btn-primary text-white mx-2",
     on: {
@@ -2818,15 +2822,18 @@ var render = function render() {
     }],
     attrs: {
       type: "text",
-      placeholder: "Inserisci l'indirizzo nella nuovissima search..."
+      placeholder: "Inserisci l'indirizzo..."
     },
     domProps: {
       value: _vm.needle
     },
     on: {
-      keyup: function keyup($event) {
+      keyup: [function ($event) {
         return _vm.$_sendNeedleAfter500ms();
-      },
+      }, function ($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.$_getAdressObject(0);
+      }],
       input: function input($event) {
         if ($event.target.composing) return;
         _vm.needle = $event.target.value;
@@ -2841,18 +2848,17 @@ var render = function render() {
       staticClass: "list-group-item list-group-item-action",
       on: {
         click: function click($event) {
-          return _vm.$_getCoordinatesFromAddressClicked(index);
+          return _vm.$_getAdressObject(index);
         }
       }
     }, [_vm._v("\n                " + _vm._s(address.address.freeformAddress) + "\n            ")]);
   }), 0) : _vm._e(), _vm._v(" "), _c("button", {
-    staticClass: "btn brand-btn-1 btn-lg",
     on: {
       click: function click($event) {
-        return _vm.$_sendDataToUpperLevel();
+        return _vm.$_qualcosa();
       }
     }
-  }, [_vm._v("\n            Cerca\n        ")])])]);
+  }, [_vm._v("\n            Search\n        ")])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2935,11 +2941,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("section", {
     staticClass: "container"
-  }, [_c("Jumbotron"), _vm._v(" "), _c("SearchBar", {
-    on: {
-      sentDataFromDownLevel: _vm.$_getLatAndLon
-    }
-  }), _vm._v(" "), _c("div", {
+  }, [_c("Jumbotron"), _vm._v(" "), _c("SearchBar"), _vm._v(" "), _c("div", {
     staticClass: "row mt-5"
   }, _vm._l(_vm.apartments, function (apartment, index) {
     return _c("PostCard", {
@@ -19949,7 +19951,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/ricerca-avanzata',
     name: 'AdvancedSearch',
-    component: _pages_AdvancedSearch_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _pages_AdvancedSearch_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    props: true
   }, {
     path: '/abitazione/:id',
     name: 'SingleHome',

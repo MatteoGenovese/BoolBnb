@@ -3,14 +3,10 @@
         <h1>Ricerca avanzata</h1>
         <filters-component />
 
-        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" :coordinates="{latitude,
-        longitude}"/>
+        <SearchBar @sentDataFromDownLevel="$_getLatAndLon"
+        />
 
-
-        <div v-if="fromHomePage" class="row mt-5">
-            <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
-        </div>
-        <div v-else class="row mt-5">
+        <div class="row mt-5">
             <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
         </div>
     </div>
@@ -26,20 +22,21 @@ import PostCard from '../components/Home-Components/PostCard.vue';
 import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
     name: "AdvancedSearch",
-    watch:{
+    // watch:{
 
-        fromHomePage(value){
-            if(value==true){
-                this.lat=this.coordinates.latitude;
-                this.lon=this.coordinates.longitude;
-                $_getApartment();
-            }
-        }
+    //     fromHomePage(value){
+    //         if(value==true){
+    //             this.lat=this.coordinates.latitude;
+    //             this.lon=this.coordinates.longitude;
+    //             $_getApartment();
+    //         }
+    //     }
 
-    },
+    // },
     props: {
-        coordinates:Object,
-        fromHomePage:Boolean
+        addressSelected:{
+            type:Object,
+        }
     },
     components: {
         FiltersComponent,
@@ -69,15 +66,34 @@ export default {
         }
     },
     methods:{
+        $_passLocation(){
+
+
+        this.lat = this.addressSelected.position.lat;
+        this.lon = this.addressSelected.position.lon;
+
+        console.log(this.lat, this.lon)
+
+        this.$_getApartment()
+
+
+
+        },
         $_getLatAndLon(params){
 
-            let { lat, lon } = params;
+            let { lat, lon } = params.position;
 
             this.lat = lat;
             this.lon = lon;
 
-            console.log(this.lat + '-' + this.lon)
-            this.$_getApartment()
+
+
+            // console.log(params)
+
+
+            // console.log(this.lat, this.lon)
+
+            // this.$_getApartment()
         },
 
         $_getApartment(){
@@ -105,7 +121,9 @@ export default {
             this.services = params.apartmentServices;
         }
     },
-
+    created(){
+        this.$_passLocation()
+    }
 
 }
 </script>

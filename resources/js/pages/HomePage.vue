@@ -2,7 +2,7 @@
     <section class="container">
         <Jumbotron />
 
-        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
+        <SearchBar/>
 
 
         <div class="row mt-5">
@@ -33,12 +33,7 @@ export default {
     Jumbotron
 },
     watch:{
-        lat(oldLat, newLat){
-            if(newLat != oldLat){
-                this.$_getApartment();
-            }
 
-        }
     },
     data(){
         return{
@@ -55,41 +50,7 @@ export default {
         }
     },
     methods:{
-        $_getLatAndLon(params){
 
-            let { lat, lon } = params;
-
-            this.lat = lat;
-            this.lon = lon;
-
-            console.log(this.lat + '-' + this.lon)
-            this.$_getApartment()
-        },
-
-        $_getApartment(){
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon ,
-            {params: {
-                "range": this.searchRange,
-                "bedNo": this.bedNo,
-                "roomNo": this.roomNo,
-                "services": this.services,
-            }}
-            // '&range=' +this.searchRange + '&meters=' + this.squareMeters
-            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo
-            )
-            .then((response)=>{
-                console.warn(response.data.results)
-                this.apartments = response.data.results;
-            })
-        },
-        getFilterParams(params) {
-            this.bathNo = params.bathNo;
-            this.roomNo = params.roomNo;
-            this.bedNo = params.bedNo,
-            this.squareMeters = params.squareMeters;
-            this.searchRange = params.searchRange;
-            this.services = params.apartmentServices;
-        }
     },
 
 

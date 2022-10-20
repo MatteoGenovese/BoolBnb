@@ -2,22 +2,46 @@
     <div>
 
         <div class="search-bar position-relative">
-            <input type="text" placeholder="Inserisci l'indirizzo nella nuovissima search..." v-model="needle"
-                @keyup="$_sendNeedleAfter500ms()" />
+
+
+            <input
+
+            type="text"
+            placeholder="Inserisci l'indirizzo..."
+            v-model="needle"
+            @keyup="$_sendNeedleAfter500ms()"
+            @keyup.enter="$_getAdressObject(0)" />
+
+
 
             <ul class="list-group position-absolute w-100 top-100 start-0"
                 :class="newLetterWasTyped == true ? 'd-block' : 'd-none'" v-if="adresses.length > 0">
-                <li v-for="(address, index) in adresses" :key="index" @click="$_getCoordinatesFromAddressClicked(index)"
+                <li v-for="(address, index) in adresses" :key="index"
+                    @click="$_getAdressObject(index)"
                     class="list-group-item list-group-item-action">
                     {{ address.address.freeformAddress }}
                 </li>
             </ul>
 
 
-            <button class="btn brand-btn-1 btn-lg" @click="$_sendDataToUpperLevel()">
-                <router-link class="nav-link" :to=" '/ricerca-avanzata' " :coordinates="$_sendCoordinates()" :fromHomePage="true">
-                    Search
-                </router-link>
+
+            <!-- <router-link
+                v-if="$route.name == 'HomePage'"
+                class="nav-link"
+                :to="
+                { name: 'AdvancedSearch', params: { addressSelected : addressSelected } }
+                ">
+                Search
+            </router-link>
+
+
+            <button v-else @click="$_sendDataToUpperLevel()">
+                Search
+            </button> -->
+
+
+            <button @click="$_qualcosa()">
+                Search
             </button>
 
         </div>
@@ -31,8 +55,15 @@ import axios from "axios";
 export default {
     name: "SearchBar",
     props: {
-        latitude,
-        longitude
+
+    },
+    watch: {
+        lat(oldLat, newLat){
+            if(newLat != oldLat){
+                this.$_getApartment();
+            }
+
+        }
     },
     data: function () {
         return {
@@ -47,38 +78,38 @@ export default {
             adresses: [],
             timerBetweenTwoWords: false,
             newLetterWasTyped: true,
+            addressSelected: {},
         }
 
     },
 
     methods: {
-        $_sendCoordinates() {
-            let latitude=this.lat;
-            let longitude=this.lat;
-            return {latitude,longitude}
+        $_qualcosa(){
+            if(this.$route.name == 'HomePage'){
+                this.$router.push(
+                    {
+                        name: 'AdvancedSearch', params : { addressSelected : this.addressSelected } }
+                    )
+            }
+            if(this.$route.name == 'AdvancedSearch'){
+                this.$emit("sentDataFromDownLevel", this.addressSelected);
+            }
         },
 
         $_sendDataToUpperLevel() {
             if (this.needle !== "") {
-                this.$emit("sentDataFromDownLevel", { lat: this.lat, lon: this.lon });
+                this.$emit("sentDataFromDownLevel", { lat: this.addressSelected.position.lat, lon: this.addressSelected.position.lon });
             }
         },
 
-        $_getCoordinatesFromAddressClicked(index) {
-
-
-
-            let { lat, lon } = this.adresses[index].position;
-            this.lat = lat;
-            this.lon = lon;
-            console.log(this.lat + '-' + this.lon)
-
+        $_getAdressObject(index) {
+            this.addressSelected=this.adresses[index];
             this.newLetterWasTyped = false;
-
-            this.$emit("sentDataFromDownLevel", { lat: this.lat, lon: this.lon });
-
-            this.adresses = "";
+            console.log(this.adresses[index])
+            this.needle=this.adresses[index].address.freeformAddress
+            this.$_qualcosa()
         },
+
         $_sendNeedleAfter500ms() {
             this.newLetterWasTyped = true;
             clearTimeout(this.timerBetweenTwoWords);
@@ -86,9 +117,9 @@ export default {
                 this.$_getAddressFromApi(this.needle);
             }, 500);
         },
+
         $_getAddressFromApi(needle) {
             if (needle.length > 3) {
-                // axios.get(this.apiUrl + needle + this.apiKey + this.country + this.typeahead + '&limit=' + this.limit)
                 axios
                     .get(this.apiUrl + needle + '.json?key=' + this.apiKey, {
                         params: {
@@ -98,8 +129,6 @@ export default {
                         },
                     })
                     .then((response) => {
-                        console.warn(response.data.results);
-
                         this.adresses = response.data.results;
                     })
                     .catch((error) => {

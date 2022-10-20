@@ -34,7 +34,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Vendi anche tu!
+              Unisciti
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/login">Accedi</a></li>

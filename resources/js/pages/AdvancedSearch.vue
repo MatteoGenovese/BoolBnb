@@ -1,14 +1,28 @@
 <template>
-    <div>
+    <div class="container">
         <h1>Ricerca avanzata</h1>
         <filters-component />
 
         <SearchBar @sentDataFromDownLevel="$_getLatAndLon"
         />
 
-        <div class="row mt-5">
+        <!-- <div class="row mt-5">
             <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
-        </div>
+        </div> -->
+
+        <div class="row mt-5">
+
+        <router-link
+        class=" apartment-card p-3 col-12 col-md-4 col-lg-4"
+        v-for="(apartment, index) in apartments"
+        :key="index"
+        :to="{ name: 'SingleHome', params: { id: apartment.id } }">
+            <PostCard
+            :apartment="apartment"
+        />
+        </router-link>
+
+</div>
     </div>
 </template>
 
@@ -67,6 +81,8 @@ export default {
     },
     methods:{
         $_passLocation(){
+
+            console.log(this.$route.path)
 
 
         this.lat = this.addressSelected.position.lat;

@@ -102,7 +102,6 @@
 
                             <div class="col-md-6 mt-3">
                                 <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" autocomplete="date_of_birth">
-                                {{-- // FIXME: Messaggio di errore --}}
                                 @error('date_of_birth')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -149,6 +148,13 @@
         const date_of_birth = document.getElementById('date_of_birth');
         const registerButton = document.getElementById('register-button');
         let isValid = true;
+
+        // console.log(date_of_birth.value.length);
+
+        // date_of_birth.addEventListener('change', ()=>{
+        //     console.log(typeof date_of_birth.value)
+        //     console.log(date_of_birth.value.length)
+        // });
 
         const currentDate = new Date();
 
@@ -262,13 +268,16 @@
         submit.preventDefault();
 
         isValid = true;
+
+        if(date_of_birth.value.length === 0){
+            isValid = true;
+            setSuccess(date_of_birth);
+        }
+        
         inputFields.forEach(input => {
             if (input.classList.contains("is-invalid") || email.value.length === 0 || password.value.length === 0 || passwordConfirm.value.length === 0) {
                 isValid = false;
         }})
-
-        console.log(isValid);
-
 
         if (isValid === true) {
             formElement.submit()

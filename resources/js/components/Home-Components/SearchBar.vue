@@ -10,14 +10,14 @@
             placeholder="Inserisci l'indirizzo..."
             v-model="needle"
             @keyup="$_sendNeedleAfter500ms()"
-            @keyup.enter="$_getAdressObject(0)" />
+            @keyup.enter="$_getAddressObject(0)" />
 
 
 
             <ul class="list-group position-absolute w-100 top-100 start-0"
-                :class="newLetterWasTyped == true ? 'd-block' : 'd-none'" v-if="adresses.length > 0">
-                <li v-for="(address, index) in adresses" :key="index"
-                    @click="$_getAdressObject(index)"
+                :class="newLetterWasTyped == true ? 'd-block' : 'd-none'" v-if="addresses.length > 0">
+                <li v-for="(address, index) in addresses" :key="index"
+                    @click="$_getAddressObject(index)"
                     class="list-group-item list-group-item-action">
                     {{ address.address.freeformAddress }}
                 </li>
@@ -75,7 +75,7 @@ export default {
             limit: 4,
             lat: "",
             lon: "",
-            adresses: [],
+            addresses: [],
             timerBetweenTwoWords: false,
             newLetterWasTyped: true,
             addressSelected: {},
@@ -85,11 +85,12 @@ export default {
 
     methods: {
         $_qualcosa(){
+            console.log(this.$route.name)
             if(this.$route.name == 'HomePage'){
                 this.$router.push(
                     {
-                        name: 'AdvancedSearch', params : { addressSelected : this.addressSelected } }
-                    )
+                        name: '/ricerca-avanzata/', params : { addressSelected : this.addressSelected, query : this.needle }
+                    })
             }
             if(this.$route.name == 'AdvancedSearch'){
                 this.$emit("sentDataFromDownLevel", this.addressSelected);
@@ -102,11 +103,11 @@ export default {
             }
         },
 
-        $_getAdressObject(index) {
-            this.addressSelected=this.adresses[index];
+        $_getAddressObject(index) {
+            this.addressSelected=this.addresses[index];
             this.newLetterWasTyped = false;
-            console.log(this.adresses[index])
-            this.needle=this.adresses[index].address.freeformAddress
+            console.log(this.addresses[index])
+            this.needle=this.addresses[index].address.freeformAddress
             this.$_qualcosa()
         },
 
@@ -129,7 +130,7 @@ export default {
                         },
                     })
                     .then((response) => {
-                        this.adresses = response.data.results;
+                        this.addresses = response.data.results;
                     })
                     .catch((error) => {
                         console.error(error);

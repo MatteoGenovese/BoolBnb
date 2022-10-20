@@ -35,13 +35,15 @@ export default {
 }
 
 .search-bar {
-    width: 100%;
-    max-width: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    padding: 10px 20px;
+  width: 100%;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.2),;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: 1px solid grey;
 }
 
 .search-bar input {

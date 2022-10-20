@@ -14,6 +14,9 @@
     const lon = document.getElementById("lon");
     const submitButton = document.getElementById('submit-button');
     const inputFields = document.querySelectorAll("input:not(#upload, #lat, #lon)");
+    const photo = document.getElementById('upload');
+    const tagsCheck = document.getElementById('tagsCheck');
+    const URLpath = window.location.href;
     let isValid = false;
 
     const apiUrl = "https://api.tomtom.com/search/2/search/";
@@ -24,6 +27,11 @@
     let lonValues = [];
     let addressIndex = 0;
     let isTimeoutCompleted = false;
+
+    // l'address inserito non deve essere valido se metto cose a cazzo
+    // deve avere una lat e lon ! se vuoti non si submitmitta 
+    //  se lat e lon non sono valide non convalidare l'indirizzo e le cancelliamo ad ogni ricerca
+    // ad ogni keyup resetto lat o lon 
 
     function searchAddress() {
         axios.get(`${apiUrl}${address.value}.json?key=${apiKey}&countrySet=${country}&typeahead=true&limit=4`)
@@ -45,6 +53,9 @@
                     addressAutocomplete.innerHTML = result.address.freeformAddress + ", " + result.address.countrySubdivision;
 
                     addressAutocomplete.addEventListener("click", function(){
+
+                        setSuccess(address);
+
                         lat.value = addressesResult[index].position.lat;
                         lon.value = addressesResult[index].position.lon;
 
@@ -66,6 +77,12 @@
 
     let search;
     address.addEventListener("keyup", function(){
+
+        lat.value = '';
+        lon.value = '';
+
+        setError(address);
+
         isTimeoutCompleted = false;
         clearTimeout(search);
         if(address.value.length != 0) {
@@ -73,87 +90,124 @@
         }
     })
 
+    function setError(input){
+        input.classList.remove('is-valid');
+        input.classList.add('is-invalid');
+    }
+
+    function setSuccess(input){
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+    }
+
+    function removeValid(input){
+        input.classList.remove('is-invalid');
+        input.classList.remove('is-valid');
+    }
 
 
+    function typeCheck(input, conditionOne, conditionTwo) {
+        input.addEventListener('keyup', function(){
+            if(input.value.trim() == ''){
+                removeValid(input);
+                submitButton.removeAttribute('disabled', "");
+            }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
+                setError(input);
+                submitButton.setAttribute('disabled', "");
+            }else{
+                setSuccess(input);
+                submitButton.removeAttribute('disabled', "");
+            }
+        })
+    };
 
+    function numberCheck(input, conditionOne, conditionTwo) {
+        input.addEventListener('change', function(){
+            if(input.value == ''){
+                removeValid(input);
+                submitButton.removeAttribute('disabled', "");
+            }else if(input.value < conditionOne || input.value > conditionTwo || isNaN(input.value)){
+                setError(input);
+                submitButton.setAttribute('disabled', "");
+            }else{
+                setSuccess(input);
+                submitButton.removeAttribute('disabled', "");
+            }
+        })
+    };
 
-        function setError(input){
-            input.classList.remove('is-valid');
-            input.classList.add('is-invalid');
+    photo.addEventListener('change', function() {
+        if(photo.files.length === 0){
+            setError(photo);
+        }else{
+            setSuccess(photo);
         }
-
-        function setSuccess(input){
-            input.classList.remove('is-invalid');
-            input.classList.add('is-valid');
-        }
-
-        function removeValid(input){
-            input.classList.remove('is-invalid');
-            input.classList.remove('is-valid');
-        }
+    });
 
 
-        function typeCheck(input, conditionOne, conditionTwo) {
-            input.addEventListener('keyup', function(){
-                if(input.value.trim() == ''){
-                    removeValid(input);
-                    submitButton.removeAttribute('disabled', "");
-                }else if(input.value.length <= conditionOne || input.value.length > conditionTwo){
-                    setError(input);
-                    submitButton.setAttribute('disabled', "");
-                }else{
-                    setSuccess(input);
-                    submitButton.removeAttribute('disabled', "");
-                }
-            })
-        };
-
-        function numberCheck(input, conditionOne, conditionTwo) {
-            input.addEventListener('change', function(){
-                if(input.value == ''){
-                    removeValid(input);
-                    submitButton.removeAttribute('disabled', "");
-                }else if(input.value < conditionOne || input.value > conditionTwo || isNaN(input.value)){
-                    setError(input);
-                    submitButton.setAttribute('disabled', "");
-                }else{
-                    setSuccess(input);
-                    submitButton.removeAttribute('disabled', "");
-                }
-            })
-        };
+    services.forEach(service => {
+        service.addEventListener('change', function() {
+            if (service.checked) {
+                setSuccess(tagsCheck);
+            }
+        })
+    })
 
 
-        typeCheck(title, 10, 100);
-        typeCheck(description, 10, 100);
-        numberCheck(bathroomNo, 1, 10);
-        numberCheck(bedNo, 1, 10);
-        numberCheck(roomsNo, 1, 20);
-        numberCheck(squareMeters, 30, 1000);
-        typeCheck(address, 5, 100);
+    typeCheck(title, 10, 100);
+    typeCheck(description, 10, 100);
+    numberCheck(bathroomNo, 1, 10);
+    numberCheck(bedNo, 1, 10);
+    numberCheck(roomsNo, 1, 20);
+    numberCheck(squareMeters, 30, 1000);
 
 formElement.addEventListener('submit', function(submit) {
 
     submit.preventDefault();
     isValid = true;
 
-    // if(latValues.length !== 0) {
-    //     lat.value = latValues[addressIndex];
-    //     lon.value = lonValues[addressIndex];
-    // }
+    inputFields.forEach(input => {
+        if(input.value.length === 0){
+            setError(input);
+        }
+    });
+
+    if(lat.value == ''){
+        setError(address);
+    }else{
+        setSuccess(address);
+    }
+
+    if(description.value.length === 0){
+        setError(description);
+    }
+
+    if(!URLpath.includes('edit')){
+        if(photo.files.length === 0){
+            setError(photo);
+        }else{
+            setSuccess(photo);
+        }
+    }
 
     let hasChecks = false;
 
     services.forEach(service => {
-            if (service.hasAttributes("checked")) {
-                hasChecks = true;
-            }
-        })
+        if (service.checked) {
+            hasChecks = true;
+        }
+    })
+    
+    if(!hasChecks){
+        setError(tagsCheck);
+    }else{
+        setSuccess(tagsCheck);
+    }
 
     inputFields.forEach(input => {
-            if (input.classList.contains("is-invalid") || input.value.length === 0 || description.classList.contains("is-invalid") || !hasChecks) {
-                isValid = false;
-        }})
+        if (input.classList.contains("is-invalid") || description.classList.contains("is-invalid") || !hasChecks) {
+            isValid = false;
+    }})
 
     if (isValid === true) {
         formElement.submit()

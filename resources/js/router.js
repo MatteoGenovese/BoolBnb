@@ -15,7 +15,7 @@ const router = new VueRouter({
             component: HomePage
         },
         {
-            path: '/ricerca-avanzata',
+            path: '/ricerca-avanzata/:query',
             name: 'AdvancedSearch',
             component: AdvancedSearch,
             props: true,
@@ -24,6 +24,7 @@ const router = new VueRouter({
             path: '/abitazione/:id',
             name: 'SingleHome',
             component: PropertyOverview,
+            props: true,
         }
     ]
 })

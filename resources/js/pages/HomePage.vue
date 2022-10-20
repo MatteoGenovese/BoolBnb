@@ -5,11 +5,7 @@
         <SearchBar/>
 
 
-        <div class="row mt-5">
-            <PostCard v-for="(apartment, index) in apartments" :key="index"
-                :apartment="apartment"
-            />
-        </div>
+
     </section>
 </template>
 
@@ -18,7 +14,7 @@
 
 
 
-import axios from 'axios';
+
 
 
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
@@ -57,6 +53,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
+.apartment-card {
+    transition: all .3s;
+    text-decoration: none;
+    color: black;
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        transform:scale(.95);
+    }
+}
 </style>

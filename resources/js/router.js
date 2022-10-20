@@ -24,6 +24,7 @@ const router = new VueRouter ({
             path:'/abitazione/:id',
             name: 'SingleHome',
             component: PropertyOverview,
+            props: true,
         }
     ]
 })

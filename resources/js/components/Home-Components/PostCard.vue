@@ -1,6 +1,6 @@
 <template>
       
-        <div class="col-12 col-md-4 col-lg-4 postcard p-3">
+        <div class=" postcard">
             <div class="imagecontainer">
                <img v-for="(photo, index) in house.photos" :key="index" :src="'/storage/' + photo.file_name" class="image"/>
          
@@ -8,7 +8,7 @@
             <div class="postcard-detail mt-1 ">
               <div class="d-flex justify-content-between">
                  <div class="mt-3">
-                    <p class="rent mb-2">IN VENDITA</p>
+                    <p class="rent mb-2">Disponibile</p>
                     <h2 class="title">{{ house.title }}</h2>
                     <p class="address">{{ house.address }}</p>
                  </div>
@@ -19,6 +19,7 @@
                  <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="" class="icon"><span>{{ house.square_meters }}</span>
               </div>
             </div>
+            <router-link :to="{ name: 'SingleHome', params: { id: house.id } }"></router-link>
         </div>
       
 </template>

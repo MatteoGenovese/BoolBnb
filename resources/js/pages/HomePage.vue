@@ -4,9 +4,17 @@
         <Jumbotron @jumboSearch="$_getLatAndLon" @openFilterPanel="showFilterPanel"/>
 
         <div class="row mt-5">
-            <PostCard v-for="(house, index) in houses" :key="index"
+
+            <router-link class=" apartment-card p-3 col-12 col-md-4 col-lg-4" v-for="(house, index) in houses" :key="index" :to="{ name: 'SingleHome', params: { id: house.id } }">
+                <PostCard
                 :house="house"
             />
+            </router-link>
+
+<!-- 
+            <PostCard v-for="(house, index) in houses" :key="index"
+                :house="house"
+            /> -->
         </div>
     </section>
 </template>
@@ -69,11 +77,10 @@ export default {
                 "roomNo": this.roomNo,
                 "services": this.services,
             }}
-            // '&range=' +this.searchRange + '&meters=' + this.squareMeters
-            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo
             )
             .then((response)=>{
-                console.warn(response.data.results)
+                console.log(response);
+                console.warn(response.data.results);
                 this.houses = response.data.results;
             })
         },
@@ -96,6 +103,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
+.apartment-card {
+    transition: all .3s;
+    text-decoration: none;
+    color: black;
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        transform:scale(.95);
+    }
+}
 </style>

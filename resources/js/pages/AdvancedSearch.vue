@@ -99,9 +99,11 @@ export default {
 
         $_getApartment(params){
 
+            console.log(params.bedNo, 'letti')
+
             axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , { params: {
                 range: params.range,
-                benNo: params.bedNo,
+                bedNo: params.bedNo,
                 roomNo: params.roomNo,
                 services: params.services,
             }

@@ -5,7 +5,6 @@
 
 
             <input
-
             type="text"
             placeholder="Inserisci l'indirizzo..."
             v-model="needle"
@@ -24,23 +23,7 @@
             </ul>
 
 
-
-            <!-- <router-link
-                v-if="$route.name == 'HomePage'"
-                class="nav-link"
-                :to="
-                { name: 'AdvancedSearch', params: { addressSelected : addressSelected } }
-                ">
-                Search
-            </router-link>
-
-
-            <button v-else @click="$_sendDataToUpperLevel()">
-                Search
-            </button> -->
-
-
-            <button @click="$_qualcosa()">
+            <button @click="$_searchRedirect()">
                 Search
             </button>
 
@@ -84,12 +67,11 @@ export default {
     },
 
     methods: {
-        $_qualcosa(){
-            console.log(this.$route.name)
+        $_searchRedirect(){
             if(this.$route.name == 'HomePage'){
                 this.$router.push(
                     {
-                        name: '/ricerca-avanzata/', params : { addressSelected : this.addressSelected, query : this.needle }
+                        name: 'AdvancedSearch', params : { addressSelected : this.addressSelected, query : this.needle }
                     })
             }
             if(this.$route.name == 'AdvancedSearch'){
@@ -108,7 +90,7 @@ export default {
             this.newLetterWasTyped = false;
             console.log(this.addresses[index])
             this.needle=this.addresses[index].address.freeformAddress
-            this.$_qualcosa()
+            this.$_searchRedirect()
         },
 
         $_sendNeedleAfter500ms() {

@@ -15,7 +15,7 @@ const router = new VueRouter({
             component: HomePage
         },
         {
-            path: '/ricerca-avanzata/:query',
+            path: '/ricerca-avanzata/:query?',
             name: 'AdvancedSearch',
             component: AdvancedSearch,
             props: true,

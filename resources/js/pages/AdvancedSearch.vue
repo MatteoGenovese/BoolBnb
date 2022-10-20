@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h1>Ricerca avanzata</h1>
-        <filters-component />
+        <FiltersComponent @sendFilters="$_getApartment" />
 
         <SearchBar @sentDataFromDownLevel="$_getLatAndLon"
         />
@@ -60,15 +60,15 @@ export default {
     watch:{
         lat(oldLat, newLat){
             if(newLat != oldLat){
-                this.$_getApartment();
+                this.$_getApartment({});
             }
 
         }
     },
     data(){
         return{
-            lat: '',
-            lon: '',
+            lat: 0,
+            lon: 0,
             apartments: [],
             isFilterPanelVisible: false,
             bedNo: 0,
@@ -82,15 +82,19 @@ export default {
     methods:{
         $_passLocation(){
 
-            console.log(this.$route.path)
+            console.log(this.$route.params.addressSelected)
 
-
-        this.lat = this.addressSelected.position.lat;
-        this.lon = this.addressSelected.position.lon;
-
+        if(typeof(this.$route.params.addressSelected) != "undefined") {
+            this.lat = this.addressSelected.position.lat;
+            this.lon = this.addressSelected.position.lon;}
+            // this.lat = 41.892631654408675;
+            // this.lon = 12.4920935864514;
+        // } else {
+        // }
+// if(this.lat != 0 && this.lon != 0)
         console.log(this.lat, this.lon)
 
-        this.$_getApartment()
+        this.$_getApartment({})
 
 
 
@@ -112,13 +116,30 @@ export default {
             // this.$_getApartment()
         },
 
-        $_getApartment(){
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon ,
+        $_getApartment(params){
+            console.log(params);
+            let serviceList = "";
+
+                if(params.services.length != 0) {
+                    params.services.forEach((service, index) => {
+                        if(index == 0) {
+                            serviceList = service;
+                        } else {
+                            serviceList = serviceList + "-" + service
+                        }
+                    })
+                } 
+            
+            
+            console.log(serviceList);
+
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , 
+            // params
             {params: {
-                "range": this.searchRange,
-                "bedNo": this.bedNo,
-                "roomNo": this.roomNo,
-                "services": this.services,
+                "range": params.range,
+                "bedNo": params.bedNo,
+                "roomNo": params.roomNo,
+                "services": serviceList,
             }}
             // '&range=' +this.searchRange + '&meters=' + this.squareMeters
             // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo

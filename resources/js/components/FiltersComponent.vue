@@ -1,5 +1,5 @@
 <template>
-  <section class="d-flex" @click.self="$emit('openFilterPanel', false)">
+  <section class="d-flex">
         <div class="d-flex justify-content-evenly justify-content-between w-100 row">
             <div class="col-6 col-md-2 mx-2">
                 <label for="room-no">Numero camere</label>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-4 col-md-2 d-flex justify-content-end">
-                <button class="btn btn-lt btn-primary text-white  mx-2" @click="sendFiltersData(), $emit('openFilterPanel', false)">Applica filtri</button>
+                <button class="btn btn-lt btn-primary text-white  mx-2" @click="sendFiltersData()">Applica filtri</button>
 
             </div>
 
@@ -86,12 +86,12 @@ export default {
 
         sendFiltersData() {
             this.$emit("sendFilters", {
-                bathNo: this.bathNo,
+                // bathNo: this.bathNo,
                 roomNo: this.roomNo,
                 bedNo: this.bedNo,
-                squareMeters: this.squareMeters,
-                searchRange: this.searchRange,
-                apartmentServices: this.apartmentServices
+                // squareMeters: this.squareMeters,
+                range: this.searchRange,
+                services: this.apartmentServices
             })
         }
     },

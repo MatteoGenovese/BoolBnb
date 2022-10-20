@@ -141,14 +141,12 @@ class ApartmentController extends Controller
         if(isset($request->services)) {
             return response()->json([
                 'response' => true,
-                "ciao" => "ciao",
                 "results" =>  $filteredApartmentsWithServices,
             ]);
         } else {
             if($filteredApartmentsWithoutServices) {
                 return response()->json([
                     'response' => true,
-                    "fanculo" => "fanculo",
                     "results" =>  $filteredApartmentsWithoutServices,
                 ]);
             }  else return response('', 204);

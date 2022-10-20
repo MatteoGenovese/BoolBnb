@@ -79,7 +79,8 @@ export default {
             }}
             )
             .then((response)=>{
-                console.warn(response.data.results)
+                console.log(response);
+                console.warn(response.data.results);
                 this.houses = response.data.results;
             })
         },

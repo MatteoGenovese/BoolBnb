@@ -85,13 +85,27 @@ export default {
         },
 
         sendFiltersData() {
+            let services = '';
+
+            if(this.apartmentServices.length === 0){
+                services = null;
+            }else{
+                this.apartmentServices.forEach((service, index) => {
+                    if(index == 0) {
+                        services = service;
+                    } else {
+                        services = services + "-" + service;
+                    }
+                });
+            }
+
             this.$emit("sendFilters", {
                 // bathNo: this.bathNo,
                 roomNo: this.roomNo,
                 bedNo: this.bedNo,
                 // squareMeters: this.squareMeters,
                 range: this.searchRange,
-                services: this.apartmentServices
+                services: services,
             })
         }
     },

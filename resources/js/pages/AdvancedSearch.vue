@@ -36,17 +36,6 @@ import PostCard from '../components/Home-Components/PostCard.vue';
 import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
     name: "AdvancedSearch",
-    // watch:{
-
-    //     fromHomePage(value){
-    //         if(value==true){
-    //             this.lat=this.coordinates.latitude;
-    //             this.lon=this.coordinates.longitude;
-    //             $_getApartment();
-    //         }
-    //     }
-
-    // },
     props: {
         addressSelected:{
             type:Object,
@@ -91,7 +80,7 @@ export default {
             // this.lon = 12.4920935864514;
         // } else {
         // }
-// if(this.lat != 0 && this.lon != 0)
+        // if(this.lat != 0 && this.lon != 0)
         console.log(this.lat, this.lon)
 
         this.$_getApartment({})
@@ -106,43 +95,17 @@ export default {
             this.lat = lat;
             this.lon = lon;
 
-
-
-            // console.log(params)
-
-
-            // console.log(this.lat, this.lon)
-
-            // this.$_getApartment()
         },
 
         $_getApartment(params){
-            console.log(params);
-            let serviceList = "";
 
-                if(params.services.length != 0) {
-                    params.services.forEach((service, index) => {
-                        if(index == 0) {
-                            serviceList = service;
-                        } else {
-                            serviceList = serviceList + "-" + service
-                        }
-                    })
-                } 
-            
-            
-            console.log(serviceList);
-
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , 
-            // params
-            {params: {
-                "range": params.range,
-                "bedNo": params.bedNo,
-                "roomNo": params.roomNo,
-                "services": serviceList,
-            }}
-            // '&range=' +this.searchRange + '&meters=' + this.squareMeters
-            // + '&bedNo=' + this.bedNo + '&roomNo=' + this.roomNo + '&bathNo=' + this.bathNo
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , { params: {
+                range: params.range,
+                benNo: params.bedNo,
+                roomNo: params.roomNo,
+                services: params.services,
+            }
+            }
             )
             .then((response)=>{
                 console.warn(response.data.results)

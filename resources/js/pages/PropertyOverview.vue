@@ -106,11 +106,11 @@
                     </div>
 
                     <!-- Services section -->
-                    <div class="text-start" v-show="$_isActiveCheck(1)">
-                        <h4 class="fw-bold">
+                    <div class="row col-12 col-md-5 text-start" v-show="$_isActiveCheck(1)">
+                        <h4 class="col-12 fw-bold">
                             I servizi inclusi nell'abitazione:
                         </h4>
-                        <div v-for="service in property.services" :key="service.id">
+                        <div class="col-6" v-for="service in property.services" :key="service.id">
                             {{ service.name }}
                         </div>
                     </div>
@@ -132,10 +132,25 @@
                     Informazioni sul proprietario:
                 </h4>
                 <h5>
-                    {{ ownerInfo.name }} {{ ownerInfo.surname }} 
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                    </span>
+                    <span>
+                        {{ ownerInfo.name }} {{ ownerInfo.surname }} 
+                    </span>
                 </h5>
                 <p class="text-secondary">
-                    {{ ownerInfo.email }}
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                        </svg>
+                    </span>
+                    <span>
+                        {{ ownerInfo.email }}
+                    </span>
                 </p>
             </div>
         </div>
@@ -210,7 +225,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import '../../sass/partials/_brandVariables';
+@import '../../sass/partials/_classes';
+
+*::selection{
+    background-color: rgba($secondaryLight, .3);
+    color: $primary;
+}
 #propertyOverview {
+
 
     ul.icons-field{
         margin-left: .5rem;
@@ -225,6 +249,7 @@ export default {
                 filter: opacity(50%);
             }
             span{
+                color: gray;
                 margin: 0 .8rem;
             }
         }

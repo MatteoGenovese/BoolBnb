@@ -37,10 +37,11 @@
 }
 
 // Outlines
-// .btn.brand-btn-outline-1{
-//     border: 1px solid $btnPrime;
-//     color: $btnPrime;
-//     &:hover{
-
-//     }
-// }
+.btn.brand-btn-outline-1{
+    border: 1px solid $btnPrime;
+    color: $btnPrime;
+    &:hover{
+        color: white;
+        background-color: $btnPrime;
+    }
+}

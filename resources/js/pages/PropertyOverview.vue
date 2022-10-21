@@ -1,86 +1,99 @@
 <template>
     <div id="propertyOverview" class="container mt-5 brand-ft-1">
         <div class="row">
-            <div class="img-container col-12">
-                <img v-for="photo in property.photos" :key="photo.id" :src="'/storage/' + photo.file_name"
+            <div class="img-container col-10 m-auto">
+                <img class="rounded img-fluid w-100"
+                v-for="photo in property.photos" :key="photo.id" :src="'/storage/' + photo.file_name"
                     :alt="property.title + ' cover Photo'">
             </div>
-        </div>
-        <!-- <div class="row mt-5">
-            <div class="property-details col-9">
-                <h2>
+            <div class="col-12">
+                <h3 class="my-3 mt-5 text-capitalize">
                     {{ property.title }}
-                </h2>
-                <h6 class="ps-3">
-                    di {{ user }}
-                </h6>
-                <p class="mt-4">
-                    {{ property.description }}
-                </p>
-            </div> -->
+                </h3>
+                <h5>
+                    {{ property.address }}
+                </h5>
 
+                <ul class="icons-field my-3 p-0">
+                    <li>
+                        <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="Icona letto"> 
+                        <span>{{ property.bed_no }}</span>
+                        <span>/</span>
+                    </li>
+                    <li>
+                        <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="Icona bagno"> 
+                        <span>{{ property.bathroom_no }}</span>
+                        <span>/</span>
+                    </li>
+                    <li>
+                        <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="Icona metri quadrati"> 
+                        <span>{{ property.square_meters }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-            <nav id="propertyNav">
-                <div class="container-fluid">
-                    <ul class="row col-12 col-md-8 p-0">
-                        <li class="col-3 col-md-3 py-2 rounded mx-1 btn btn-outline-primary" 
-                            v-for="(infos, index) in propertyOverviewNav" :key="index"
-                            :class="{ 'bg-warning' : infos.isActive }"
-                            @click="$_activeNavOnClick(index)">
+        <nav id="propertyNav">
+            <div class="container-fluid my-5">
+                <ul class="row col-12 col-md-8 p-0 mb-5">
+                    <li class="col-3 col-md-3 py-2 rounded mx-1 btn brand-btn-outline-1" 
+                        v-for="(infos, index) in propertyOverviewNav" :key="index"
+                        :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
+                        @click="$_activeNavOnClick(index)">
 
-                            {{ infos.name }}
+                        {{ infos.name }}
 
-                        </li>
-                    </ul>
+                    </li>
+                </ul>
 
-                    <!-- Description section -->
-                    <div class="text-start" v-if="$_isActiveCheck(0)">
+                <!-- Description section -->
+                <div class="text-start" v-if="$_isActiveCheck(0)">
 
-                        <div class="row col-8">
-                            <h4 class="col-12 fw-bold">
-                                Dettagli dell'abitazione
-                            </h4>
+                    <div class="row col-8">
+                        <h4 class="col-12 fw-bold">
+                            Dettagli dell'abitazione
+                        </h4>
 
-                            <div class="row col-12 col-md-5">
-                                <div class="col-6 fw-bold">
-                                    Numero bagni: 
-                                </div>
-
-                                <div class="col-6">
-                                    {{ property.bathroom_no }}
-                                </div>
-
-                                <div class="col-6 fw-bold">
-                                    Numero stanze:  
-                                </div>
-
-                                <div class="col-6">
-                                    {{ property.room_no }}
-                                </div>
-
-                            </div> 
-
-                            <div class="row col-12 col-md-5">
-
-                                <div class="col-6 fw-bold">
-                                    Numero letti:  
-                                </div>
-
-                                <div class="col-6">
-                                    {{ property.bed_no }}
-                                </div>
-
-                                <div class="col-6 fw-bold">
-                                    Metri Quadrati: 
-                                </div>
-
-                                <div class="col-6">
-                                    {{ property.square_meters }}
-                                </div>
-
+                        <div class="row col-12 col-md-5">
+                            <div class="col-6 fw-bold">
+                                Numero bagni: 
                             </div>
-                            
-                            <hr class="my-4">
+
+                            <div class="col-6">
+                                {{ property.bathroom_no }}
+                            </div>
+
+                            <div class="col-6 fw-bold">
+                                Numero stanze:  
+                            </div>
+
+                            <div class="col-6">
+                                {{ property.room_no }}
+                            </div>
+
+                        </div> 
+
+                        <div class="row col-12 col-md-5">
+
+                            <div class="col-6 fw-bold">
+                                Numero letti:  
+                            </div>
+
+                            <div class="col-6">
+                                {{ property.bed_no }}
+                            </div>
+
+                            <div class="col-6 fw-bold">
+                                Metri Quadrati: 
+                            </div>
+
+                            <div class="col-6">
+                                {{ property.square_meters }}
+                            </div>
+
+                        </div>
+                        
+                        <hr class="my-4">
 
                             <div class="col-8">
                                 <h4 class="fw-bold">
@@ -108,27 +121,25 @@
                     </div>
 
                 </div>
-            </nav>
+        </nav>
 
 
-            <div class="col-3">
-                <h5 class="ms-2">Servizi:</h5>
-                <ul class="mt-1 list-group list-group-flush">
-                    <li class="list-group-item" v-for="service in property.services" :key="service.id">{{ service.name
-                    }}</li>
-                </ul>
-            </div>
-            <div class="row mt-4 justify-content-center">
-                <h4 class="d-flex justify-content-center">Caratteristiche:</h4>
-                <div class="col-3 my-4 text-center"><img src="https://www.svgrepo.com/show/17785/bed.svg" alt=""
-                        class="icon me-3"><span> Posti letto: {{ property.bed_no}}</span></div>
-                <div class="col-3 my-4 text-center"><img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt=""
-                        class="icon me-3"><span>Bagni: {{ property.bathroom_no }}</span></div>
-                <div class="col-3 my-4 text-center"><img src="https://www.svgrepo.com/show/48874/ruler.svg" alt=""
-                        class="icon me-3"><span>Metri quadri: {{ property.square_meters }}</span></div>
+        <div class="row py-5">
+            <hr class="col-8 my-4">
+
+            <div class="col-8">
+                <h4>
+                    Informazioni sul proprietario:
+                </h4>
+                <h5>
+                    {{ ownerInfo.name }} {{ ownerInfo.surname }} 
+                </h5>
+                <p class="text-secondary">
+                    {{ ownerInfo.email }}
+                </p>
             </div>
         </div>
-
+    
     </div>
 </template>
 
@@ -144,10 +155,10 @@ export default {
   data: function () {
     return {
       property: [],
-      user: "",
       show: false,
       isActive: false,
       currentActive: 0,
+      ownerInfo: '',
 
       propertyOverviewNav: [
         {
@@ -165,7 +176,6 @@ export default {
       ],
     };
   },
-
   methods: {
     $_activeNavOnClick(index) {
       this.propertyOverviewNav.forEach((item) => {
@@ -187,9 +197,8 @@ export default {
         .get("/api/apartments/" + this.id)
         .then((response) => {
           this.property = response.data.results.data;
+          this.ownerInfo = this.property.user;
           console.log(response.data.results.data);
-          this.user =
-            this.property.user.surname + " " + this.property.user.name;
         })
         .catch((error) => console.error(error.message));
     },
@@ -202,33 +211,37 @@ export default {
 
 <style lang="scss" scoped>
 #propertyOverview {
-  #propertyNav {
-    margin: 3rem 0;
-    ul {
-      list-style: none;
 
-      li {
-        text-align: center;
+    ul.icons-field{
+        margin-left: .5rem;
+        list-style: none;
         display: inline-block;
-      }
+
+        li{
+            font-size: 1.2rem;
+            display: inline-block;
+            img{
+                width: 2rem;
+                filter: opacity(50%);
+            }
+            span{
+                margin: 0 .8rem;
+            }
+        }
+
+        #propertyNav {
+            margin: 3rem 0;
+            ul {
+            list-style: none;
+
+                li {
+                    text-align: center;
+                    display: inline-block;
+                }
+            }
+        }
     }
-  }
+ 
 }
 
-div.img-container {
-  width: 100%;
-  max-height: 40vh;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.icon {
-  width: 1.5rem;
-  filter: opacity(50%);
-}
 </style>

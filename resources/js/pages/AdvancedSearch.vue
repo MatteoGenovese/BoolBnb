@@ -1,25 +1,13 @@
 <template>
     <div class="container">
         <h1>Ricerca avanzata</h1>
-        <SearchBar @sentDataFromDownLevel="$_getLatAndLon"
-        />
+        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
+
         <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
-        <div class="row">
-            <router-link
-            class=" apartment-card p-3 col-12 col-md-4 col-lg-4"
-            v-for="(apartment, index) in apartments"
-            :key="index"
-            :to="{ name: 'SingleHome', params: { id: apartment.id } }">
-                <PostCard
-                :apartment="apartment"
-            />
-            </router-link>
+
+        <div class="row py-5">
+            <PostCard v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
         </div>
-
-
-        <!-- <div class="row mt-5">
-            <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
-        </div> -->
 
     </div>
 </template>
@@ -69,23 +57,14 @@ export default {
     methods:{
         $_passLocation(){
 
-            console.log(this.$route.params.addressSelected)
+            if(typeof(this.$route.params.addressSelected) != "undefined") {
+                this.lat = this.addressSelected.position.lat;
+                this.lon = this.addressSelected.position.lon;
+            }
 
-        if(typeof(this.$route.params.addressSelected) != "undefined") {
-            this.lat = this.addressSelected.position.lat;
-            this.lon = this.addressSelected.position.lon;}
-            // this.lat = 41.892631654408675;
-            // this.lon = 12.4920935864514;
-        // } else {
-        // }
-        // if(this.lat != 0 && this.lon != 0)
-        console.log(this.lat, this.lon)
-
-        this.$_getApartment({})
-
-
-
+            this.$_getApartment({})
         },
+
         $_getLatAndLon(params){
 
             let { lat, lon } = params.position;
@@ -97,17 +76,13 @@ export default {
 
         $_getApartment(params){
 
-            console.log(params.bedNo, 'letti')
-
             axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , { params: {
                 range: params.range,
                 bedNo: params.bedNo,
                 roomNo: params.roomNo,
                 services: params.services,
-            }
-            }
-            )
-            .then((response)=>{
+            }}
+            ).then((response)=>{
                 console.warn(response.data.results)
                 this.apartments = response.data.results;
             })
@@ -130,15 +105,5 @@ export default {
 
 <style lang="scss">
 
-.apartment-card {
-    transition: all .3s;
-    text-decoration: none;
-    color: black;
-    &:hover {
-        transform: scale(1.1);
-    }
-    &:active {
-        transform:scale(.95);
-    }
-}
+
 </style>

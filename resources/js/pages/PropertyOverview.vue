@@ -47,7 +47,7 @@
                 </ul>
 
                 <!-- Description section -->
-                <div class="text-start" v-if="$_isActiveCheck(0)">
+                <div class="text-start" v-show="$_isActiveCheck(0)">
 
                     <div class="row col-8">
                         <h4 class="col-12 fw-bold">
@@ -106,7 +106,7 @@
                     </div>
 
                     <!-- Services section -->
-                    <div class="text-start" v-if="$_isActiveCheck(1)">
+                    <div class="text-start" v-show="$_isActiveCheck(1)">
                         <h4 class="fw-bold">
                             I servizi inclusi nell'abitazione:
                         </h4>
@@ -116,7 +116,7 @@
                     </div>
 
                     <!-- Map section -->
-                    <div class="text-start" v-if="$_isActiveCheck(2)">
+                    <div class="text-start" v-show="$_isActiveCheck(2)">
                         {{ property.title }}
                     </div>
 
@@ -192,7 +192,7 @@ export default {
       }
       return false;
     },
-    getPropertyData() {
+    $_getPropertyData() {
       axios
         .get("/api/apartments/" + this.id)
         .then((response) => {
@@ -204,7 +204,7 @@ export default {
     },
   },
   created() {
-    this.getPropertyData();
+    this.$_getPropertyData();
   },
 };
 </script>

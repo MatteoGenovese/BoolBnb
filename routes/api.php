@@ -24,4 +24,5 @@ Route:: namespace('api')->group(function(){
     Route::get("/apartments/search/{latitude}&{longitude}", "ApartmentController@filteredIndex");
     Route::get('/apartments/{id}', 'ApartmentController@show');
     Route::get("/services", "ServiceController@index");
+    Route::post("/messages", "MessageController@store");
 });

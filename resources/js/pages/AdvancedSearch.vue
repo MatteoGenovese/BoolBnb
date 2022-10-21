@@ -1,28 +1,26 @@
 <template>
     <div class="container">
         <h1>Ricerca avanzata</h1>
-        <FiltersComponent @sendFilters="$_getApartment" />
-
         <SearchBar @sentDataFromDownLevel="$_getLatAndLon"
         />
+        <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
+        <div class="row">
+            <router-link
+            class=" apartment-card p-3 col-12 col-md-4 col-lg-4"
+            v-for="(apartment, index) in apartments"
+            :key="index"
+            :to="{ name: 'SingleHome', params: { id: apartment.id } }">
+                <PostCard
+                :apartment="apartment"
+            />
+            </router-link>
+        </div>
+
 
         <!-- <div class="row mt-5">
             <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
         </div> -->
 
-        <div class="row mt-5">
-
-        <router-link
-        class=" apartment-card p-3 col-12 col-md-4 col-lg-4"
-        v-for="(apartment, index) in apartments"
-        :key="index"
-        :to="{ name: 'SingleHome', params: { id: apartment.id } }">
-            <PostCard
-            :apartment="apartment"
-        />
-        </router-link>
-
-</div>
     </div>
 </template>
 

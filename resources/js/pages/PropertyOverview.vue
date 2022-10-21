@@ -6,7 +6,7 @@
                     :alt="property.title + ' cover Photo'">
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-5">
             <div class="property-details col-9">
                 <h2>
                     {{ property.title }}
@@ -14,22 +14,24 @@
                 <h6 class="ps-3">
                     di {{ user }}
                 </h6>
-                <p>
+                <p class="mt-4">
                     {{ property.description }}
                 </p>
             </div>
             <div class="col-3">
+                <h5 class="ms-2">Servizi:</h5>
                 <ul class="mt-1 list-group list-group-flush">
                     <li class="list-group-item" v-for="service in property.services" :key="service.id">{{ service.name
                     }}</li>
                 </ul>
             </div>
-            <div class="row mt-3">
-                <div class="col-3 text-center"><img src="https://www.svgrepo.com/show/17785/bed.svg" alt=""
+            <div class="row mt-4 justify-content-center">
+                <h4 class="d-flex justify-content-center">Caratteristiche:</h4>
+                <div class="col-3 my-4 text-center"><img src="https://www.svgrepo.com/show/17785/bed.svg" alt=""
                         class="icon me-3"><span> Posti letto: {{ property.bed_no}}</span></div>
-                <div class="col-3 text-center"><img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt=""
+                <div class="col-3 my-4 text-center"><img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt=""
                         class="icon me-3"><span>Bagni: {{ property.bathroom_no }}</span></div>
-                <div class="col-3 text-center"><img src="https://www.svgrepo.com/show/48874/ruler.svg" alt=""
+                <div class="col-3 my-4 text-center"><img src="https://www.svgrepo.com/show/48874/ruler.svg" alt=""
                         class="icon me-3"><span>Metri quadri: {{ property.square_meters }}</span></div>
             </div>
         </div>

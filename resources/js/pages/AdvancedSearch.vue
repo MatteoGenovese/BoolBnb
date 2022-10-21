@@ -132,4 +132,15 @@ export default {
 
 <style lang="scss">
 
+.apartment-card {
+    transition: all .3s;
+    text-decoration: none;
+    color: black;
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        transform:scale(.95);
+    }
+}
 </style>

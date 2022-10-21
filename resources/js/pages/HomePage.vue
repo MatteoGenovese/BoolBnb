@@ -1,8 +1,10 @@
 <template>
-    <section class="container">
+    <section class="container position-relative">
         <Jumbotron />
 
-        <SearchBar/>
+        <div class="search-bar-container">
+            <SearchBar/>
+        </div>
 
 
 
@@ -55,6 +57,14 @@ export default {
 
 <style lang="scss" scoped>
 
+.search-bar-container {
+    position: absolute;
+    width: 60%;
+    top: 15rem;
+    left: 0;
+    z-index: 10;
+}
+
 .apartment-card {
     transition: all .3s;
     text-decoration: none;
@@ -66,4 +76,6 @@ export default {
         transform:scale(.95);
     }
 }
+
+
 </style>

@@ -23,7 +23,8 @@
             </ul>
 
 
-            <button @click="$_searchRedirect()">
+            
+            <button @click="$_searchRedirect()" class="btn brand-btn-1">
                 Search
             </button>
 
@@ -128,14 +129,17 @@ export default {
     height: 450px;
 }
 
+
 .search-bar {
-    width: 100%;
-    max-width: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    padding: 10px 20px;
+  width: 100%;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.2),;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: 1px solid grey;
 }
 
 .search-bar input {
@@ -146,6 +150,27 @@ export default {
     padding: 10px 5px;
     font-size: 20px;
 }
+
+
+// .search-bar {
+//     width: 100%;
+//     max-width: 100%;
+//     background: rgba(255, 255, 255, 0.2);
+//     display: flex;
+//     border: 2px solid grey;
+//     align-items: center;
+//     border-radius: 8px;
+//     padding: 10px 20px;
+// }
+
+// .search-bar input {
+//     backdrop-filter: blur(10px);
+//     flex: 1;
+//     border: 0;
+//     outline: none;
+//     padding: 10px 5px;
+//     font-size: 20px;
+// }
 
 .z-index {
     z-index: 3;

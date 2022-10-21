@@ -1,6 +1,6 @@
 <template>
 
-    <div class="brand-ft-1 p-3 col-10 offset-1 offset-md-0 col-md-6 col-lg-4 col-xl-3" @click="$_goToClickedApartment(apartment.id)">
+    <div class="brand-ft-1 p-3 col-6 col-lg-4 col-xl-3" @click="$_goToClickedApartment(apartment.id)">
         <div class="apartment-card-hover p-2">
             <div class="imagecontainer">
                 <img v-for="(photo, index) in apartment.photos" :key="index" :src="'/storage/' + photo.file_name" class="image"/>
@@ -66,7 +66,7 @@ export default {
         width: 100%;
         margin: auto;
         height: 150px;
-        
+
         .image{
             border-radius: .5rem;
             width: 100%;

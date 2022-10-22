@@ -114,11 +114,30 @@
                 </div>
 
                 <!-- Map section -->
-                <div class="text-start" v-show="$_isActiveCheck(2)">
-                    {{ property.title }}
+                <div id="mapSection" class="row col-8" v-show="$_isActiveCheck(2)">
+                    <div class="col-8 m-auto text-center">
+                        Zoom:
+                    </div>
+                   <div class="col-8 m-auto d-flex justify-content-center mb-3 gap-5">
+                     <button class="btn brand-btn-outline-1 rounded-pill" @click="$_mapZoomIn()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                    </button>
+
+                    <button class="btn brand-btn-outline-1 rounded-pill" @click="$_mapZoomOut()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                        </svg>
+
+                    </button>
+                   </div>
+                    <div class="col-12">
+                        <img :src="propertyLocationImg" :alt="'mappa di ' + property.title">
+                    </div> 
                 </div>
 
-                </div>
+            </div>
         </nav>
 
 
@@ -175,6 +194,11 @@ export default {
       isActive: false,
       currentActive: 0,
       ownerInfo: '',
+      apiKey: 'idKostWqefAIHb9WKcGcOklsshiC2KtN',
+      propertyLocationImg: '',
+      lat: '',
+      lon: '',
+      mapZoomIndex: 16,
 
       propertyOverviewNav: [
         {
@@ -193,6 +217,55 @@ export default {
     };
   },
   methods: {
+    $_mapZoomIn(){
+        if(this.mapZoomIndex !== 20){
+            this.mapZoomIndex = this.mapZoomIndex + 1;
+            this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
+        }
+    },
+    $_mapZoomOut(){
+        if(this.mapZoomIndex !== 10){
+            this.mapZoomIndex = this.mapZoomIndex - 1;
+            this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
+        }
+    },
+
+    /**
+     * Return a converted string corresponding to the tile's 
+     * position on the TomTom API grid for that zoom level.
+     * 
+     * @param Float lat
+     * @param Float lon
+     * @param Int zoomLevel =  default 16
+     * 
+     * @return String z/x/y
+     */
+    $_coordinatesConverter(lat, lon, zoomLevel = 16){
+
+        let z = Math.trunc(zoomLevel)
+        let xyTilesCount = Math.pow(2, z);
+        let x = Math.trunc(Math.floor((lon + 180.0) / 360.0 * xyTilesCount))
+        let y = Math.trunc(Math.floor((1.0 - Math.log(Math.tan(lat * Math.PI / 180.0) + 1.0 / Math.cos(lat * Math.PI / 180.0)) / Math.PI) / 2.0 * xyTilesCount))
+
+        return z.toString() + "/" + x.toString() + "/" + y.toString();
+    },
+
+    $_getTomTomPrintedMap(parsedQuery){
+        axios.get('https://api.tomtom.com/map/1/tile/basic/main/'+ parsedQuery +'.png?', {params: {
+            tileSize: 512,
+            view: 'Unified',
+            language: 'IT',
+            key: this.apiKey
+        }})
+        .then((response) =>{
+            console.log(response)
+            this.propertyLocationImg = response.request.responseURL;
+        })
+        .catch((error)=>{
+            console.error(error)
+        })
+    },
+
     $_activeNavOnClick(index) {
       this.propertyOverviewNav.forEach((item) => {
         item.isActive = false;
@@ -212,15 +285,20 @@ export default {
       axios
         .get("/api/apartments/" + this.id)
         .then((response) => {
-          this.property = response.data.results.data;
-          this.ownerInfo = this.property.user;
-          console.log(response.data.results.data);
+            this.property = response.data.results.data;
+            this.ownerInfo = this.property.user;
+            console.log(response.data.results.data);
+            this.lat = response.data.results.data.latitude;
+            this.lon = response.data.results.data.longitude;
+        
+            this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
         })
         .catch((error) => console.error(error.message));
     },
   },
   created() {
     this.$_getPropertyData();
+    
   },
 };
 </script>
@@ -275,6 +353,17 @@ export default {
                 }
             }
         }
+    }
+
+    #mapSection{
+        img{
+            display: block;
+            margin: 0 auto;
+            @media screen and (max-width: 550px){
+                max-width: 350px;
+            }
+        }
+
     }
  
 }

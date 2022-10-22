@@ -22,10 +22,7 @@
         <div class="row py-5" v-else>
             <PostCard v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
         </div>
-
-     
-
-
+        
     </div>
 </template>
 

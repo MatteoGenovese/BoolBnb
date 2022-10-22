@@ -18,7 +18,8 @@
       <div class="collapse navbar-collapse d-lg-flex justify-content-lg-between" id="navbarNavDropdown">
 
         <ul class="navbar-nav">
-          <li class="nav-item" v-for="(link, index) in navLinks" :key="index">
+          <li class="nav-item position-relative" :class="{ 'current-page' : link.isCurrentPage }"
+           v-for="(link, index) in navLinks" :key="index" @click="$_determineIfCurrentPage(index)">
             <router-link class="nav-link" :to="{ name: link.pathTo }">
               {{ link.name }}
             </router-link>
@@ -53,16 +54,59 @@ export default {
   name: "HeaderComponent",
   data: function () {
     return {
+      currentPage: 0,
       navLinks: [
-        { route: "/", pathTo: "HomePage", name: "Home" },
-        { route: "/ricerca-avanzata", pathTo: "AdvancedSearch", name: "Ricerca" },
+        { route: "/", pathTo: "HomePage", name: "Home", isCurrentPage: true, },
+        { route: "/ricerca-avanzata", pathTo: "AdvancedSearch", name: "Ricerca", isCurrentPage: false, },
       ],
     };
   },
+  methods:{
+    $_determineIfCurrentPage(index){
+
+      console.warn(index, 'ciaone')
+
+      this.navLinks.forEach((link) => {
+        link.isCurrentPage = false;
+      });
+
+      this.currentPage = index;
+      this.navLinks[index].isCurrentPage = true;
+    
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+
+  @import '../../sass/partials/_brandVariables.scss';
+
+  .current-page{
+
+    a{
+      color: $primary;
+    }
+
+    &::after{
+      content: '\0020';
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      transform: translate(0%, -50%);
+      border-bottom: 3px solid $primary;
+
+      @media screen and (max-width: 992px){
+        border-bottom: 0;
+        height: 50%;
+        position: absolute;
+        right: 5px;
+        // transform: translate(10%, -50%);
+        border-left: 3px solid $primary;
+      }
+    }
+
+  }
 
   .navbar-brand{
     width: 4rem;

@@ -6,8 +6,18 @@
         <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
 
 
-        <div class="row py-5" v-if="areCardLoaded === true">
-            <PostCardLoader v-for="index in 6" :key="index"/>
+        <div v-if="apartments === ''">
+            <h5>
+                Comincia la tua ricerca!
+            </h5>
+        </div>
+        <div v-else-if="apartments === undefined || noApartmentFound === true">
+            <h5>
+                Nessun risultato.
+            </h5>
+        </div>
+        <div class="row py-5" v-else-if="areCardLoaded === true">
+            <PostCardLoader v-for="index in 4" :key="index"/>
         </div>
         <div class="row py-5" v-else>
             <PostCard v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
@@ -53,7 +63,7 @@ export default {
         return{
             lat: 0,
             lon: 0,
-            apartments: [],
+            apartments: '',
             isFilterPanelVisible: false,
             bedNo: 0,
             roomNo: 0,
@@ -61,6 +71,7 @@ export default {
             squareMeters: 0,
             searchRange: 20,
             services: [],
+            noApartmentFound: false,
             areCardLoaded: null,
         }
     },
@@ -93,14 +104,16 @@ export default {
                 services: params.services,
             }}
             ).then((response)=>{
-                console.warn(response.data.results)
+                console.warn(response.data.results, 'results')
                 this.apartments = response.data.results;
 
-                console.warn(this.areCardLoaded, 'before')
+                if(response.data.results.length === 0){
+                    this.noApartmentFound = true;
+                }else{
+                    this.noApartmentFound = false;
+                }
 
                 this.areCardLoaded = false;
-
-                console.warn(this.areCardLoaded, 'after')
             })
         },
         getFilterParams(params) {

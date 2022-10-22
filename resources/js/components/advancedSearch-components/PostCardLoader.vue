@@ -1,5 +1,5 @@
 <template>
-    <div class="col-3">
+    <div class="col-6 col-lg-4 col-xl-3">
         <div class="card m-3" aria-hidden="true">
             <img src="" class="card-img-top" alt="">
             <div class="card-body">

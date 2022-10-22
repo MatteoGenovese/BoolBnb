@@ -33,11 +33,14 @@
             </div>
         </div>
 
+        <!-- Central body  -->
         <div class="row">
+
+            <!-- Left side -->
             <div class="col-12 col-lg-8">
                 <nav id="propertyNav" class="col-12 my-5">
                     
-                        <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1">
+                        <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1 d-flex justify-content-around justify-content-lg-start">
                             <li class="col-3 p-0 p-sm-2 py-2 rounded mx-1 btn brand-btn-outline-1" 
                                 v-for="(infos, index) in propertyOverviewNav" :key="index"
                                 :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
@@ -176,8 +179,36 @@
                     </div>
                 </div>
             </div>
-            <div id="contactForm" class="col-4">
-               Form di contatto
+
+            <!-- Contact form Right side -->
+            <div id="contactForm" class="col-12 col-lg-4">
+               <form action="" class="p-4">
+
+                    <div class="p-3">
+                        <h5>
+                            Contattami per ulteriori Informazioni
+                        </h5>
+      
+
+                        <label for="username" class="form-label">Nome</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="username" placeholder="Inserisci nome e cognome...">
+                        </div>
+
+                        <label for="email" class="form-label">Email*</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="email" placeholder="Inserisci la tua email...">
+                        </div>
+
+                        <label for="message" class="form-label">Messaggio*</label>
+                        <div class="input-group">
+                            <textarea class="form-control" rows="3" id="message" aria-label="With textarea" placeholder="Salve, vorrei più informazioni riguardo..."></textarea>
+                        </div>
+                       
+                        
+                    </div>
+
+               </form>
             </div>
         </div>
 
@@ -265,7 +296,6 @@ export default {
             key: this.apiKey
         }})
         .then((response) =>{
-            console.log(response)
             this.propertyLocationImg = response.request.responseURL;
         })
         .catch((error)=>{
@@ -370,7 +400,19 @@ export default {
                 max-width: 350px;
             }
         }
+    }
 
+    #contactForm{
+
+        form{
+            position: sticky;
+            border: 1px solid rgba(gray, .3);
+            top: 20px;
+            border-radius: 5px;
+            box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+            -webkit-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+            -moz-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+        }
     }
  
 }

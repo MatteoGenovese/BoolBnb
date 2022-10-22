@@ -36,9 +36,9 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        // $message = new Message();
-        
+        $newMessage = new Message();
+        $newMessage->fill($request->all());
+        $newMessage->save();
     }
 
     /**

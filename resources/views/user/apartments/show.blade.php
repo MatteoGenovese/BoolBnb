@@ -97,11 +97,19 @@
                         </div>
 
                         <div class="d-flex justify-content-end gap-3">
+
                             <a href="{{ route("user.apartments.edit", $apartment->id) }}" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                 </svg>
                             </a>
+                            
+                            <a href="{{ route("user.apartments.messageIndex", $apartment->id) }}" class="btn btn-warning">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                </svg>
+                            </a>
+
                             <form id="showDeleteForm" action="{{ route('user.apartments.destroy', $apartment->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -118,54 +126,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    {{-- @if (is_null($apartment->user->id) || $apartment->user->id != Auth::user()->id)
-            
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-7">
-                    <h4>Contatta l'host</h4>
-                    <form action="" class="d-flex flex-column">
-                        <label for="user-name-contact">Nome</label>
-                        <input type="text" name="user_name" id="user-name-contact" class="w-75" required>
-                        
-                        <label for="user-email-contact">E-mail</label>
-                        <input type="email" name="user_email" id="user-email-contact" class="w-75" required>
-
-                        <label for="message-contact">Messaggio</label>
-                        <textarea name="message" id="message-contact" cols="30" rows="10" required></textarea>
-
-                        <a class="btn-success btn w-25 mt-3 m-auto" type="submit">Contatta l'host</a>
-                    </form>
-                </div>
-                <div class="col-4 ms-3">
-                    <h5>Riguardo l'host</h5>
-                    <h3>{{ $apartment->user->surname . " " . $apartment->user->name }}</h3>
-                    <h3>Prenotazioni: {{ $apartment->messages->count() }}</h3>
-                    @if ($apartment->user->apartments->count() > 1)
-                        <h3>Altri appartamenti dell'host</h3>
-                        <ul>
-                            @forelse ($apartment->user->apartments->take(3) as $result)
-                                <li class="d-flex align-items-center">
-                                    @forelse ($result->photos as $photo)
-                                        <img src="{{ asset('storage/'. $photo->file_name) }}" class="mt-5 w-25" alt="Preview appartamento">
-                                    @empty
-                                        <img src="{{ asset('storage/seededphoto/placeholder-home.png') }}" class="mt-5 w-25" alt="Preview appartamento">
-                                    @endforelse
-                                    <a href="{{ route('user.apartments.show', $result->id) }}" class="ms-3">{{ $result->title }}</a>
-                                </li>
-                            @empty
-                            
-                            @endforelse
-                        </ul>
-                        
-                    @endif
-                </div>
-            </div>
-        </div>
-    @endif --}}
-    
+    </div>    
     
 @endsection
 

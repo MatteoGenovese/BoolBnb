@@ -33,147 +33,154 @@
             </div>
         </div>
 
-        <nav id="propertyNav">
-            <div class="container-fluid my-5">
-                <ul id="detailsNavBar" class="row col-12 col-md-8 p-0 mb-5 p-1 rounded-1">
-                    <li class="col-3 col-md-3 py-2 rounded mx-1 btn brand-btn-outline-1" 
-                        v-for="(infos, index) in propertyOverviewNav" :key="index"
-                        :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
-                        @click="$_activeNavOnClick(index)">
-
-                        {{ infos.name }}
-
-                    </li>
-                </ul>
-
-                <!-- Description section -->
-                <div class="row text-start col-12 col-md-8" v-show="$_isActiveCheck(0)">
-                    <h4 class="col-12 fw-bold">
-                        Dettagli dell'abitazione
-                    </h4>
-
-                    <div class="row col-12 col-md-5">
-                        <div class="col-6 fw-bold">
-                            Numero bagni: 
-                        </div>
-
-                        <div class="col-6">
-                            {{ property.bathroom_no }}
-                        </div>
-
-                        <div class="col-6 fw-bold">
-                            Numero stanze:  
-                        </div>
-
-                        <div class="col-6">
-                            {{ property.room_no }}
-                        </div>
-
-                    </div> 
-
-                    <div class="row col-12 col-md-5">
-
-                        <div class="col-6 fw-bold">
-                            Numero letti:  
-                        </div>
-
-                        <div class="col-6">
-                            {{ property.bed_no }}
-                        </div>
-
-                        <div class="col-6 fw-bold">
-                            Metri Quadrati: 
-                        </div>
-
-                        <div class="col-6">
-                            {{ property.square_meters }}
-                        </div>
-
-                    </div>
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <nav id="propertyNav" class="col-12 my-5">
                     
-                    <hr class="my-4">
+                        <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1">
+                            <li class="col-3 p-0 p-sm-2 py-2 rounded mx-1 btn brand-btn-outline-1" 
+                                v-for="(infos, index) in propertyOverviewNav" :key="index"
+                                :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
+                                @click="$_activeNavOnClick(index)">
 
-                        <div class="col-8">
-                            <h4 class="fw-bold">
-                                Descrizione
+                                {{ infos.name }}
+
+                            </li>
+                        </ul>
+
+                        <!-- Description section -->
+                        <div class="row text-start" v-show="$_isActiveCheck(0)">
+                            <h4 class="col-12 fw-bold">
+                                Dettagli dell'abitazione
                             </h4>
-                            {{ property.description }}
+
+                            <div class="row col-12 col-md-5">
+                                <div class="col-6 fw-bold">
+                                    Numero bagni: 
+                                </div>
+
+                                <div class="col-6">
+                                    {{ property.bathroom_no }}
+                                </div>
+
+                                <div class="col-6 fw-bold">
+                                    Numero stanze:  
+                                </div>
+
+                                <div class="col-6">
+                                    {{ property.room_no }}
+                                </div>
+
+                            </div> 
+
+                            <div class="row col-12 col-md-5">
+
+                                <div class="col-6 fw-bold">
+                                    Numero letti:  
+                                </div>
+
+                                <div class="col-6">
+                                    {{ property.bed_no }}
+                                </div>
+
+                                <div class="col-6 fw-bold">
+                                    Metri Quadrati: 
+                                </div>
+
+                                <div class="col-6">
+                                    {{ property.square_meters }}
+                                </div>
+
+                                </div>
+                            
+                                <hr class="my-4 col-8">
+
+                                <div class="col-12">
+                                    <h4 class="fw-bold">
+                                        Descrizione
+                                    </h4>
+                                    {{ property.description }}
+                                </div>
+                            </div>
+
+                    
+
+                        <!-- Services section -->
+                        <div class="row col-md-5 text-start" v-show="$_isActiveCheck(1)">
+                            <h4 class="col-12 fw-bold">
+                                I servizi inclusi nell'abitazione:
+                            </h4>
+                            <div class="col-6" v-for="service in property.services" :key="service.id">
+                                {{ service.name }}
+                            </div>
                         </div>
-                    </div>
 
-               
+                        <!-- Map section -->
+                        <div id="mapSection" class="row" v-show="$_isActiveCheck(2)">
+                            <div class="col-8 m-auto text-center">
+                                Zoom:
+                            </div>
 
-                <!-- Services section -->
-                <div class="row col-12 col-md-5 text-start" v-show="$_isActiveCheck(1)">
-                    <h4 class="col-12 fw-bold">
-                        I servizi inclusi nell'abitazione:
-                    </h4>
-                    <div class="col-6" v-for="service in property.services" :key="service.id">
-                        {{ service.name }}
+                            <div class="col-8 m-auto d-flex justify-content-center mb-3 gap-5">
+                                <button class="btn brand-btn-outline-1 rounded-pill" @click="$_mapZoomIn()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </button>
+
+                                <button class="btn brand-btn-outline-1 rounded-pill" @click="$_mapZoomOut()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                                    </svg>
+
+                                </button>
+                            </div>
+
+                            <div class="col-12">
+                                <img :src="propertyLocationImg" :alt="'mappa di ' + property.title">
+                            </div> 
+                        </div>
+
+
+                    
+                </nav>
+                <div class="row py-5">
+                        <hr class="my-4">
+                    
+                    <div class="col-12 col-md-8">
+
+                        <h4>
+                            Informazioni sul proprietario:
+                        </h4>
+                        <h5>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
+                                </svg>
+                            </span>
+                            <span>
+                                {{ ownerInfo.name }} {{ ownerInfo.surname }} 
+                            </span>
+                        </h5>
+                        <p class="text-secondary">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                </svg>
+                            </span>
+                            <span>
+                                {{ ownerInfo.email }}
+                            </span>
+                        </p>
                     </div>
                 </div>
-
-                <!-- Map section -->
-                <div id="mapSection" class="row col-8" v-show="$_isActiveCheck(2)">
-                    <div class="col-8 m-auto text-center">
-                        Zoom:
-                    </div>
-                   <div class="col-8 m-auto d-flex justify-content-center mb-3 gap-5">
-                     <button class="btn brand-btn-outline-1 rounded-pill" @click="$_mapZoomIn()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                        </svg>
-                    </button>
-
-                    <button class="btn brand-btn-outline-1 rounded-pill" @click="$_mapZoomOut()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
-                        </svg>
-
-                    </button>
-                   </div>
-                    <div class="col-12">
-                        <img :src="propertyLocationImg" :alt="'mappa di ' + property.title">
-                    </div> 
-                </div>
-
             </div>
-        </nav>
-
-
-        <div class="container-fluid">
-            <div class="row py-5">
-                <hr class="col-12 col-md-8 my-4">
-
-                <div class="col-12 col-md-8">
-
-                    <h4>
-                        Informazioni sul proprietario:
-                    </h4>
-                    <h5>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
-                            </svg>
-                        </span>
-                        <span>
-                            {{ ownerInfo.name }} {{ ownerInfo.surname }} 
-                        </span>
-                    </h5>
-                    <p class="text-secondary">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-                            </svg>
-                        </span>
-                        <span>
-                            {{ ownerInfo.email }}
-                        </span>
-                    </p>
-                </div>
+            <div id="contactForm" class="col-4">
+               Form di contatto
             </div>
         </div>
+
     
     </div>
 </template>

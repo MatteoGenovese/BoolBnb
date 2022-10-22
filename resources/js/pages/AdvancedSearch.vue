@@ -1,13 +1,20 @@
 <template>
-    <div class="container">
+    <div id="advancedSearch" class="container">
         <h1>Ricerca avanzata</h1>
         <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
 
         <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
 
-        <div class="row py-5">
+
+        <div class="row py-5" v-if="areCardLoaded === true">
+            <PostCardLoader v-for="index in 6" :key="index"/>
+        </div>
+        <div class="row py-5" v-else>
             <PostCard v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
         </div>
+
+     
+
 
     </div>
 </template>
@@ -18,7 +25,8 @@ import axios from 'axios';
 
 
 import SearchBar from '../components/Home-Components/SearchBar.vue';
-import PostCard from '../components/Home-Components/PostCard.vue';
+import PostCard from '../components/advancedSearch-components/PostCard.vue';
+import PostCardLoader from '../components/advancedSearch-components/PostCardLoader.vue';
 import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
     name: "AdvancedSearch",
@@ -31,13 +39,14 @@ export default {
         FiltersComponent,
         PostCard,
         SearchBar,
+        PostCardLoader,
     },
     watch:{
         lat(oldLat, newLat){
             if(newLat != oldLat){
+                this.areCardLoaded = true;
                 this.$_getApartment({});
             }
-
         }
     },
     data(){
@@ -52,6 +61,7 @@ export default {
             squareMeters: 0,
             searchRange: 20,
             services: [],
+            areCardLoaded: null,
         }
     },
     methods:{
@@ -60,9 +70,9 @@ export default {
             if(typeof(this.$route.params.addressSelected) != "undefined") {
                 this.lat = this.addressSelected.position.lat;
                 this.lon = this.addressSelected.position.lon;
+                this.$_getApartment({})
             }
 
-            this.$_getApartment({})
         },
 
         $_getLatAndLon(params){
@@ -85,6 +95,12 @@ export default {
             ).then((response)=>{
                 console.warn(response.data.results)
                 this.apartments = response.data.results;
+
+                console.warn(this.areCardLoaded, 'before')
+
+                this.areCardLoaded = false;
+
+                console.warn(this.areCardLoaded, 'after')
             })
         },
         getFilterParams(params) {
@@ -103,7 +119,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
+    @import '../../sass/partials/_brandVariables.scss';
+
+    #advancedSearch{
+        font-family: $brandTxtFam-1;
+    }
 
 </style>

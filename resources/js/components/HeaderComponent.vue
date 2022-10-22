@@ -1,5 +1,5 @@
 <template>
-  <nav id="headerNavbar" class="navbar brand-ft-1 navbar-expand-lg bg-transparent">
+  <nav id="headerNavbar" class="navbar brand-ft-1 navbar-expand-lg bg-transparent" tabindex="0">
     <div class="container">
       <router-link class="navbar-brand" :to="{ name: 'HomePage' }">
         <img :src="'/storage/asset/img/logo.jpg'" alt="brand logo">

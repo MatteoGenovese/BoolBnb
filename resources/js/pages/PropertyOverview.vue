@@ -1,6 +1,6 @@
 <template>
     <div id="propertyOverview" class="container mt-5 brand-ft-1">
-        <div class="row">
+        <div class="row" tabindex="1">
             <div class="img-container col-10 m-auto">
                 <img class="rounded img-fluid w-100"
                 v-for="photo in property.photos" :key="photo.id" :src="'/storage/' + photo.file_name"
@@ -37,7 +37,7 @@
         <div class="row">
 
             <!-- Left side -->
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-8" tabindex="2">
                 <nav id="propertyNav" class="col-12 my-5">
                     
                         <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1 d-flex justify-content-around justify-content-lg-start">
@@ -143,12 +143,11 @@
                                 <img :src="propertyLocationImg" :alt="'mappa di ' + property.title">
                             </div> 
                         </div>
-
-
-                    
                 </nav>
-                <div class="row py-5">
-                        <hr class="my-4">
+
+                <!-- Owner info -->
+                <div class="row py-5" tabindex="3">
+                    <hr class="my-4">
                     
                     <div class="col-12 col-md-8">
 
@@ -181,7 +180,7 @@
             </div>
 
             <!-- Contact form Right side -->
-            <div id="contactForm" class="col-12 col-lg-4">
+            <div id="contactForm" class="col-12 col-lg-4" tabindex="4">
                <form action="" class="p-4">
 
                     <div class="p-3">
@@ -345,10 +344,6 @@ export default {
 @import '../../sass/partials/_brandVariables';
 @import '../../sass/partials/_classes';
 
-*::selection{
-    background-color: rgba($secondaryLight, .3);
-    color: $primary;
-}
 #propertyOverview {
 
     ul#detailsNavBar{

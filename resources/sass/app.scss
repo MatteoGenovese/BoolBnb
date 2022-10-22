@@ -14,3 +14,9 @@
 @import './partials/classes';
 @import './partials/mixins';
 @import './partials/utilities';
+
+
+*::selection{
+    background-color: rgba($secondaryLight, .3);
+    color: $primary;
+}

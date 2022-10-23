@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-5">
-        <div class="row">
+        <!-- <div class="row">
             <div class="img-container col-12">
                 <img v-for="photo in property.photos" :key="photo.id" :src="'/storage/' + photo.file_name"
                     :alt="property.title + ' cover Photo'">
@@ -32,14 +32,26 @@
                 <div class="col-3 text-center"><img src="https://www.svgrepo.com/show/48874/ruler.svg" alt=""
                         class="icon me-3"><span>Metri quadri: {{ property.square_meters }}</span></div>
             </div>
-        </div>
+        </div> -->
+        <h2 class="mt-5">
+            Contatta il proprietario
+        </h2>
+        <ContactForm :apartment="property"/>
 
     </div>
 </template>
 
 <script>
+
 import axios from "axios";
+import ContactForm from "../components/ContactForm.vue"
+
 export default {
+
+    components: {
+        ContactForm
+    },
+
     props: {
         id: {
             type: [String, Number],
@@ -48,7 +60,7 @@ export default {
     },
     data: function () {
         return {
-            property: [],
+            property: {},
             user: "",
         }
     },

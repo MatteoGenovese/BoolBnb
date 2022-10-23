@@ -47,11 +47,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
         Route::post('/apartments/assignSponsorship', 'ApartmentController@assignSponsorship')->name('apartments.assignSponsorship');
 
-            Route::get('/apartments/{id}/goToSponsorship', 'ApartmentController@goToSponsorship')->name('apartments.goToSponsorship');
+        Route::get("/apartments/messages/{id}", "ApartmentController@showMessage")->name("apartments.showMessage");
+        Route::get("/apartments/{id}/messages", "ApartmentController@messagesIndex")->name("apartments.messageIndex");
+
+        Route::get('/apartments/{id}/goToSponsorship', 'ApartmentController@goToSponsorship')->name('apartments.goToSponsorship');
 
 
-            Route::resource('/apartments', 'ApartmentController');
-            Route::resource('/sponsorships', 'SponsorshipController');
+        Route::resource('/apartments', 'ApartmentController');
+        Route::resource('/sponsorships', 'SponsorshipController');
 
 
 

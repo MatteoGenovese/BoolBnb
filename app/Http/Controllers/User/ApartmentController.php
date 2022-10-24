@@ -22,7 +22,7 @@ class ApartmentController extends Controller
         'bathroom_no' => 'required|integer|min:1|max:10',
         'bed_no' => 'required|integer|min:1|max:10',
         'room_no' => 'required|integer|min:1|max:20',
-        'square_meters' => 'required|integer|min:30|max:1000',
+        'square_meters' => 'required|integer|min:10|max:1000',
         'address' => 'required|min:3|max:255',
         'file_name' => 'required|max:5120|mimes:jpeg,jpg,png',
         'services' => 'required|min:1|exists:services,id',
@@ -36,7 +36,7 @@ class ApartmentController extends Controller
         'bathroom_no' => 'required|integer|min:1|max:10',
         'bed_no' => 'required|integer|min:1|max:10',
         'room_no' => 'required|integer|min:1|max:20',
-        'square_meters' => 'required|integer|min:30|max:1000',
+        'square_meters' => 'required|integer|min:10|max:1000',
         'address' => 'required|min:3|max:255',
         'file_name' => 'max:5120|mimes:jpeg,jpg,png',
         'services' => 'required|min:1|exists:services,id',
@@ -68,7 +68,7 @@ class ApartmentController extends Controller
         'room_no.integer' => 'Il numero di stanze può essere espresso solo in numeri interi.',
 
         'square_meters.required' => 'I metri quadrati dell\'abitazione sono richiesti',
-        'square_meters.min' => 'L\'abitazione dovrà essere di almeno 30 metri quadrati.',
+        'square_meters.min' => 'L\'abitazione dovrà essere di almeno 10 metri quadrati.',
         'square_meters.max' => 'L\'abitazione può essere massimo 1000 metri quadrati.',
         'square_meters.integer' => 'I metri quadrati possono essere espressi solo in numeri interi.',
 

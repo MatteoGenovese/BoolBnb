@@ -120,7 +120,7 @@
             <label for="square-meters">Metri quadri *</label>
             <input type="number" class="form-control" id="square-meters"  placeholder="Inserisci il numero di metri quadri dell'abitazione" name="square_meters" value="{{ old('square_meters', $apartment->square_meters) }}">
             <div class="invalid-tooltip mt-1">
-                L'abitazione dovrà avere tra i 30 ed i 1000 metri quadrati.
+                Minimo 10 metri quadri.
             </div>
         </div>
         @error('square_meters')

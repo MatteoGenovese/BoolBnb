@@ -159,7 +159,7 @@
     numberCheck(bathroomNo, 1, 10);
     numberCheck(bedNo, 1, 10);
     numberCheck(roomsNo, 1, 20);
-    numberCheck(squareMeters, 30, 1000);
+    numberCheck(squareMeters, 10, 1000);
 
 formElement.addEventListener('submit', function(submit) {
 

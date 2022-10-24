@@ -9,44 +9,87 @@
                 Ecco alcune delle nostre città preferite
            </p>
         </div>
-    
-        <div class="col-6 cities-card-wrapper">
-            <img :src="'/storage/asset/suggestedCities/rome.jpeg'" class="img-fluid" alt="rome image">
-            <h3 class="city-name">
-                Roma
-            </h3>
+
+        <div v-for="(card, index) in suggestedCities" :key="index" @click="$_redirectToAdvancedSearchWithPosition(index)"
+        :class="card.responsiveClasses">
+            <div class="cities-card-wrapper">
+                <img :src="card.img" :alt="'Foto rappresentativa di ' + card.city">
+                <h3 class="city-name">
+                    {{ card.city }}
+                </h3>
+            </div>
         </div>
-        <div class="col-6 cities-card-wrapper">
-            <img :src="'/storage/asset/suggestedCities/milan.jpg'" class="img-fluid" alt="milan image">
-            <h3 class="city-name">
-                Milano
-            </h3>
-        </div>
-        <div class="col-4 cities-card-wrapper">
-            <img :src="'/storage/asset/suggestedCities/naples.jpg'" class="img-fluid" alt="naples image">
-            <h3 class="city-name">
-                Napoli
-            </h3>
-        </div>
-        <div class="col-4 cities-card-wrapper">
-            <img :src="'/storage/asset/suggestedCities/lecce.jpg'" class="img-fluid" alt="lecce image">
-            <h3 class="city-name">
-                Lecce
-            </h3>
-        </div>
-        <div class="col-4 cities-card-wrapper">
-            <img :src="'/storage/asset/suggestedCities/catania.jpeg'" class="img-fluid" alt="catania image">
-            <h3 class="city-name">
-                Catania
-            </h3>
-        </div>
-       
     </section>
 </template>
 
 <script>
 export default {
     name: 'CitiesSuggestion',
+    data(){
+        return{
+            addressSelected: {},
+            suggestedCities:[
+                {
+                    city: 'roma',
+                    position:{
+                        lat: 41.89056,
+                        lon: 12.49427,
+                    },
+                    img: '/storage/asset/suggestedCities/rome.jpeg',
+                    responsiveClasses: 'col-12 col-lg-6',
+                },
+                {
+                    city: 'milano',
+                    position:{
+                        lat: 45.46362,
+                        lon: 9.18812,
+                    },
+                    img: '/storage/asset/suggestedCities/milan.jpg',
+                    responsiveClasses: 'col-6',
+                },
+                {
+                    city: 'napoli',
+                    position: {
+                        lat: 40.83998,
+                        lon: 14.25254,
+                    },
+                    img: '/storage/asset/suggestedCities/naples.jpg',
+                    responsiveClasses: 'col-6 col-lg-4',
+                },
+                {
+                    city: 'lecce',
+                    position:{
+                        lat: 40.35329,
+                        lon: 18.17401,
+                    },
+                    img: '/storage/asset/suggestedCities/lecce.jpg',
+                    responsiveClasses: 'col-6 col-lg-4',
+                },
+                {
+                    city: 'catania',
+                    position:{
+                        lat: 37.50248,
+                        lon: 15.08783,
+                    },
+                    img: '/storage/asset/suggestedCities/catania.jpeg',
+                    responsiveClasses: 'col-6 col-lg-4',
+                },
+            ],
+        }
+    },
+    methods:{
+        $_redirectToAdvancedSearchWithPosition(index){
+
+            this.addressSelected = this.suggestedCities[index];
+
+            console.warn(this.addressSelected);
+
+             this.$router.push(
+                {
+                    name: 'AdvancedSearch', params : { addressSelected : this.addressSelected }
+                })
+        }
+    }
 }
 </script>
 
@@ -55,17 +98,24 @@ export default {
     #citiesSuggestions{
 
         .cities-card-wrapper{
+            width: 100%;
+            height: 100%;
             position: relative;
+            text-transform: capitalize;
             transition: transform 200ms linear;
+            border-radius: 15px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
 
-             &:hover{
+            &:hover{
                 cursor: pointer;
                 transform: translate(0, -10px);
             }
 
             &:hover::before{
                 content: '\0020';
-                width: calc(100% - 25px);
+                width: 100%;
                 height: 100%;
                 position: absolute;
                 top: 0;
@@ -77,6 +127,7 @@ export default {
         img{
             width: 100%;
             height: 100%;
+            object-fit: cover;
         }
 
         .city-name{

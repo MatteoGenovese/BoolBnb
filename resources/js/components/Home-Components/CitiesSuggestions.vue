@@ -3,7 +3,8 @@
 
         <div class="col-12">
            <h2>
-                Viaggia in città
+                <span class="brand-styled-word-prime">Viaggia</span>
+                 in città
            </h2>
            <p class="text-secondary">
                 Ecco alcune delle nostre città preferite
@@ -95,6 +96,8 @@ export default {
 
 <style lang="scss" scoped>
 
+    @import '../../../sass/partials/_classes.scss';
+    
     #citiesSuggestions{
 
         .cities-card-wrapper{

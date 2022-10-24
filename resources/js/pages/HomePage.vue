@@ -6,7 +6,6 @@
             <SearchBar/>
         </div>
 
-
         <CitiesSuggestions />
 
     </section>
@@ -14,12 +13,6 @@
 
 
 <script>
-
-
-
-
-
-
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
 import SearchBar from '../components/Home-Components/SearchBar.vue';
 import CitiesSuggestions from '../components/Home-Components/CitiesSuggestions.vue';

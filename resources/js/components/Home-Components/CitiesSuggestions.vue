@@ -3,7 +3,7 @@
 
         <div class="col-12">
            <h2>
-                <span class="brand-styled-word-prime">Viaggia</span>
+                <span class="brand-styled-word-prime rounded">Viaggia</span>
                  in città
            </h2>
            <p class="text-secondary">
@@ -28,7 +28,6 @@ export default {
     name: 'CitiesSuggestion',
     data(){
         return{
-            addressSelected: {},
             suggestedCities:[
                 {
                     city: 'roma',
@@ -81,13 +80,11 @@ export default {
     methods:{
         $_redirectToAdvancedSearchWithPosition(index){
 
-            this.addressSelected = this.suggestedCities[index];
-
-            console.warn(this.addressSelected);
+            let addressSelected = this.suggestedCities[index];
 
              this.$router.push(
                 {
-                    name: 'AdvancedSearch', params : { addressSelected : this.addressSelected }
+                    name: 'AdvancedSearch', params : { addressSelected : addressSelected }
                 })
         }
     }
@@ -97,7 +94,7 @@ export default {
 <style lang="scss" scoped>
 
     @import '../../../sass/partials/_classes.scss';
-    
+
     #citiesSuggestions{
 
         .cities-card-wrapper{

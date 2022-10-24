@@ -8,6 +8,7 @@ class Visual extends Model
 {
     protected $fillable = [
         'apartment_id',
+        'date',
         'user_ip',
     ];
     //

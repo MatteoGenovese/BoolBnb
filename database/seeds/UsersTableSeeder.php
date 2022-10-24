@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
                 'password' => 'dslofhisd',
             ],
             [
-                'name' => 'Gianni',
+                'name' => 'Bianca',
                 'surname' => 'Bianchi',
                 'date_of_birth' => '1940/02/10',
                 'email' => 'bian@gmail.com',
@@ -49,7 +49,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'aleros@gmail.com',
                 'password' => 'dslofhisd',
             ],
-            
+
         ];
 
         $devUser = new User();

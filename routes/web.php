@@ -44,14 +44,13 @@ Route::get('/home', 'HomeController@index')->name('home');
     //ragqruppa varie rotte
     ->group(function (){
         // Route::get('/', 'HomeController@index')->name('home');
-        Route::post('/apartments/assignSponsorship', 'ApartmentController@assignSponsorship')->name('apartments.assignSponsorship');
 
         Route::post('/apartments/assignSponsorship', 'ApartmentController@assignSponsorship')->name('apartments.assignSponsorship');
 
         Route::get("/apartments/messages/{id}", "ApartmentController@showMessage")->name("apartments.showMessage");
         Route::get("/apartments/{id}/messages", "ApartmentController@messagesIndex")->name("apartments.messageIndex");
 
-        Route::get('/apartments/{id}/goToSponsorship', 'ApartmentController@goToSponsorship')->name('apartments.goToSponsorship');
+        Route::get('/apartments/{id}/goToSponsorship', 'ApartmentController@goToSponsorshipsPage')->name('apartments.sponsorshipPage');
 
         Route::resource('/data', 'VisualController');
         Route::resource('/apartments', 'ApartmentController');

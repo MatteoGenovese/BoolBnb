@@ -58,6 +58,20 @@ export default {
             position: relative;
             transition: transform 200ms linear;
 
+             &:hover{
+                cursor: pointer;
+                transform: translate(0, -10px);
+            }
+
+            &:hover::before{
+                content: '\0020';
+                width: calc(100% - 25px);
+                height: 100%;
+                position: absolute;
+                top: 0;
+                background: linear-gradient(128deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.05) 20%);
+            }
+
         }
 
         img{

@@ -18,8 +18,8 @@
 @endsection
 
 @section("bottom-scripts")
-
-
-    @include("user.charts.includes.chart-scripts")
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    @include("user.charts.includes.chartScripts")
 @endsection
 

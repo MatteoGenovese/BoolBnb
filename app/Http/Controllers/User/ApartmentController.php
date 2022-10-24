@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
@@ -255,7 +256,7 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function goToSponsorship($id)
+    public function goToSponsorshipsPage($id)
     {
         $apartment = Apartment::findOrFail($id);
         $sponsorships = Sponsorship::all();
@@ -270,29 +271,31 @@ class ApartmentController extends Controller
     public function assignSponsorship(Request $request)
     {
 
-        //La creo
         $sentData = $request->all();
 
-        dd($sentData);
-        // $post = Post::findOrFail($id);
+        $apartment = Apartment::findOrFail($sentData["apartment_id"]);
 
-        // $post->fill($sentData);
-        // $post->save();
+        $sponsorship = Sponsorship::findOrFail($sentData["sponsorship_id"]);
 
-        // $post->tags()->sync($sentData['tags']);
-        // return redirect()->route('admin.posts.index',compact('post'));
-
-
-
-        //cerco dentro la pivot se per l'id di un appartamento ho un expiration date maggiore di oggi
+        if(count($apartment->sponsorships) > 0) {
+            $apartmentLatestSponsorshipExpirationDate = $apartment->sponsorships[count($apartment->sponsorships) - 1]->pivot->expiration_date;
+        } else {
+            $apartmentLatestSponsorshipExpirationDate = now();
+        }
 
 
-        //se esiste aggiungo la duration
+        if($apartmentLatestSponsorshipExpirationDate > now()) {
+            $newExpirationDate = gmdate("Y-m-d H:i:s", strtotime($apartmentLatestSponsorshipExpirationDate . " + " .$sponsorship->duration * 24 . " hours"));
+        } else {
+            $newExpirationDate = gmdate("Y-m-d H:i:s", strtotime(now() . " + " . $sponsorship->duration * 24 . " hours"));
+        };
 
-        //altrimenti expiration date è uguale a now()+ duration
+        $sentData["expiration_date"] = $newExpirationDate;
 
 
-        return view("user.apartments.index");
+        $apartment->sponsorships()->attach($sentData["sponsorship_id"], ["expiration_date" => $sentData["expiration_date"]]);
+        
+        return view("user.apartments.show", compact("apartment"));
 
 
     }

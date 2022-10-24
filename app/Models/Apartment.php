@@ -18,7 +18,6 @@ class Apartment extends Model
         'address',
         'latitude',
         'longitude',
-        // TODO: verificare che latitude e longitude funzionino
         'is_available',
     ];
 
@@ -41,7 +40,7 @@ class Apartment extends Model
     }
 
     public function sponsorships() {
-        return $this->belongsToMany('App\Models\Sponsorship')->withPivot('expiration_date')->withTimestamps();
+        return $this->belongsToMany('App\Models\Sponsorship', "apartment_sponsorship", "apartment_id", "sponsorship_id")->withPivot('expiration_date')->withTimestamps();
     }
 
     public function visuals(){

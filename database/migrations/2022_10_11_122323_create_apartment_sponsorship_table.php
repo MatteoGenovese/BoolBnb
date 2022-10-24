@@ -20,14 +20,13 @@ class CreateApartmentSponsorshipTable extends Migration
 
             $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
 
-
             $table->unsignedBigInteger('sponsorship_id');
 
             $table->foreign('sponsorship_id')->references('id')->on('sponsorships')->onDelete('cascade');
 
             $table->timestamps();
 
-            $table->dateTime('expiration_date');
+            $table->dateTime('expiration_date')->nullable();
 
         });
     }

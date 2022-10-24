@@ -17,7 +17,6 @@ class CreateVisualsTable extends Migration
             $table->id();
 
             $table->ipAddress('user_ip');
-            $table->date('date');
 
             $table->timestamps();
         });

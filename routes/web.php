@@ -45,13 +45,11 @@ Route::get('/home', 'HomeController@index')->name('home');
     ->group(function (){
         // Route::get('/', 'HomeController@index')->name('home');
 
-            Route::post('/apartments/assignSponsorship', 'ApartmentController@assignSponsorship')->name('apartments.assignSponsorship');
+        Route::post('/apartments/assignSponsorship', 'ApartmentController@assignSponsorship')->name('apartments.assignSponsorship');
 
             Route::get('/apartments/{id}/goToSponsorship', 'ApartmentController@goToSponsorship')->name('apartments.goToSponsorship');
 
 
-
-            Route::resource('/data', 'VisualController');
             Route::resource('/apartments', 'ApartmentController');
             Route::resource('/sponsorships', 'SponsorshipController');
 

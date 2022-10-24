@@ -15,8 +15,11 @@
 @import './partials/mixins';
 @import './partials/utilities';
 
+*{
+    font-family: $brandTxtFam-1;
 
-*::selection{
-    background-color: rgba($secondaryLight, .3);
-    color: $primary;
+    &::selection{
+        background-color: rgba($secondaryLight, .3);
+        color: $primary;
+    }
 }

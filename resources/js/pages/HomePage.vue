@@ -7,6 +7,7 @@
         </div>
 
 
+        <CitiesSuggestions />
 
     </section>
 </template>
@@ -21,12 +22,14 @@
 
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
 import SearchBar from '../components/Home-Components/SearchBar.vue';
+import CitiesSuggestions from '../components/Home-Components/CitiesSuggestions.vue';
 
 export default {
     name:"HomePage",
     components:{
     SearchBar,
-    Jumbotron
+    Jumbotron,
+    CitiesSuggestions,
 },
     watch:{
 

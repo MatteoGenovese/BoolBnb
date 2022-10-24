@@ -1,11 +1,11 @@
 <template>
 
-    <div class="brand-ft-1 p-3 col-6 col-lg-4 col-xl-3" @click="$_goToClickedApartment(apartment.id)">
+    <div class="brand-ft-1 p-3 col-12 col-sm-6 col-lg-4 col-xl-3" @click="$_goToClickedApartment(apartment.id)">
         <div class="apartment-card-hover p-2">
             <div class="imagecontainer">
                 <img v-for="(photo, index) in apartment.photos" :key="index" :src="'/storage/' + photo.file_name" class="image"/>
             </div>
-            <div class="postcard-detail d-flex flex-column justify-content-between mt-1 ">
+            <div class="postcard-detail d-flex flex-column justify-content-sm-between mt-1 ">
                 <div>
                     <p class="brand-color-prime">Disponibile</p>
                     <h6 class="text-capitalize">{{ apartment.title.toLowerCase() }}</h6>
@@ -45,7 +45,9 @@ export default {
 @import '../../../sass/partials/_classes';
 
     .postcard-detail{
-        height: 12.5rem;
+        @media screen and (min-width: 576px) {
+            height: 12.5rem;
+        }
     }
 
     .apartment-card-hover {

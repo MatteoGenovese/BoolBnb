@@ -1,24 +1,25 @@
 <template>
-    <div id="jumbotron" class="row position-relative">
-        <div class="col-md-8 col-sm-12 z-index">
-            <div class="mt-5">
-                <h1>Scopri il posto in cui ti piacerà vivere</h1>
-            </div>
+    <div id="jumbotron" class="row my-3 position-relative">
 
+        <div class="title-wrapper col-12 col-lg-6 py-5">
+            <h1 class="w-75">Scopri il posto in cui ti piacerà vivere</h1>
             <p>Cerca tra migliaia di inserzioni</p>
+            <SearchBar/>
         </div>
-        <div class="col-md-6 col-sm-12 position-absolute  end-0">
-            <img class="img-fluid"
-                src="https://www.oknoplast.it/blog/wp-content/uploads/2017/12/Caricatura-del-trasloco-con-il-bambino-che-trasporta-i-pacchi-con-il-triciclo.jpg"
-                alt="jumbo-image" />
+
+        <div class="img-wrapper col-12 col-lg-6">
+            <img :src="'/storage/asset/img/jumbophoto.avif'" alt="" class="img-fluid d-block d-lg-none">
         </div>
     </div>
 </template>
 
 <script>
-import axios from "axios";
+import SearchBar from './SearchBar.vue';
 export default {
     name: "Jumbotron",
+    components:{
+        SearchBar,
+    },
     data: function () {
         return {
         };
@@ -30,38 +31,29 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-#jumbotron {
-    height: 450px;
-}
+    #jumbotron {
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: contain;
 
-.search-bar {
-  width: 100%;
-  max-width: 100%;
-  background: rgba(255, 255, 255, 0.2),;
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  padding: 10px 20px;
-  border: 1px solid grey;
-}
+        .title-wrapper{
+            z-index: 1;
+        }
 
-.search-bar input {
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    padding: 10px 5px;
-    font-size: 20px;
-}
+        .search-bar-container {
+            position: absolute;
+            width: 100%;
+            top: 12rem;
+            left: 3rem;
+            z-index: 2;
+        }
 
-.z-index {
-    z-index: 3;
-}
-
-@media (max-width: 767px) {
-    img {
-        padding-top: 10rem;
+        .img-wrapper{
+            @media screen and (min-width: 992px) {
+                background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+                background-size: cover;
+                background-position: center;
+            }
+        }
     }
-}
 </style>

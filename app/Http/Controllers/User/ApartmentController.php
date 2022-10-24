@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Message;
 use App\Models\Photo;
 use App\Models\Service;
 use App\Models\Sponsorship;
@@ -14,8 +15,6 @@ use Illuminate\Support\Facades\Storage;
 class ApartmentController extends Controller
 {
 
-    // Create validations
-    // FIXME gestire le validazioni dell'address con l'api.
     protected $validationRules = 
     [
         'title' => 'required|min:10|max:100',
@@ -232,6 +231,22 @@ class ApartmentController extends Controller
         $apartment = Apartment::findOrFail($id);
         $apartment->delete();
         return redirect()->route('user.apartments.index')->with('session-change', $apartment->title . ' è stato cancellato.')->with(['session-class' => 'alert-danger']);
+    }
+
+
+    public function messagesIndex($id) {
+
+        $messages = Message::where("apartment_id", $id)->orderBy("created_at", "desc")->get();
+        
+        return view("user.messages.index", compact("messages"));
+
+    }
+
+    public function showMessage($id) {
+
+        $message = Message::findOrFail($id);
+
+        return view("user.messages.show", compact("message"));
     }
 
 

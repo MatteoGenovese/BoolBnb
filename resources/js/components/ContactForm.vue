@@ -29,7 +29,7 @@
                     <h4 class="text-success">Messaggio inviato!</h4>
                 </div>
                 <div class="text-center" v-else>
-                    <button type="submit" class="mt-3 w-25 btn btn-lg brand-btn-1" > {{submitButton}} </button>
+                    <button type="submit" class="mt-3 btn btn-lg brand-btn-1">Invia</button>
                 </div>
             </div>
 
@@ -55,7 +55,6 @@ export default {
             username: "",
             userEmail: "",
             contactMessage: "",
-            submitButton: "Invia",
             isMessageSent: false,
         }
     },
@@ -76,7 +75,6 @@ export default {
                         this.username = "";
                         this.userEmail = "";
                         this.contactMessage = "";
-                        this.submitButton = "Messaggio inviato"
                         this.isMessageSent = true;
                     }
                 )

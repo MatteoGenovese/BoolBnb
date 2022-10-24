@@ -39,9 +39,9 @@
             <!-- Left side -->
             <div class="col-12 col-lg-8" tabindex="2">
                 <nav id="propertyNav" class="col-12 my-5">
-
-                        <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1 d-flex justify-content-around justify-content-lg-start">
-                            <li class="col-3 p-0 p-sm-2 py-2 rounded mx-1 btn brand-btn-outline-1"
+                    
+                        <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1 d-flex justify-content-around">
+                            <li class="col-3 p-0 p-sm-2 py-2 rounded btn brand-btn-outline-1" 
                                 v-for="(infos, index) in propertyOverviewNav" :key="index"
                                 :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
                                 @click="$_activeNavOnClick(index)">
@@ -369,24 +369,10 @@ export default {
             display: block;
             margin: 0 auto;
             @media screen and (max-width: 550px){
-                max-width: 350px;
+                max-width: 300px;
             }
         }
     }
-
-    // #contactForm{
-
-    //     form{
-    //         position: sticky;
-    //         border: 1px solid rgba(gray, .3);
-    //         top: 20px;
-    //         border-radius: 5px;
-    //         box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
-    //         -webkit-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
-    //         -moz-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
-    //     }
-    // }
-
 }
 
 </style>

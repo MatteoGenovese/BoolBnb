@@ -1,37 +1,27 @@
 <template>
-    <div>
+    <div class="search-bar position-relative">
 
-        <div class="search-bar position-relative">
+        <input
+        type="text"
+        placeholder="Inserisci l'indirizzo..."
+        v-model="needle"
+        @keyup="$_sendNeedleAfter500ms()"
+        @keyup.enter="$_getAddressObject(0)" />
 
+        <ul class="list-group position-absolute w-100 top-100 start-0"
+            :class="newLetterWasTyped == true ? 'd-block' : 'd-none'" v-if="addresses.length > 0">
+            <li v-for="(address, index) in addresses" :key="index"
+                @click="$_getAddressObject(index)"
+                class="list-group-item list-group-item-action">
+                {{ address.address.freeformAddress }}
+            </li>
+        </ul>
 
-            <input
-            type="text"
-            placeholder="Inserisci l'indirizzo..."
-            v-model="needle"
-            @keyup="$_sendNeedleAfter500ms()"
-            @keyup.enter="$_getAddressObject(0)" />
-
-
-
-            <ul class="list-group position-absolute w-100 top-100 start-0"
-                :class="newLetterWasTyped == true ? 'd-block' : 'd-none'" v-if="addresses.length > 0">
-                <li v-for="(address, index) in addresses" :key="index"
-                    @click="$_getAddressObject(index)"
-                    class="list-group-item list-group-item-action">
-                    {{ address.address.freeformAddress }}
-                </li>
-            </ul>
-
-
-            
-            <button @click="$_searchRedirect()" class="btn brand-btn-1">
-                Search
-            </button>
-
-        </div>
+        <button @click="$_getAddressObject(0)" class="btn brand-btn-1 d-none d-sm-block">
+            Search
+        </button>
 
     </div>
-
 </template>
 
 <script>
@@ -136,39 +126,25 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-#jumbotron {
-    height: 450px;
-}
 
-
-.search-bar {
-  width: 100%;
-  max-width: 100%;
-  background: rgba(255, 255, 255, 0.2),;
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  padding: 10px 20px;
-  border: 1px solid grey;
-}
-
-.search-bar input {
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    padding: 10px 5px;
-    font-size: 20px;
-}
-
-.z-index {
-    z-index: 3;
-}
-
-@media (max-width: 767px) {
-    img {
-        padding-top: 10rem;
+    .search-bar {
+        width: 100%;
+        max-width: 100%;
+        background: rgba(255, 255, 255, 0.2),;
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        padding: 10px 20px;
+        border: 1px solid grey;
     }
-}
+
+    .search-bar input {
+        background: transparent;
+        flex: 1;
+        border: 0;
+        outline: none;
+        padding: 10px 5px;
+        font-size: 20px;
+    }
 </style>

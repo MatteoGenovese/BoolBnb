@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Visual;
+use Facade\Ignition\Support\FakeComposer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Faker\Generator as Faker;
 
 class VisualController extends Controller
 {
@@ -74,9 +78,18 @@ class VisualController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, Faker $faker)
     {
-        //
+        // dd($request);
+        $sentData= $request->all();
+
+        $sentData['user_ip']= $faker->unique()->ipv4();
+        $sentData['apartment_id']= $id;
+        $sentData['date']= date("Y-m-d H:i:s");
+
+        $newVisual=new Visual();
+        $newVisual->fill($sentData);
+        $newVisual->save();
     }
 
     /**

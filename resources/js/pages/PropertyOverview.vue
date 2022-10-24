@@ -16,17 +16,17 @@
 
                 <ul class="icons-field my-3 p-0">
                     <li>
-                        <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="Icona letto"> 
+                        <img src="https://www.svgrepo.com/show/17785/bed.svg" alt="Icona letto">
                         <span>{{ property.bed_no }}</span>
                         <span>/</span>
                     </li>
                     <li>
-                        <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="Icona bagno"> 
+                        <img src="https://www.svgrepo.com/show/15059/bathtub.svg" alt="Icona bagno">
                         <span>{{ property.bathroom_no }}</span>
                         <span>/</span>
                     </li>
                     <li>
-                        <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="Icona metri quadrati"> 
+                        <img src="https://www.svgrepo.com/show/48874/ruler.svg" alt="Icona metri quadrati">
                         <span>{{ property.square_meters }}</span>
                     </li>
                 </ul>
@@ -39,9 +39,9 @@
             <!-- Left side -->
             <div class="col-12 col-lg-8" tabindex="2">
                 <nav id="propertyNav" class="col-12 my-5">
-                    
+
                         <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1 d-flex justify-content-around justify-content-lg-start">
-                            <li class="col-3 p-0 p-sm-2 py-2 rounded mx-1 btn brand-btn-outline-1" 
+                            <li class="col-3 p-0 p-sm-2 py-2 rounded mx-1 btn brand-btn-outline-1"
                                 v-for="(infos, index) in propertyOverviewNav" :key="index"
                                 :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
                                 @click="$_activeNavOnClick(index)">
@@ -59,7 +59,7 @@
 
                             <div class="row col-12 col-md-5">
                                 <div class="col-6 fw-bold">
-                                    Numero bagni: 
+                                    Numero bagni:
                                 </div>
 
                                 <div class="col-6">
@@ -67,19 +67,19 @@
                                 </div>
 
                                 <div class="col-6 fw-bold">
-                                    Numero stanze:  
+                                    Numero stanze:
                                 </div>
 
                                 <div class="col-6">
                                     {{ property.room_no }}
                                 </div>
 
-                            </div> 
+                            </div>
 
                             <div class="row col-12 col-md-5">
 
                                 <div class="col-6 fw-bold">
-                                    Numero letti:  
+                                    Numero letti:
                                 </div>
 
                                 <div class="col-6">
@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div class="col-6 fw-bold">
-                                    Metri Quadrati: 
+                                    Metri Quadrati:
                                 </div>
 
                                 <div class="col-6">
@@ -95,7 +95,7 @@
                                 </div>
 
                                 </div>
-                            
+
                                 <hr class="my-4 col-8">
 
                                 <div class="col-12">
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
 
-                    
+
 
                         <!-- Services section -->
                         <div class="row col-md-5 text-start" v-show="$_isActiveCheck(1)">
@@ -141,14 +141,14 @@
 
                             <div class="col-12">
                                 <img :src="propertyLocationImg" :alt="'mappa di ' + property.title">
-                            </div> 
+                            </div>
                         </div>
                 </nav>
 
                 <!-- Owner info -->
                 <div class="row py-5" tabindex="3">
                     <hr class="my-4">
-                    
+
                     <div class="col-12 col-md-8">
 
                         <h4>
@@ -162,7 +162,7 @@
                                 </svg>
                             </span>
                             <span>
-                                {{ ownerInfo.name }} {{ ownerInfo.surname }} 
+                                {{ ownerInfo.name }} {{ ownerInfo.surname }}
                             </span>
                         </h5>
                         <p class="text-secondary">
@@ -226,6 +226,18 @@ export default {
         };
     },
     methods: {
+
+        // ---------------------------------------------------------------------------------------------------------------------------geno
+        $_addNewVisual() {
+                // console.warn(id);
+                axios.post(`http://127.0.0.1:8000/api/visuals/${this.id}`)
+                .then((response) => {
+                    this.post = response;
+                    console.warn(this.post)
+                }).catch((error) => {
+                    console.error(error)
+                })
+        },
         $_mapZoomIn() {
             if (this.mapZoomIndex !== 20) {
                 this.mapZoomIndex = this.mapZoomIndex + 1;
@@ -298,6 +310,7 @@ export default {
     },
     created() {
         this.$_getPropertyData();
+        this.$_addNewVisual();
     },
     components: { ContactForm }
 }
@@ -373,7 +386,7 @@ export default {
     //         -moz-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
     //     }
     // }
- 
+
 }
 
 </style>

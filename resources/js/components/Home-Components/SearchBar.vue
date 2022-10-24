@@ -68,6 +68,13 @@ export default {
     },
 
     methods: {
+
+        keepValue() {
+            if(this.$route.name == "AdvancedSearch") {
+                this.needle = this.$route.params.query;
+            }
+        },
+
         $_searchRedirect(){
             if(this.$route.name == 'HomePage'){
                 this.$router.push(
@@ -121,6 +128,10 @@ export default {
             }
         },
     },
+
+    created() {
+        this.keepValue();
+    }
 };
 </script>
 
@@ -150,27 +161,6 @@ export default {
     padding: 10px 5px;
     font-size: 20px;
 }
-
-
-// .search-bar {
-//     width: 100%;
-//     max-width: 100%;
-//     background: rgba(255, 255, 255, 0.2);
-//     display: flex;
-//     border: 2px solid grey;
-//     align-items: center;
-//     border-radius: 8px;
-//     padding: 10px 20px;
-// }
-
-// .search-bar input {
-//     backdrop-filter: blur(10px);
-//     flex: 1;
-//     border: 0;
-//     outline: none;
-//     padding: 10px 5px;
-//     font-size: 20px;
-// }
 
 .z-index {
     z-index: 3;

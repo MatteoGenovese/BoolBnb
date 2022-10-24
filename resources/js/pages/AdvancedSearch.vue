@@ -1,28 +1,28 @@
 <template>
-    <div class="container">
+    <div id="advancedSearch" class="container">
         <h1>Ricerca avanzata</h1>
-        <FiltersComponent @sendFilters="$_getApartment" />
+        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
 
-        <SearchBar @sentDataFromDownLevel="$_getLatAndLon"
-        />
+        <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
 
-        <!-- <div class="row mt-5">
-            <PostCard v-for="(apartment, index) in apartments" :key="index" :apartment="apartment" />
-        </div> -->
 
-        <div class="row mt-5">
-
-        <router-link
-        class=" apartment-card p-3 col-12 col-md-4 col-lg-4"
-        v-for="(apartment, index) in apartments"
-        :key="index"
-        :to="{ name: 'SingleHome', params: { id: apartment.id } }">
-            <PostCard
-            :apartment="apartment"
-        />
-        </router-link>
-
-</div>
+        <div v-if="apartments === ''">
+            <h5>
+                Comincia la tua ricerca!
+            </h5>
+        </div>
+        <div v-else-if="apartments === undefined || noApartmentFound === true">
+            <h5>
+                Nessun risultato.
+            </h5>
+        </div>
+        <div class="row py-5" v-else-if="areCardLoaded === true">
+            <PostCardLoader v-for="index in 4" :key="index"/>
+        </div>
+        <div class="row py-5" v-else>
+            <PostCard v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
+        </div>
+        
     </div>
 </template>
 
@@ -32,7 +32,8 @@ import axios from 'axios';
 
 
 import SearchBar from '../components/Home-Components/SearchBar.vue';
-import PostCard from '../components/Home-Components/PostCard.vue';
+import PostCard from '../components/advancedSearch-components/PostCard.vue';
+import PostCardLoader from '../components/advancedSearch-components/PostCardLoader.vue';
 import FiltersComponent from "../components/FiltersComponent.vue"
 export default {
     name: "AdvancedSearch",
@@ -45,20 +46,21 @@ export default {
         FiltersComponent,
         PostCard,
         SearchBar,
+        PostCardLoader,
     },
     watch:{
         lat(oldLat, newLat){
             if(newLat != oldLat){
+                this.areCardLoaded = true;
                 this.$_getApartment({});
             }
-
         }
     },
     data(){
         return{
             lat: 0,
             lon: 0,
-            apartments: [],
+            apartments: '',
             isFilterPanelVisible: false,
             bedNo: 0,
             roomNo: 0,
@@ -66,28 +68,21 @@ export default {
             squareMeters: 0,
             searchRange: 20,
             services: [],
+            noApartmentFound: false,
+            areCardLoaded: null,
         }
     },
     methods:{
         $_passLocation(){
 
-            console.log(this.$route.params.addressSelected)
-
-        if(typeof(this.$route.params.addressSelected) != "undefined") {
-            this.lat = this.addressSelected.position.lat;
-            this.lon = this.addressSelected.position.lon;}
-            // this.lat = 41.892631654408675;
-            // this.lon = 12.4920935864514;
-        // } else {
-        // }
-        // if(this.lat != 0 && this.lon != 0)
-        console.log(this.lat, this.lon)
-
-        this.$_getApartment({})
-
-
+            if(typeof(this.$route.params.addressSelected) != "undefined") {
+                this.lat = this.addressSelected.position.lat;
+                this.lon = this.addressSelected.position.lon;
+                this.$_getApartment({})
+            }
 
         },
+
         $_getLatAndLon(params){
 
             let { lat, lon } = params.position;
@@ -99,19 +94,23 @@ export default {
 
         $_getApartment(params){
 
-            console.log(params.bedNo, 'letti')
-
             axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , { params: {
                 range: params.range,
                 bedNo: params.bedNo,
                 roomNo: params.roomNo,
                 services: params.services,
-            }
-            }
-            )
-            .then((response)=>{
-                console.warn(response.data.results)
+            }}
+            ).then((response)=>{
+                console.warn(response.data.results, 'results')
                 this.apartments = response.data.results;
+
+                if(response.data.results.length === 0){
+                    this.noApartmentFound = true;
+                }else{
+                    this.noApartmentFound = false;
+                }
+
+                this.areCardLoaded = false;
             })
         },
         getFilterParams(params) {
@@ -130,17 +129,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-.apartment-card {
-    transition: all .3s;
-    text-decoration: none;
-    color: black;
-    &:hover {
-        transform: scale(1.1);
+    @import '../../sass/partials/_brandVariables.scss';
+
+    #advancedSearch{
+        font-family: $brandTxtFam-1;
     }
-    &:active {
-        transform:scale(.95);
-    }
-}
+
 </style>

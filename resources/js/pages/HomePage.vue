@@ -20,13 +20,11 @@
 
 
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
-import PostCard from '../components/Home-Components/PostCard.vue';
 import SearchBar from '../components/Home-Components/SearchBar.vue';
 
 export default {
     name:"HomePage",
     components:{
-    PostCard,
     SearchBar,
     Jumbotron
 },

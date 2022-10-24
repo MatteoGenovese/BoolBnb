@@ -1,5 +1,18 @@
 @import './brandVariables';
 
-.brand-ft-1{
+// Typography
+.brand-ft-1 {
     font-family: $brandTxtFam-1;
+}
+
+// Colors
+.brand-color-prime {
+    color: $primary;
+}
+
+
+// Backgrounds
+.bg-brand-prime-active-effect{
+    background-color: $primary;
+    color: white !important;
 }

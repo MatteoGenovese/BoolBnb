@@ -178,37 +178,8 @@
                     </div>
                 </div>
             </div>
+            <ContactForm :apartment="property"/>
 
-            <!-- Contact form Right side -->
-            <div id="contactForm" class="col-12 col-lg-4" tabindex="4">
-               <form action="" class="p-4">
-
-                    <div class="p-3">
-                        <h5>
-                            Contattami per ulteriori Informazioni
-                        </h5>
-      
-
-                        <label for="username" class="form-label">Nome</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="username" placeholder="Inserisci nome e cognome...">
-                        </div>
-
-                        <label for="email" class="form-label">Email*</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="email" placeholder="Inserisci la tua email...">
-                        </div>
-
-                        <label for="message" class="form-label">Messaggio*</label>
-                        <div class="input-group">
-                            <textarea class="form-control" rows="3" id="message" aria-label="With textarea" placeholder="Salve, vorrei più informazioni riguardo..."></textarea>
-                        </div>
-                       
-                        
-                    </div>
-
-               </form>
-            </div>
         </div>
 
     </div>
@@ -220,124 +191,115 @@ import axios from "axios";
 import ContactForm from "../components/ContactForm.vue"
 
 export default {
-  props: {
-    id: {
-      type: [String, Number],
-      required: true,
-    },
-  },
-  data: function () {
-    return {
-      property: [],
-      show: false,
-      isActive: false,
-      currentActive: 0,
-      ownerInfo: '',
-      apiKey: 'idKostWqefAIHb9WKcGcOklsshiC2KtN',
-      propertyLocationImg: '',
-      lat: '',
-      lon: '',
-      mapZoomIndex: 16,
-
-      propertyOverviewNav: [
-        {
-          name: "Descrizione",
-          isActive: true,
+    props: {
+        id: {
+            type: [String, Number],
+            required: true,
         },
-        {
-          name: "Servizi",
-          isActive: false,
+    },
+    data: function () {
+        return {
+            property: [],
+            show: false,
+            isActive: false,
+            currentActive: 0,
+            ownerInfo: "",
+            apiKey: "idKostWqefAIHb9WKcGcOklsshiC2KtN",
+            propertyLocationImg: "",
+            lat: "",
+            lon: "",
+            mapZoomIndex: 16,
+            propertyOverviewNav: [
+                {
+                    name: "Descrizione",
+                    isActive: true,
+                },
+                {
+                    name: "Servizi",
+                    isActive: false,
+                },
+                {
+                    name: "Mappa",
+                    isActive: false,
+                },
+            ],
+        };
+    },
+    methods: {
+        $_mapZoomIn() {
+            if (this.mapZoomIndex !== 20) {
+                this.mapZoomIndex = this.mapZoomIndex + 1;
+                this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
+            }
         },
-        {
-          name: "Mappa",
-          isActive: false,
+        $_mapZoomOut() {
+            if (this.mapZoomIndex !== 10) {
+                this.mapZoomIndex = this.mapZoomIndex - 1;
+                this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
+            }
         },
-      ],
-    };
-  },
-  methods: {
-    $_mapZoomIn(){
-        if(this.mapZoomIndex !== 20){
-            this.mapZoomIndex = this.mapZoomIndex + 1;
-            this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
-        }
+        /**
+         * Return a converted string corresponding to the tile's
+         * position on the TomTom API grid for that zoom level.
+         *
+         * @param Float lat
+         * @param Float lon
+         * @param Int zoomLevel =  default 16
+         *
+         * @return String z/x/y
+         */
+        $_coordinatesConverter(lat, lon, zoomLevel = 16) {
+            let z = Math.trunc(zoomLevel);
+            let xyTilesCount = Math.pow(2, z);
+            let x = Math.trunc(Math.floor((lon + 180) / 360 * xyTilesCount));
+            let y = Math.trunc(Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * xyTilesCount));
+            return z.toString() + "/" + x.toString() + "/" + y.toString();
+        },
+        $_getTomTomPrintedMap(parsedQuery) {
+            axios.get("https://api.tomtom.com/map/1/tile/basic/main/" + parsedQuery + ".png?", { params: {
+                    tileSize: 512,
+                    view: "Unified",
+                    language: "IT",
+                    key: this.apiKey
+                } })
+                .then((response) => {
+                this.propertyLocationImg = response.request.responseURL;
+            })
+                .catch((error) => {
+                console.error(error);
+            });
+        },
+        $_activeNavOnClick(index) {
+            this.propertyOverviewNav.forEach((item) => {
+                item.isActive = false;
+            });
+            this.currentActive = index;
+            this.propertyOverviewNav[index].isActive = true;
+        },
+        $_isActiveCheck(index) {
+            if (this.currentActive === index) {
+                return true;
+            }
+            return false;
+        },
+        $_getPropertyData() {
+            axios
+                .get("/api/apartments/" + this.id)
+                .then((response) => {
+                this.property = response.data.results.data;
+                this.ownerInfo = this.property.user;
+                console.log(response.data.results.data);
+                this.lat = response.data.results.data.latitude;
+                this.lon = response.data.results.data.longitude;
+                this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
+            })
+                .catch((error) => console.error(error.message));
+        },
     },
-    $_mapZoomOut(){
-        if(this.mapZoomIndex !== 10){
-            this.mapZoomIndex = this.mapZoomIndex - 1;
-            this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
-        }
+    created() {
+        this.$_getPropertyData();
     },
-
-    /**
-     * Return a converted string corresponding to the tile's 
-     * position on the TomTom API grid for that zoom level.
-     * 
-     * @param Float lat
-     * @param Float lon
-     * @param Int zoomLevel =  default 16
-     * 
-     * @return String z/x/y
-     */
-    $_coordinatesConverter(lat, lon, zoomLevel = 16){
-
-        let z = Math.trunc(zoomLevel)
-        let xyTilesCount = Math.pow(2, z);
-        let x = Math.trunc(Math.floor((lon + 180.0) / 360.0 * xyTilesCount))
-        let y = Math.trunc(Math.floor((1.0 - Math.log(Math.tan(lat * Math.PI / 180.0) + 1.0 / Math.cos(lat * Math.PI / 180.0)) / Math.PI) / 2.0 * xyTilesCount))
-
-        return z.toString() + "/" + x.toString() + "/" + y.toString();
-    },
-
-    $_getTomTomPrintedMap(parsedQuery){
-        axios.get('https://api.tomtom.com/map/1/tile/basic/main/'+ parsedQuery +'.png?', {params: {
-            tileSize: 512,
-            view: 'Unified',
-            language: 'IT',
-            key: this.apiKey
-        }})
-        .then((response) =>{
-            this.propertyLocationImg = response.request.responseURL;
-        })
-        .catch((error)=>{
-            console.error(error)
-        })
-    },
-
-    $_activeNavOnClick(index) {
-      this.propertyOverviewNav.forEach((item) => {
-        item.isActive = false;
-      });
-
-      this.currentActive = index;
-      this.propertyOverviewNav[index].isActive = true;
-    },
-
-    $_isActiveCheck(index) {
-      if (this.currentActive === index) {
-        return true;
-      }
-      return false;
-    },
-    $_getPropertyData() {
-      axios
-        .get("/api/apartments/" + this.id)
-        .then((response) => {
-            this.property = response.data.results.data;
-            this.ownerInfo = this.property.user;
-            console.log(response.data.results.data);
-            this.lat = response.data.results.data.latitude;
-            this.lon = response.data.results.data.longitude;
-        
-            this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
-        })
-        .catch((error) => console.error(error.message));
-    },
-  };
-  created() {
-    this.$_getPropertyData();
-    
-  },
+    components: { ContactForm }
 }
 </script>
 
@@ -399,18 +361,18 @@ export default {
         }
     }
 
-    #contactForm{
+    // #contactForm{
 
-        form{
-            position: sticky;
-            border: 1px solid rgba(gray, .3);
-            top: 20px;
-            border-radius: 5px;
-            box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
-            -webkit-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
-            -moz-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
-        }
-    }
+    //     form{
+    //         position: sticky;
+    //         border: 1px solid rgba(gray, .3);
+    //         top: 20px;
+    //         border-radius: 5px;
+    //         box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+    //         -webkit-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+    //         -moz-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+    //     }
+    // }
  
 }
 

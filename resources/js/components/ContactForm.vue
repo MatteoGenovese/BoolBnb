@@ -1,15 +1,37 @@
 <template>
-    <div class="my-5">
-        <form class="d-flex flex-column w-50 m-auto" @submit.prevent="sendMessage()" method="POST">
-            
-            <label for="user">Inserisci il tuo nome completo</label>
-            <input type="text" name="user" id="user" v-model="username">
-            <label for="email">Inserisci la tua email *</label>
-            <input type="text" name="email" id="email"  v-model="userEmail">
-            <label for="contact-message">Messaggio *</label>
-            <textarea name="message" id="contact-message" required cols="30" rows="10" v-model="contactMessage" style="resize: none"></textarea>
-            <small class="text-danger">* = Campi obbligatori</small>
-            <button type="submit" class="mt-3 w-25 align-self-center btn btn-lg brand-btn-1" :disabled="isMessageSent" > {{submitButton}} </button>
+    <div id="contactForm" class="col-12 col-lg-4" tabindex="4">
+
+        <form class="p-4" @submit.prevent="sendMessage()" method="POST">
+
+            <div class="p-3">
+                <h5>
+                    Contattami per ulteriori Informazioni
+                </h5>
+
+
+                <label for="username" class="form-label">Nome</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="username" placeholder="Inserisci nome e cognome..." v-model="username">
+                </div>
+
+                <label for="email" class="form-label">Email*</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="email" placeholder="Inserisci la tua email..." v-model="userEmail">
+                </div>
+
+                <label for="message" class="form-label">Messaggio*</label>
+                <div class="input-group">
+                    <textarea class="form-control" rows="3" id="message" aria-label="With textarea" style="resize: none" placeholder="Salve, vorrei più informazioni riguardo..." v-model="contactMessage"></textarea>
+                </div>
+                <small class="text-danger">* = Campi obbligatori</small>
+
+                <div class="text-center" v-if="isMessageSent">
+                    <h4 class="text-success">Messaggio inviato!</h4>
+                </div>
+                <div class="text-center" v-else>
+                    <button type="submit" class="mt-3 w-25 btn btn-lg brand-btn-1" > {{submitButton}} </button>
+                </div>
+            </div>
 
         </form>
     </div>
@@ -24,7 +46,7 @@ export default {
     name: "ContactForm",
     props: {
         apartment: {
-            type: Object,
+            type: [Object, Array],
             required: true
         }
     },
@@ -68,5 +90,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    #contactForm{
 
+        form{
+            position: sticky;
+            border: 1px solid rgba(gray, .3);
+            top: 20px;
+            border-radius: 5px;
+            box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+            -webkit-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+            -moz-box-shadow: -4px 4px 12px -5px rgba(0,0,0,0.2);
+        }
+    }
 </style>

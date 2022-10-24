@@ -26,23 +26,11 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle btn brand-btn-1"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Unisciti
+            <a href="/login" role="button"
+              class="profile-link"
+              aria-expanded="false">
+              Area Utente
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/login">Accedi</a></li>
-              <li><a class="dropdown-item" href="/register">Registrati</a></li>
-            </ul>
-          </li>
-        </ul>
 
       </div>
     </div>
@@ -116,6 +104,21 @@ export default {
       object-fit:contain;  
       width: 100%;
       height: 100%;
+    }
+  }
+
+  .profile-link {
+    color: $primary;
+    text-decoration: none;
+    font-size: 1.25rem;
+    display: inline-block;
+    padding: .5rem 1rem;
+    border-radius: 2rem;
+    transition: all .2s;
+
+    &:hover {
+      color: white;
+      background-color: $primary;
     }
   }
 

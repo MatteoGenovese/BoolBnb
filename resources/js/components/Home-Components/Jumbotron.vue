@@ -10,8 +10,6 @@
                         </span>
                    </div>
                 </h1>
-               
-               
 
                 <p>Cerca tra migliaia di inserzioni</p>
                 <SearchBar/>
@@ -44,7 +42,7 @@ export default {
     },
 
     methods: {
-        write(){
+        $_write(){
             if(this.isFull === false){
                 this.i++;
                 this.printedWord += this.wordsArray[this.currentWord][this.i];
@@ -56,7 +54,7 @@ export default {
                 }
         }
       },
-      deleteWord(){
+      $_deleteWord(){
         setInterval(() => {
             if(this.isFull === true){
               this.printedWord = this.printedWord.slice(0,this.printedWord.length -1);
@@ -70,15 +68,15 @@ export default {
         }, 50);
       },
 
-      startWrite(){
+    $_startWrite(){
         this.isTyping = setInterval(() => {
-          this.write();
+          this.$_write();
         }, 300);
       },
     },
     created(){
-      this.startWrite();
-      this.deleteWord();
+      this.$_startWrite();
+      this.$_deleteWord();
     },
 };
 </script>

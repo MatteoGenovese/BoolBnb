@@ -30,7 +30,7 @@ export default {
         return{
             suggestedCities:[
                 {
-                    city: 'roma',
+                    city: 'Roma',
                     position:{
                         lat: 41.89056,
                         lon: 12.49427,
@@ -39,7 +39,7 @@ export default {
                     responsiveClasses: 'col-12 col-lg-6',
                 },
                 {
-                    city: 'milano',
+                    city: 'Milano',
                     position:{
                         lat: 45.46362,
                         lon: 9.18812,
@@ -48,7 +48,7 @@ export default {
                     responsiveClasses: 'col-6',
                 },
                 {
-                    city: 'napoli',
+                    city: 'Napoli',
                     position: {
                         lat: 40.83998,
                         lon: 14.25254,
@@ -57,7 +57,7 @@ export default {
                     responsiveClasses: 'col-6 col-lg-4',
                 },
                 {
-                    city: 'lecce',
+                    city: 'Lecce',
                     position:{
                         lat: 40.35329,
                         lon: 18.17401,
@@ -66,7 +66,7 @@ export default {
                     responsiveClasses: 'col-6 col-lg-4',
                 },
                 {
-                    city: 'catania',
+                    city: 'Catania',
                     position:{
                         lat: 37.50248,
                         lon: 15.08783,
@@ -84,7 +84,7 @@ export default {
 
              this.$router.push(
                 {
-                    name: 'AdvancedSearch', params : { addressSelected : addressSelected }
+                    name: 'AdvancedSearch', params : { addressSelected : addressSelected, query: addressSelected.city }
                 })
         }
     }

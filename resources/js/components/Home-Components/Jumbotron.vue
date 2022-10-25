@@ -50,8 +50,9 @@ export default {
 
         .img-wrapper{
             @media screen and (min-width: 992px) {
-                background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+                // background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
                 background-size: cover;
+                background-image: url('/storage/asset/img/jumbophoto.avif');
                 background-position: center;
             }
         }

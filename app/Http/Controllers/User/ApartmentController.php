@@ -295,7 +295,7 @@ class ApartmentController extends Controller
 
         $apartment->sponsorships()->attach($sentData["sponsorship_id"], ["expiration_date" => $sentData["expiration_date"]]);
         
-        return view("user.apartments.show", compact("apartment"));
+        return redirect()->route("user.apartments.show", compact("apartment"))->with("sponsorship_added", "Sono state aggiunte " . $sponsorship->duration * 24 . " ore alla sponsorizzazione di questo annuncio!");
 
 
     }

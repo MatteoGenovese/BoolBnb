@@ -39,7 +39,7 @@
                     @empty
                 </tbody>
             </table>
-            Non hai appartamenti
+            Non ci sono messaggi per questo appartamento.
             @endforelse
 
     </div>

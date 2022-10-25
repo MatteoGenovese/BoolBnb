@@ -155,21 +155,37 @@ class ApartmentsTableSeeder extends Seeder
             ],
             [
                 'user_id' => 5,
-                'title' => 'Monolocale indipendente a Milano',
-                'description' => 'Piccolo monolocale soppalcato.
-                        L\'appartamento si trova al piano terreno di un condominio molto popolare.
-                        Dispone di: piccolo angolo cucina, comodo divano letto e TV smart, bagno con ampia doccia e soppalco con letto matrimoniale.
-                        Sono disponibili, oltre ai servizi base, anche phon, lavatrice, wifi ultraveloce, Netflix e climatizzatore caldo/freddo.
-                        All\'arrivo troverete sempre kit di benvenuto con aperitivo all\'italiana.
-                        Lo spazio
-                        E\' disponibile un piccolo spazio all\'aperto privato dove è possibile fumare o leggere un libro.',
+                'title' => 'Casa indipendente nel centro storico di Lecce',
+                'description' => 'Casa indipendente nel Centro Storico di Lecce, vicinanze Rettorato dell\'Università, a sette minuti di cammino dalla stazione ferroviaria e a due minuti dal Duomo.
+                    La casa è appena ristrutturata e dotata di impianti di climatizzazione e di riscaldamento. L\'arredamento è accurato. La struttura è molto graziosa e particolarissima, in pietra leccese, con volte a vista, è formata da un ingresso ampio, un soggiorno con soppalco -
+                    dove è posizionato un letto matrimoniale - 
+                    un bagno, una nuovissima cucina che si affaccia su un piccolo cortile interno. La struttura è dotata di Wi-fi e TV a schermo piatto. ',
                 'bathroom_no' => 1,
                 'bed_no' => 2,
                 'room_no' => 3,
-                'square_meters' => 55,
-                'address' => 'Via Massimo D\'Azeglio 1, 71121 Foggia', 
-                'latitude' => 41.4564945, 
-                'longitude' => 15.5451799,
+                'square_meters' => 72,
+                'address' => 'Via Vincenzo Morelli 12, 73100 Lecce, Puglia', 
+                'latitude' => 40.350560, 
+                'longitude' => 18.167820,
+                'is_available' => true,
+            ],
+            [
+                'user_id' => 4,
+                'title' => 'Ampio appartamento a Napoli',
+                'description' => '
+                    VIA MANZONI, adiacenze Istituto Sacro Cuore, 
+                    proponiamo in vendita ad un quinto piano con ascensore di un signorile stabile con portiere, 
+                    una libera e prestigiosa quadratura di 250 mq circa (superficie catastale 277 mq circa), 
+                    con incantevole esposizione panoramica sul golfo di Napoli, composta da due ingressi, 
+                    salone triplo, ampio soggiorno, quattro camere, una cucina abitabile, tre servizi, balconi. 
+                    Termoautonomo. Completa la proprietà una cantina. Un posto auto condominiale assegnato ed un posto auto a rotazione.',
+                'bathroom_no' => 2,
+                'bed_no' => 3,
+                'room_no' => 7,
+                'square_meters' => 250,
+                'address' => 'Via Alessandro Manzoni 8, 80123 Napoli, Campania', 
+                'latitude' => 40.836570, 
+                'longitude' => 14.213360,
                 'is_available' => true,
             ],
         ];

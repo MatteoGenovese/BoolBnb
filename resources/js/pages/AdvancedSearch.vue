@@ -30,7 +30,6 @@
 
 import axios from 'axios';
 
-
 import SearchBar from '../components/Home-Components/SearchBar.vue';
 import PostCard from '../components/advancedSearch-components/PostCard.vue';
 import PostCardLoader from '../components/advancedSearch-components/PostCardLoader.vue';

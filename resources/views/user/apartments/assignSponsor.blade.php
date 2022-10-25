@@ -2,11 +2,11 @@
 
 @section("content")
     <div class="container mt-5">
-        <div class="row">
+        <div class="row justify-content-center">
             
             
             @foreach ($sponsorships as $sponsorship)
-            <div class="card col-4">
+            <div class="card col-3 mx-1">
                 <div class="card-body">
                     <h5 class="card-title">{{ $sponsorship->name }}</h5>
                     <h6>Durata: {{ $sponsorship->duration }} giorni</h6>
@@ -17,8 +17,8 @@
                         @csrf
                         @method('POST')
                         
-                        <button type="submit" class="btn btn-success m-1">
-                            compra
+                        <button type="submit" class="btn brand-btn-1 m-1">
+                            Compra
                         </button>
                     </form>
                     

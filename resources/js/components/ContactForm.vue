@@ -68,19 +68,27 @@ export default {
         },
 
         sendMessage() {
+
             if(this.isEmail(this.userEmail)) {
 
-                axios.post(`/api/messages?apartment_id=${this.apartment.id}&username=${this.username}&email=${this.userEmail}&message=${this.contactMessage}`)
+                if(this.contactMessage.length > 5 ) {
+
+                    
+                    axios.post(`/api/messages?apartment_id=${this.apartment.id}&username=${this.username}&email=${this.userEmail}&message=${this.contactMessage}`)
                     .then(response => {
                         this.username = "";
                         this.userEmail = "";
                         this.contactMessage = "";
                         this.isMessageSent = true;
-                    }
-                )
-                .catch(error => console.error(error.response));
+                        this.$emit("messageSent", true);
+
+                    })
+                    .catch(error => console.error(error.response));
+                } else {
+                    alert("Il messaggio è troppo corto.")
+                }
             } else {
-                alert("mail non valida")
+                alert("La mail non è valida.")
             }
         }
     }

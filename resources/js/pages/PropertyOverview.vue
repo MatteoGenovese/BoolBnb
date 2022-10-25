@@ -1,5 +1,6 @@
 <template>
     <div id="propertyOverview" class="container mt-5 brand-ft-1">
+        <ContactWarnComponent v-if="warnMessage"/>
         <div class="row" tabindex="1">
             <div class="img-container col-10 m-auto">
                 <img class="rounded img-fluid w-100"
@@ -178,7 +179,7 @@
                     </div>
                 </div>
             </div>
-            <ContactForm :apartment="property"/>
+            <ContactForm :apartment="property" @messageSent="showWarn"/>
 
         </div>
 
@@ -189,6 +190,7 @@
 
 import axios from "axios";
 import ContactForm from "../components/ContactForm.vue"
+import ContactWarnComponent from "../components/ContactWarnComponent.vue";
 
 export default {
     props: {
@@ -202,6 +204,7 @@ export default {
             property: [],
             show: false,
             isActive: false,
+            warnMessage: false,
             currentActive: 0,
             ownerInfo: "",
             apiKey: "idKostWqefAIHb9WKcGcOklsshiC2KtN",
@@ -227,6 +230,10 @@ export default {
     },
     methods: {
 
+        showWarn(value) {
+            this.warnMessage = value;
+            setTimeout(() => this.warnMessage = !this.warnMessage, 2000);
+        },
 
         $_addNewVisual() {
                 // console.warn(id);
@@ -312,7 +319,7 @@ export default {
         this.$_getPropertyData();
         this.$_addNewVisual();
     },
-    components: { ContactForm }
+    components: { ContactForm, ContactWarnComponent }
 }
 </script>
 

@@ -6,23 +6,29 @@
         <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
 
 
-        <div v-if="apartments === ''">
+        <div v-if="apartmentsWithoutSponsor == [] && apartmentsWithSponsor == []">
             <h5>
                 Comincia la tua ricerca!
             </h5>
         </div>
-        <div v-else-if="apartments === undefined || noApartmentFound === true">
+
+        <div v-else-if="apartmentsWithoutSponsor == undefined && apartmentsWithSponsor == undefined || noApartmentFound === true">
             <h5>
                 Nessun risultato.
             </h5>
         </div>
+
         <div class="row py-5" v-else-if="areCardLoaded === true">
             <PostCardLoader v-for="index in 4" :key="index"/>
         </div>
+
         <div class="row py-5" v-else>
-            <PostCard v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
+
+            <PostCard v-for="apartment in apartmentsWithSponsor" :key="apartment.id" :apartment="apartment" :sponsor="true" />
+
+            <PostCard v-for="apartment in apartmentsWithoutSponsor" :key="apartment.id" :apartment="apartment" :sponsor="false"/>
         </div>
-        
+
     </div>
 </template>
 
@@ -59,7 +65,8 @@ export default {
         return{
             lat: 0,
             lon: 0,
-            apartments: '',
+            apartmentsWithoutSponsor: [],
+            apartmentsWithSponsor: [],
             isFilterPanelVisible: false,
             bedNo: 0,
             roomNo: 0,
@@ -100,15 +107,13 @@ export default {
                 services: params.services,
             }}
             ).then((response)=>{
-                console.warn(response.data.results, 'results')
-                this.apartments = response.data.results;
-
+                console.warn(response, 'results')
                 if(response.data.results.length === 0){
                     this.noApartmentFound = true;
                 }else{
                     this.noApartmentFound = false;
+                    this.selectApartmentBySponsorship(response.data.results);
                 }
-
                 this.areCardLoaded = false;
             })
         },
@@ -119,6 +124,29 @@ export default {
             this.squareMeters = params.squareMeters;
             this.searchRange = params.searchRange;
             this.services = params.apartmentServices;
+        },
+        selectApartmentBySponsorship(apartments) {
+            this.apartmentsWithSponsor=[]
+            this.apartmentsWithoutSponsor=[]
+
+            apartments.forEach(apartment => {
+
+                if(apartment.sponsorships.length>0)
+                {
+                    if(new Date(apartment.sponsorships[apartment.sponsorships.length-1].pivot.expiration_date) > new Date)
+                    {
+                        this.apartmentsWithSponsor.push(apartment);
+                    }
+                    else{
+                        this.apartmentsWithoutSponsor.push(apartment);
+                    }
+                }
+                else
+                {
+                    this.apartmentsWithoutSponsor.push(apartment);
+                }
+
+            });
         }
     },
     created(){

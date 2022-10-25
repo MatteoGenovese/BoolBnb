@@ -78,17 +78,6 @@ export default {
     }
   }
 
-  .navbar-brand{
-    width: 4rem;
-    height: 4rem;
-
-    img{
-      object-fit:contain;  
-      width: 100%;
-      height: 100%;
-    }
-  }
-
   .profile-link {
     color: $primary;
     text-decoration: none;

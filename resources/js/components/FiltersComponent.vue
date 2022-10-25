@@ -1,17 +1,16 @@
 <template>
     <section>
-        <div class="row">
-            <div class="col-4 col-md-4" v-for="service in services" :key="service.id">
+        <div class="row px-md-5">
+            <div class="col-6 col-md-4 col-lg-3" v-for="service in services" :key="service.id">
                 <input type="checkbox" :value="service.id" :name="service.name + '_check'" :id="service.name + '-check'" v-model="apartmentServices">
                 <label :for="service.name + '-check'">{{ service.name }}</label>
             </div>
-        
         </div>
 
         <br>
 
-        <div class="d-flex align-items-center">
-            <div class="col-4 col-md-4">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="me-2">
                 <label for="room-no">Numero camere</label>
                 <select name="room_no" id="room-no" v-model="roomNo">
                     <option value="1">1</option>
@@ -27,7 +26,7 @@
                 </select>
             </div>
 
-            <div class="col-4 col-md-4">
+            <div class="">
                 <label for="bed-no">Posti letto</label>
                 <select name="bed_no" id="bed-no" v-model="bedNo">
                     <option value="1">1</option>
@@ -42,15 +41,15 @@
                     <option value="10">10</option>
                 </select>
             </div>
+        </div>
 
-            <div class="col-4 col-md-4">
+            <div class="d-flex justify-content-center mt-4">
                 <label for="search-range">Raggio di ricerca</label>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center ms-2">
                     <input type="range" name="search_range" id="search-range" default="20" min="10" max="1000" step="10" oninput="this.nextElementSibling.value = this.value" v-model="searchRange">
                     <output class="ms-1">20 </output> <span class="ms-1"> km</span>
                 </div>
             </div>
-        </div>
         
             <div class="d-flex justify-content-center p-3">
                 <button class="btn btn-lt btn-primary text-white mx-2" @click="sendFiltersData()">Applica filtri</button>

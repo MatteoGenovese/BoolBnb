@@ -35,7 +35,7 @@ export default {
         return {
             isTyping: false,
             printedWord: '',
-            wordsArray: ['Viaggiare. ', 'Scoprire. ', 'Vivere. '],
+            wordsArray: ['viaggiare. ', 'scoprire. ', 'vivere. '],
             isFull: false,
             i: -1,
             currentWord: 0,

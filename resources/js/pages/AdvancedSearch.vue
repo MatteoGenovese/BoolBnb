@@ -6,19 +6,19 @@
         <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
 
 
-        <div v-if="apartmentsWithoutSponsor == [] && apartmentsWithSponsor == []">
+        <div v-if="isResearchDone==false">
             <h5>
                 Comincia la tua ricerca!
             </h5>
         </div>
 
-        <div v-else-if="apartmentsWithoutSponsor == undefined && apartmentsWithSponsor == undefined || noApartmentFound === true">
+        <div v-else-if="isResearchDone==true && noApartmentFound === true">
             <h5>
                 Nessun risultato.
             </h5>
         </div>
 
-        <div class="row py-5" v-else-if="areCardLoaded === true">
+        <div class="row py-5" v-else-if="areCardLoaded == false">
             <PostCardLoader v-for="index in 4" :key="index"/>
         </div>
 
@@ -56,7 +56,7 @@ export default {
     watch:{
         lat(oldLat, newLat){
             if(newLat != oldLat){
-                this.areCardLoaded = true;
+
                 this.$_getApartment({});
             }
         }
@@ -76,6 +76,7 @@ export default {
             services: [],
             noApartmentFound: false,
             areCardLoaded: null,
+            isResearchDone: false,
         }
     },
     methods:{
@@ -84,6 +85,7 @@ export default {
             if(typeof(this.$route.params.addressSelected) != "undefined") {
                 this.lat = this.addressSelected.position.lat;
                 this.lon = this.addressSelected.position.lon;
+                this.areCardLoaded= false,
                 this.$_getApartment({})
             }
 
@@ -99,6 +101,7 @@ export default {
         },
 
         $_getApartment(params){
+            this.areCardLoaded = false;
 
             axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , { params: {
                 range: params.range,
@@ -107,14 +110,18 @@ export default {
                 services: params.services,
             }}
             ).then((response)=>{
-                console.warn(response, 'results')
-                if(response.data.results.length === 0){
+                if(response.data.results == undefined){
+                    this.areCardLoaded = true;
                     this.noApartmentFound = true;
-                }else{
-                    this.noApartmentFound = false;
-                    this.selectApartmentBySponsorship(response.data.results);
+                    this.apartmentsWithoutSponsor == [];
+                    this.apartmentsWithSponsor == [];
                 }
-                this.areCardLoaded = false;
+                else if(response.data.results.length > 0){
+                    this.selectApartmentBySponsorship(response.data.results);
+                    this.noApartmentFound = false;
+                    this.areCardLoaded = true;
+                }
+                this.isResearchDone = true;
             })
         },
         getFilterParams(params) {
@@ -126,8 +133,12 @@ export default {
             this.services = params.apartmentServices;
         },
         selectApartmentBySponsorship(apartments) {
+
+
             this.apartmentsWithSponsor=[]
             this.apartmentsWithoutSponsor=[]
+
+
 
             apartments.forEach(apartment => {
 
@@ -145,8 +156,10 @@ export default {
                 {
                     this.apartmentsWithoutSponsor.push(apartment);
                 }
-
             });
+            console.warn(this.apartmentsWithSponsor);
+            console.warn(this.apartmentsWithoutSponsor);
+
         }
     },
     created(){

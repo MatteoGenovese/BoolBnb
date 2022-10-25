@@ -6,7 +6,8 @@
         placeholder="Inserisci l'indirizzo..."
         v-model="needle"
         @keyup="$_sendNeedleAfter500ms()"
-        @keyup.enter="$_getAddressObject(0)" />
+        />
+        <!-- @keyup.enter=""  -->
 
         <ul class="list-group position-absolute w-100 top-100 start-0"
             :class="newLetterWasTyped == true ? 'd-block' : 'd-none'" v-if="addresses.length > 0">
@@ -16,10 +17,6 @@
                 {{ address.address.freeformAddress }}
             </li>
         </ul>
-
-        <button @click="$_getAddressObject(0)" class="btn brand-btn-1 d-none d-sm-block">
-            Search
-        </button>
 
     </div>
 </template>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Message;
+use App\Models\Visual;
+use App\User;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -22,6 +25,38 @@ class ApartmentController extends Controller
         return response()->json([
             'response' => true,
             "results" =>  $apartments,
+        ]);
+    }
+
+    public function totalCounts(){
+
+        $apartments = Apartment::count();
+        $messages = Message::count();
+        $visuals = Visual::count();
+        $users = User::count();
+
+        $totalCount = [
+            [
+                "name" =>"Appartamenti",
+                "count" => $apartments
+            ],
+            [
+                "name" => "Contatti con gli host",
+                "count" => $messages
+            ],
+            [
+                "name" => "Visualizzazioni" ,
+                "count" => $visuals
+            ],
+            [
+                "name" => "Utenti",
+                "count" => $users
+            ],
+        ];
+
+        return response()->json([
+            "response" => true,
+            "results" => $totalCount,
         ]);
     }
 

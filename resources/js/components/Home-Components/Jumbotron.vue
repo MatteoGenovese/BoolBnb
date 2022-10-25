@@ -1,16 +1,18 @@
 <template>
-    <div id="jumbotron" class="row my-3 position-relative">
+    <section class="container">
+        <div id="jumbotron" class="row my-3 position-relative">
 
-        <div class="title-wrapper col-12 col-lg-6 py-5">
-            <h1 class="w-75">Scopri il posto in cui ti piacerà vivere</h1>
-            <p>Cerca tra migliaia di inserzioni</p>
-            <SearchBar/>
-        </div>
+            <div class="title-wrapper col-12 col-lg-6 py-5">
+                <h1 class="w-75">Scopri il posto in cui ti piacerà vivere</h1>
+                <p>Cerca tra migliaia di inserzioni</p>
+                <SearchBar/>
+            </div>
 
-        <div class="img-wrapper col-12 col-lg-6">
-            <img :src="'/storage/asset/img/jumbophoto.avif'" alt="" class="img-fluid d-block d-lg-none">
+            <div class="img-wrapper col-12 col-lg-6">
+                <img :src="'/storage/asset/img/jumbophoto.avif'" alt="" class="img-fluid d-block d-lg-none">
+            </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>

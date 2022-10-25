@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route:: namespace('api')->group(function(){
+    Route::get('/totalCount', 'ApartmentController@totalCounts');
     Route::get('/apartments', 'ApartmentController@index');
     Route::post('/visuals/{id}', 'VisualController@update');
     Route::get('/visuals/{id}', 'VisualController@show');

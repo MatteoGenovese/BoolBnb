@@ -2,9 +2,9 @@
 
     const apartmentId=document.getElementById('ApaID');
     var visuals=getData();
-
-
-
+    
+    
+    
     function getData(){
         axios.get(`http://127.0.0.1:8000/api/visuals/${apartmentId.value}`)
             .then(response => {
@@ -15,12 +15,12 @@
             .catch((error) => console.log(error));
     }
     function divideData(visuals){
-
+    
         var totalVisuals=0;
         var VisualsInMonth=[]
-
+    
         visuals.forEach(visual => {
-
+    
             const date = new Date(visual.date);
             const month = date.getMonth();
             if (typeof(VisualsInMonth[month]) == "undefined")
@@ -33,13 +33,13 @@
         });
         // console.log(VisualsInMonth);
         getChart(VisualsInMonth);
-
+    
     }
-
+    
     // console.log(ApaID.value);
-
+    
     function getChart(VisualsInMonth){
-
+    
         const labels = [
         'Gennaio',
         'Febbraio',
@@ -54,43 +54,32 @@
         'Novembre',
         'Dicembre'
         ];
-
+    
         const data = {
-            labels: labels,
-            datasets: [{
-                label: 'Visualizzazioni',
-                backgroundColor: '#37787E',
-                borderColor: '#37787E',
-                data: VisualsInMonth,
-            }]
-
+        labels: labels,
+        datasets: [{
+        label: 'Visualizzazioni',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: VisualsInMonth,
+        }]
         };
-
+    
         const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    yAxes: [{
-                        id:'main-axis',
-                        ticks: {
-                            stepSize: 1,
-                            maxTicksLimit: 1,
-                            minTicksLimit: 1
-                                }
-                        }],
-                }
-            }
+        type: 'line',
+        data: data,
+        options: {}
         };
-
+    
         const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
+                document.getElementById('myChart'),
+                config
+                );
     }
-
-
-
+    
+    
+    
     </script>
-
-
+    
+    
+    

@@ -39,9 +39,9 @@
             <!-- Left side -->
             <div class="col-12 col-lg-8" tabindex="2">
                 <nav id="propertyNav" class="col-12 my-5">
-                    
+
                         <ul id="detailsNavBar" class="row mb-5 p-1 rounded-1 d-flex justify-content-around">
-                            <li class="col-3 p-0 p-sm-2 py-2 rounded btn brand-btn-outline-1" 
+                            <li class="col-3 p-0 p-sm-2 py-2 rounded btn brand-btn-outline-1"
                                 v-for="(infos, index) in propertyOverviewNav" :key="index"
                                 :class="{ 'bg-brand-prime-active-effect' : infos.isActive }"
                                 @click="$_activeNavOnClick(index)">
@@ -227,7 +227,7 @@ export default {
     },
     methods: {
 
-        // ---------------------------------------------------------------------------------------------------------------------------geno
+
         $_addNewVisual() {
                 // console.warn(id);
                 axios.post(`http://127.0.0.1:8000/api/visuals/${this.id}`)

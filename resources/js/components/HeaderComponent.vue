@@ -1,9 +1,9 @@
 <template>
   <nav id="headerNavbar" class="navbar brand-ft-1 navbar-expand-lg bg-transparent" tabindex="0">
     <div class="container">
-      <router-link class="navbar-brand" :to="{ name: 'HomePage' }">
+      <a class="navbar-brand" href="/">
         <img :src="'/storage/asset/img/logo.jpg'" alt="brand logo">
-      </router-link>
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -18,8 +18,8 @@
       <div class="collapse navbar-collapse d-lg-flex justify-content-lg-between" id="navbarNavDropdown">
 
         <ul class="navbar-nav">
-          <li class="nav-item position-relative" :class="{ 'current-page' : link.isCurrentPage }"
-           v-for="(link, index) in navLinks" :key="index" @click="$_determineIfCurrentPage(index)">
+          <li class="nav-item position-relative"
+           v-for="(link, index) in navLinks" :key="index">
             <router-link class="nav-link" :to="{ name: link.pathTo }">
               {{ link.name }}
             </router-link>
@@ -49,20 +49,6 @@ export default {
       ],
     };
   },
-  methods:{
-    $_determineIfCurrentPage(index){
-
-      console.warn(index, 'ciaone')
-
-      this.navLinks.forEach((link) => {
-        link.isCurrentPage = false;
-      });
-
-      this.currentPage = index;
-      this.navLinks[index].isCurrentPage = true;
-    
-    }
-  }
 };
 </script>
 
@@ -70,30 +56,26 @@ export default {
 
   @import '../../sass/partials/_brandVariables.scss';
 
-  .current-page{
-
-    a{
-      color: $primary;
-    }
+  a.router-link-exact-active{
+    color: $primary;
 
     &::after{
       content: '\0020';
       position: absolute;
       width: 100%;
       bottom: 0;
-      transform: translate(0%, -50%);
+      left: 0;
       border-bottom: 3px solid $primary;
 
       @media screen and (max-width: 992px){
         border-bottom: 0;
         height: 50%;
         position: absolute;
-        right: 5px;
-        // transform: translate(10%, -50%);
+        top: 25%;
+        transform: translate(-5px ,0);
         border-left: 3px solid $primary;
       }
     }
-
   }
 
   .navbar-brand{

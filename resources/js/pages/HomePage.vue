@@ -1,9 +1,11 @@
 <template>
-    <section class="container position-relative">
+    <section class="container-fluid p-0 position-relative">
 
         <Jumbotron />
 
         <CitiesSuggestions />
+
+        <DbCountSection />
 
     </section>
 </template>
@@ -12,12 +14,14 @@
 <script>
 import Jumbotron from '../components/Home-Components/Jumbotron.vue';
 import CitiesSuggestions from '../components/Home-Components/CitiesSuggestions.vue';
+import DbCountSection from '../components/Home-Components/DbCountSection.vue';
 
 export default {
     name:"HomePage",
     components:{
     Jumbotron,
     CitiesSuggestions,
+    DbCountSection,
 },
     watch:{
 

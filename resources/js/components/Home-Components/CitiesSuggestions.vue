@@ -1,23 +1,25 @@
 <template>
-    <section id="citiesSuggestions" class="row gy-4 py-5">
+    <section class="container">
+        <div id="citiesSuggestions" class="row gy-4 py-5">
 
-        <div class="col-12">
-           <h2>
-                <span class="brand-styled-word-prime rounded">Viaggia</span>
-                 in città
-           </h2>
-           <p class="text-secondary">
-                Ecco alcune delle nostre città preferite
-           </p>
-        </div>
+            <div class="col-12">
+            <h2>
+                    <span class="brand-styled-word-prime rounded">Viaggia</span>
+                    in città
+            </h2>
+            <p class="text-secondary">
+                    Ecco alcune delle nostre città preferite
+            </p>
+            </div>
 
-        <div v-for="(card, index) in suggestedCities" :key="index" @click="$_redirectToAdvancedSearchWithPosition(index)"
-        :class="card.responsiveClasses">
-            <div class="cities-card-wrapper">
-                <img :src="card.img" :alt="'Foto rappresentativa di ' + card.city">
-                <h3 class="city-name">
-                    {{ card.city }}
-                </h3>
+            <div v-for="(card, index) in suggestedCities" :key="index" @click="$_redirectToAdvancedSearchWithPosition(index)"
+            :class="card.responsiveClasses">
+                <div class="cities-card-wrapper">
+                    <img :src="card.img" :alt="'Foto rappresentativa di ' + card.city">
+                    <h3 class="city-name">
+                        {{ card.city }}
+                    </h3>
+                </div>
             </div>
         </div>
     </section>

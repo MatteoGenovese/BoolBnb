@@ -2,11 +2,11 @@
     <section id="countSection" class="container-fluid my-5">
         <div class="container">
             <div class="row justify-content-around text-center">
-                <div v-for="(data, i) in dataCount" :key="i" class="col-12 col-md-6 col-lg-2">
-                    <h1 class="brand-color-prime">
+                <div v-for="(data, i) in dataCount" :key="i" class="card my-3 py-2 col-12 col-md-6 col-lg-2">
+                    <h1>
                         {{ data.count }}
                     </h1>
-                    <h3 class="brand-styled-word-prime rounded ">
+                    <h3>
                         {{ data.name }}
                     </h3>
                 </div>
@@ -51,6 +51,13 @@ export default {
         background-size: cover;
         background-repeat: no-repeat;
         background-position:top;
+
+        .card{
+            color: white;
+            background-color: rgba(black, .6);
+            display: flex;
+            justify-content: space-around;
+        }
     }
 
 </style>

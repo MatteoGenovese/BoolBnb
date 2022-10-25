@@ -50,7 +50,7 @@
                     <output class="ms-1">20 </output> <span class="ms-1"> km</span>
                 </div>
             </div>
-        
+
             <div class="d-flex justify-content-center p-3">
                 <button class="btn btn-lt btn-primary text-white mx-2" @click="sendFiltersData()">Applica filtri</button>
             </div>
@@ -77,7 +77,6 @@ export default {
         getServices() {
             axios.get("http://127.0.0.1:8000/api/services")
             .then((response) => {
-                console.log(response.data.results);
                 this.services = response.data.results;
             })
         },
@@ -118,6 +117,6 @@ export default {
     button{
         height: 60px;
     }
-    
+
 
 </style>

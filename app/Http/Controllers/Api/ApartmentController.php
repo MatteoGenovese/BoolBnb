@@ -20,7 +20,7 @@ class ApartmentController extends Controller
     {
         // $apartments = Apartment :: with('user', 'category')->paginate(50);
 
-        $apartments = Apartment::with('services', 'photos', 'user')->get();
+        $apartments = Apartment::with('services', 'photos', 'user', 'sponsorships')->get();
 
         return response()->json([
             'response' => true,
@@ -98,7 +98,7 @@ class ApartmentController extends Controller
             } else return false;
         }
 
-        
+
         if($request->has("services")) {
             $servicesIds = explode("-", $request->services);
         } else {
@@ -125,7 +125,7 @@ class ApartmentController extends Controller
 
 
 
-        $apartments = Apartment::with("services", "photos", "user")->get();
+        $apartments = Apartment::with("services", "photos", "user", 'sponsorships')->get();
 
         $filteredApartmentsWithServices = [];
         $filteredApartmentsWithoutServices = [];
@@ -161,7 +161,7 @@ class ApartmentController extends Controller
         };
 
 
-        
+
     }
 
     /**
@@ -193,7 +193,7 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::with('services', 'photos','user')->find($id);
+        $apartment = Apartment::with('services', 'photos','user', 'sponsorships')->find($id);
 
         if ($apartment) {
             return response()->json([

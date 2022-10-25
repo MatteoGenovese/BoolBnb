@@ -2,7 +2,12 @@
     <div id="propertyOverview" class="container mt-5 brand-ft-1">
         <ContactWarnComponent v-if="warnMessage"/>
         <div class="row" tabindex="1">
-            <div class="img-container col-10 m-auto">
+            <div class="img-container position-relative col-10 m-auto">
+                <div v-if="sponsorApplied==true" class=" position-absolute star text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                </div>
                 <img class="rounded img-fluid w-100"
                 v-for="photo in property.photos" :key="photo.id" :src="'/storage/' + photo.file_name"
                     :alt="property.title + ' cover Photo'">
@@ -202,6 +207,7 @@ export default {
     data: function () {
         return {
             property: [],
+            sponsorApplied: false,
             show: false,
             isActive: false,
             warnMessage: false,
@@ -240,6 +246,12 @@ export default {
                 axios.post(`http://127.0.0.1:8000/api/visuals/${this.id}`)
                 .then((response) => {
                     this.post = response;
+
+                    console.log(this.post);
+
+                    this.selectApartmentBySponsorship(response.data.result);
+
+
                     console.warn(this.post)
                 }).catch((error) => {
                     console.error(error)
@@ -251,6 +263,24 @@ export default {
                 this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
             }
         },
+        selectApartmentBySponsorship(apartment) {
+
+                if(apartment.sponsorships.length>0)
+                {
+                    if(new Date(apartment.sponsorships[apartment.sponsorships.length-1].pivot.expiration_date) > new Date)
+                    {
+                        this.sponsorApplied=true;
+                    }
+                    else{
+                        this.sponsorApplied=false;
+                    }
+                }
+                else
+                {
+                    this.sponsorApplied=false;
+                }
+
+    },
         $_mapZoomOut() {
             if (this.mapZoomIndex !== 10) {
                 this.mapZoomIndex = this.mapZoomIndex - 1;
@@ -307,7 +337,8 @@ export default {
                 .then((response) => {
                 this.property = response.data.results.data;
                 this.ownerInfo = this.property.user;
-                console.log(response.data.results.data);
+                // console.log(response.data.results.data);
+                this.selectApartmentBySponsorship(response.data.results.data);
                 this.lat = response.data.results.data.latitude;
                 this.lon = response.data.results.data.longitude;
                 this.$_getTomTomPrintedMap(this.$_coordinatesConverter(this.lat, this.lon, this.mapZoomIndex));
@@ -329,6 +360,21 @@ export default {
 @import '../../sass/partials/_classes';
 
 #propertyOverview {
+
+    .star{
+        left: 20px;
+        display: inline-block;
+        padding: 10px;
+        background: rgb(184, 0, 0);
+        clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);
+
+        svg{
+            transform: translateY(-7px);
+            color: white;
+
+        }
+
+    }
 
     ul#detailsNavBar{
         background-color: rgba($tertiaryLight,.1);

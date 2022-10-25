@@ -7,15 +7,15 @@
 
 
         <div v-if="isResearchDone==false">
-            <h5>
+            <h2>
                 Comincia la tua ricerca!
-            </h5>
+            </h2>
         </div>
 
         <div v-else-if="isResearchDone==true && noApartmentFound === true">
-            <h5>
+            <h2>
                 Nessun risultato.
-            </h5>
+            </h2>
         </div>
 
         <div class="row py-5" v-else-if="areCardLoaded == false">
@@ -175,6 +175,12 @@ export default {
 
     #advancedSearch{
         font-family: $brandTxtFam-1;
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-block: 6rem;
+        }
     }
 
 </style>

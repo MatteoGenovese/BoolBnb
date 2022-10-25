@@ -68,12 +68,12 @@ export default {
                     responsiveClasses: 'col-6 col-lg-4',
                 },
                 {
-                    city: 'Catania',
+                    city: 'Ancona',
                     position:{
-                        lat: 37.50248,
-                        lon: 15.08783,
+                        lat: 43.609476,
+                        lon: 13.50375,
                     },
-                    img: '/storage/asset/suggestedCities/catania.jpeg',
+                    img: '/storage/asset/suggestedCities/ancona.jpg',
                     responsiveClasses: 'col-6 col-lg-4',
                 },
             ],

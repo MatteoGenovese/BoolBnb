@@ -64,6 +64,11 @@ class PhotosTableSeeder extends Seeder
                 'file_name' => 'seededphoto/apartment10.jpg',
                 'is_cover_photo' => true,
             ],
+            [
+                'apartment_id' => 11,
+                'file_name' => 'seededphoto/apartment1.jpg',
+                'is_cover_photo' => true,
+            ],
         ];
 
 

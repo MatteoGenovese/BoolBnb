@@ -2232,7 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isTyping: false,
       printedWord: '',
-      wordsArray: ['viaggiare. ', 'scoprire. ', 'vivere. '],
+      wordsArray: ['viaggiare. ', 'conoscere. ', 'vivere. '],
       isFull: false,
       i: -1,
       currentWord: 0,
@@ -3264,7 +3264,7 @@ var render = function render() {
       src: "/storage/asset/img/logo.jpg",
       alt: "brand logo"
     }
-  })]), _vm._v(" "), _c("li", [_vm._v("\r\n                Email\r\n            ")]), _vm._v(" "), _c("li", [_vm._v("\r\n               boolbnb@gmail.com\r\n            ")]), _vm._v(" "), _c("li", [_vm._v("\r\n                +39 33333333333\r\n            ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("li", [_vm._v("\n                Email\n            ")]), _vm._v(" "), _c("li", [_vm._v("\n               boolbnb@gmail.com\n            ")]), _vm._v(" "), _c("li", [_vm._v("\n                +39 33333333333\n            ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c("div", {
     staticClass: "spacer d-flex"
   }), _vm._v(" "), _c("div", {
     staticClass: "row"
@@ -3314,7 +3314,7 @@ var render = function render() {
       attrs: {
         d: "M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"
       }
-    })])]), _vm._v(" "), _c("h6", [_vm._v("\r\n                    " + _vm._s(dev.name) + "\r\n                ")])]);
+    })])]), _vm._v(" "), _c("h6", [_vm._v("\n                    " + _vm._s(dev.name) + "\n                ")])]);
   }), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-end py-5"
   }, [_c("a", {
@@ -3346,7 +3346,7 @@ var staticRenderFns = [function () {
     staticClass: "col-6 col-sm-6 col-md-6 col-lg-2"
   }, [_c("li", {
     staticClass: "title"
-  }, [_vm._v("\r\n                Compagnia\r\n            ")]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._v("\n                Compagnia\n            ")]), _vm._v(" "), _c("li", [_c("a", {
     attrs: {
       href: "#"
     }
@@ -4043,7 +4043,7 @@ var render = function render() {
   })])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.property.photos, function (photo) {
     return _c("img", {
       key: photo.id,
-      staticClass: "rounded img-fluid w-100",
+      staticClass: "rounded img-fluid w-100 img-fluid",
       attrs: {
         src: "/storage/" + photo.file_name,
         alt: _vm.property.title + " cover Photo"
@@ -4551,7 +4551,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Po
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap%27);", ""]);
 
 // module
-exports.push([module.i, ".brand-ft-1[data-v-93c1a612] {\n  font-family: \"Poppins\", sans-serif;\n}\n.brand-color-prime[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.brand-styled-word-prime[data-v-93c1a612] {\n  padding: 0.4rem 0.6rem;\n  color: white;\n  background-color: #0d7a7f;\n}\n.bg-brand-prime-active-effect[data-v-93c1a612] {\n  background-color: #0d7a7f;\n  color: white !important;\n}\n.navbar-brand[data-v-93c1a612] {\n  width: 4rem;\n  height: 4rem;\n}\n.navbar-brand img[data-v-93c1a612] {\n  -o-object-fit: contain;\n     object-fit: contain;\n  width: 100%;\n  height: 100%;\n}\n.nav-brand-active[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.nav-brand-active[data-v-93c1a612]::after {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  transform: translate(0, 100%);\n  border-bottom: 3px solid #0d7a7f;\n}\n@media screen and (max-width: 992px) {\n.nav-brand-active[data-v-93c1a612]::after {\n    border-bottom: 0;\n    height: 50%;\n    position: absolute;\n    top: 25%;\n    transform: translate(-5px, 0);\n    border-left: 3px solid #0d7a7f;\n}\n}\n#propertyOverview .star[data-v-93c1a612] {\n  left: 20px;\n  display: inline-block;\n  padding: 10px;\n  background: rgb(184, 0, 0);\n  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n          clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n}\n#propertyOverview .star svg[data-v-93c1a612] {\n  transform: translateY(-7px);\n  color: white;\n}\n#propertyOverview ul#detailsNavBar[data-v-93c1a612] {\n  background-color: rgba(133, 157, 177, 0.1);\n}\n#propertyOverview ul#detailsNavBar li[data-v-93c1a612] {\n  box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -webkit-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -moz-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n}\n#propertyOverview ul.icons-field[data-v-93c1a612] {\n  margin-left: 0.5rem;\n  list-style: none;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li[data-v-93c1a612] {\n  font-size: 1.2rem;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li img[data-v-93c1a612] {\n  width: 2rem;\n  filter: opacity(50%);\n}\n#propertyOverview ul.icons-field li span[data-v-93c1a612] {\n  color: gray;\n  margin: 0 0.8rem;\n}\n#propertyOverview ul.icons-field #propertyNav[data-v-93c1a612] {\n  margin: 3rem 0;\n}\n#propertyOverview ul.icons-field #propertyNav ul[data-v-93c1a612] {\n  list-style: none;\n}\n#propertyOverview ul.icons-field #propertyNav ul li[data-v-93c1a612] {\n  text-align: center;\n  display: inline-block;\n}\n#propertyOverview #mapSection img[data-v-93c1a612] {\n  display: block;\n  margin: 0 auto;\n}\n@media screen and (max-width: 550px) {\n#propertyOverview #mapSection img[data-v-93c1a612] {\n    max-width: 300px;\n}\n}\n#propertyOverview .title[data-v-93c1a612] {\n  word-break: break-all;\n}", ""]);
+exports.push([module.i, ".brand-ft-1[data-v-93c1a612] {\n  font-family: \"Poppins\", sans-serif;\n}\n.brand-color-prime[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.brand-styled-word-prime[data-v-93c1a612] {\n  padding: 0.4rem 0.6rem;\n  color: white;\n  background-color: #0d7a7f;\n}\n.bg-brand-prime-active-effect[data-v-93c1a612] {\n  background-color: #0d7a7f;\n  color: white !important;\n}\n.navbar-brand[data-v-93c1a612] {\n  width: 4rem;\n  height: 4rem;\n}\n.navbar-brand img[data-v-93c1a612] {\n  -o-object-fit: contain;\n     object-fit: contain;\n  width: 100%;\n  height: 100%;\n}\n.nav-brand-active[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.nav-brand-active[data-v-93c1a612]::after {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  transform: translate(0, 100%);\n  border-bottom: 3px solid #0d7a7f;\n}\n@media screen and (max-width: 992px) {\n.nav-brand-active[data-v-93c1a612]::after {\n    border-bottom: 0;\n    height: 50%;\n    position: absolute;\n    top: 25%;\n    transform: translate(-5px, 0);\n    border-left: 3px solid #0d7a7f;\n}\n}\n#propertyOverview .img-cover[data-v-93c1a612] {\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: 45rem;\n}\n#propertyOverview .star[data-v-93c1a612] {\n  left: 20px;\n  display: inline-block;\n  padding: 10px;\n  background: rgb(184, 0, 0);\n  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n          clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n}\n#propertyOverview .star svg[data-v-93c1a612] {\n  transform: translateY(-7px);\n  color: white;\n}\n#propertyOverview ul#detailsNavBar[data-v-93c1a612] {\n  background-color: rgba(133, 157, 177, 0.1);\n}\n#propertyOverview ul#detailsNavBar li[data-v-93c1a612] {\n  box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -webkit-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -moz-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n}\n#propertyOverview ul.icons-field[data-v-93c1a612] {\n  margin-left: 0.5rem;\n  list-style: none;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li[data-v-93c1a612] {\n  font-size: 1.2rem;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li img[data-v-93c1a612] {\n  width: 2rem;\n  filter: opacity(50%);\n}\n#propertyOverview ul.icons-field li span[data-v-93c1a612] {\n  color: gray;\n  margin: 0 0.8rem;\n}\n#propertyOverview ul.icons-field #propertyNav[data-v-93c1a612] {\n  margin: 3rem 0;\n}\n#propertyOverview ul.icons-field #propertyNav ul[data-v-93c1a612] {\n  list-style: none;\n}\n#propertyOverview ul.icons-field #propertyNav ul li[data-v-93c1a612] {\n  text-align: center;\n  display: inline-block;\n}\n#propertyOverview #mapSection img[data-v-93c1a612] {\n  display: block;\n  margin: 0 auto;\n}\n@media screen and (max-width: 550px) {\n#propertyOverview #mapSection img[data-v-93c1a612] {\n    max-width: 300px;\n}\n}\n#propertyOverview .title[data-v-93c1a612] {\n  word-break: break-all;\n}", ""]);
 
 // exports
 
@@ -22295,7 +22295,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Luca\Documents\Node\BoolBnb\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! /Users/matteogenovese/Programmazione/Boolean/BoolBnb/resources/js/front.js */"./resources/js/front.js");
 
 
 /***/ })

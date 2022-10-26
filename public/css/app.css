@@ -10821,10 +10821,10 @@ textarea.form-control-lg {
   }
 }
 .btn.brand-btn-1 {
-  background-color: #0d7a80;
+  background-color: #0d7a7f;
 }
 .btn.brand-btn-1:active {
-  background-color: #0d7a80;
+  background-color: #0d7a7f;
   color: white;
   transform: translatey(-0.5px) scale(1.05);
   filter: brightness(1);
@@ -10853,6 +10853,76 @@ textarea.form-control-lg {
   transition: all 150ms linear;
 }
 
+.btn.brand-btn-outline-1 {
+  border: 1px solid #0d7a7f;
+  color: #0d7a7f;
+}
+.btn.brand-btn-outline-1:hover {
+  color: white;
+  background-color: #0d7a7f;
+}
+
 .brand-ft-1 {
   font-family: "Poppins", sans-serif;
+}
+
+.brand-color-prime {
+  color: #0d7a7f;
+}
+
+.brand-styled-word-prime {
+  padding: 0.4rem 0.6rem;
+  color: white;
+  background-color: #0d7a7f;
+}
+
+.bg-brand-prime-active-effect {
+  background-color: #0d7a7f;
+  color: white !important;
+}
+
+.navbar-brand {
+  width: 4rem;
+  height: 4rem;
+}
+.navbar-brand img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.nav-brand-active {
+  color: #0d7a7f;
+}
+.nav-brand-active::after {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  transform: translate(0, 100%);
+  border-bottom: 3px solid #0d7a7f;
+}
+@media screen and (max-width: 992px) {
+  .nav-brand-active::after {
+    border-bottom: 0;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    transform: translate(-5px, 0);
+    border-left: 3px solid #0d7a7f;
+  }
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+*::-moz-selection {
+  background-color: rgba(116, 138, 102, 0.3);
+  color: #0d7a7f;
+}
+*::selection {
+  background-color: rgba(116, 138, 102, 0.3);
+  color: #0d7a7f;
 }

@@ -21,7 +21,7 @@
                     <div class="row">
                         <a class="col-12 col-md-6 d-block text-center text-md-start mb-3" href="{{ route('user.apartments.show', $apartment->id) }}">
                             <h4>
-                                {{ strlen($apartment->title) > 20 ? substr($apartment->title, 0, 20) ."..." : $apartment->title }}
+                                {{ strlen($apartment->title) > 18 ? substr($apartment->title, 0, 18) ."..." : $apartment->title }}
                             </h4>
                             <h6>
                                 {{ $apartment->address }}

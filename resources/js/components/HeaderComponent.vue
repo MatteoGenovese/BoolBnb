@@ -20,7 +20,7 @@
         <ul class="navbar-nav">
           <li class="nav-item position-relative"
            v-for="(link, index) in navLinks" :key="index">
-            <router-link class="nav-link" :to="{ name: link.pathTo }">
+            <router-link class="nav-link" :to="{ name: link.pathTo }" :class=" $route.name === link.pathTo ? 'router-link-exact-active' : '' ">
               {{ link.name }}
             </router-link>
           </li>

@@ -45,7 +45,7 @@ class ApartmentController extends Controller
                 "count" => $messages
             ],
             [
-                "name" => "Visualizzazioni" ,
+                "name" => "Visuals" ,
                 "count" => $visuals
             ],
             [

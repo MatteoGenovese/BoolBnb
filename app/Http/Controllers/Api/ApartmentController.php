@@ -37,7 +37,7 @@ class ApartmentController extends Controller
 
         $totalCount = [
             [
-                "name" =>"Proprietà",
+                "name" =>"Annunci",
                 "count" => $apartments
             ],
             [

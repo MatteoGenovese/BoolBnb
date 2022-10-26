@@ -14,12 +14,12 @@
 
 
         @forelse ($apartments as $apartment )
-            <div class="col-6 mt-3 position-relative apartment-card">
+            <div class="col-12 col-lg-6 mt-3 position-relative apartment-card">
                 
                 <div class="p-3 align-items-center border-bottom">
 
                     <div class="row">
-                        <a class="col-6 d-block" href="{{ route('user.apartments.show', $apartment->id) }}">
+                        <a class="col-12 col-md-6 d-block" href="{{ route('user.apartments.show', $apartment->id) }}">
                                 <h6>
                                     Id: {{ $apartment->id }}
                                 </h6>
@@ -33,7 +33,7 @@
                         
                     
 
-                        <div class="col-4 align-self-center">
+                        <div class="col-6 col-md-4 align-self-center">
                             <div class="text-center">
                                 Messaggi: <br> {{ $apartment->messages->count() }}
                             </div>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="col-2 align-self-center">
+                        <div class="col-6 col-md-2 align-self-center">
                             <div class="dropdown">
                                 <button class="btn brand-btn-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Azioni

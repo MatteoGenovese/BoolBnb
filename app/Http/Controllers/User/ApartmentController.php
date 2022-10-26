@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 class ApartmentController extends Controller
 {
 
-    protected $validationRules = 
+    protected $validationRules =
     [
         'title' => 'required|min:10|max:100',
         'description' => 'required|min:10|max:1000',
@@ -73,9 +73,9 @@ class ApartmentController extends Controller
         'square_meters.max' => 'L\'abitazione può essere massimo 1000 metri quadrati.',
         'square_meters.integer' => 'I metri quadrati possono essere espressi solo in numeri interi.',
 
-        'file_name.required' => 'La foto dell\'abitazione è richiesta.',        
-        'file_name.max' => 'La foto può pesare massimo 5MB',        
-        'file_name.mimes' => 'Le estensioni dei file può essere solo: jpeg, jpg o png.',        
+        'file_name.required' => 'La foto dell\'abitazione è richiesta.',
+        'file_name.max' => 'La foto può pesare massimo 5MB',
+        'file_name.mimes' => 'Le estensioni dei file può essere solo: jpeg, jpg o png.',
 
         'services.required' => 'La selezione dei servizi è richiesta.',
         'services.min' => 'L\'abitazione dovrò avere almeno un servizio.',
@@ -197,7 +197,7 @@ class ApartmentController extends Controller
         }
 
         $apartment = Apartment::findOrFail($id);
-        
+
         if($request->services) {
             $apartment->services()->sync($request->services);
         } else {
@@ -205,9 +205,9 @@ class ApartmentController extends Controller
         }
 
         $apartment->update($sentData);
-        
+
         $photo = Photo::where("apartment_id", $id)->first();
-        
+
         if(is_null($request->file_name)) {
             $sentData["file_name"] = $photo->file_name;
         } else {
@@ -215,7 +215,7 @@ class ApartmentController extends Controller
         }
 
         $photo->fill($sentData);
-        
+
         $photo->save();
 
         return redirect()->route('user.apartments.show', compact('apartment', "photo"))->with('session-change', $sentData['title'] . ' è stato modificato con successo!')->with(['session-class' => 'alert-success']);
@@ -238,7 +238,7 @@ class ApartmentController extends Controller
     public function messagesIndex($id) {
 
         $messages = Message::where("apartment_id", $id)->orderBy("created_at", "desc")->get();
-        
+
         return view("user.messages.index", compact("messages"));
 
     }
@@ -294,7 +294,7 @@ class ApartmentController extends Controller
 
 
         $apartment->sponsorships()->attach($sentData["sponsorship_id"], ["expiration_date" => $sentData["expiration_date"]]);
-        
+
         return redirect()->route("user.apartments.show", compact("apartment"))->with("sponsorship_added", "Sono state aggiunte " . $sponsorship->duration * 24 . " ore alla sponsorizzazione di questo annuncio!");
 
 

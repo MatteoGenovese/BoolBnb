@@ -24,9 +24,9 @@
 
         <div class="row py-5" v-else>
 
-            <PostCard v-for="apartment in apartmentsWithSponsor" :key="apartment.id" :apartment="apartment" :sponsor="true" />
+            <PostCard v-for="apartment in apartmentsWithSponsor" :key="apartment.id" @click="scrollToTop()" :apartment="apartment" :sponsor="true" />
 
-            <PostCard v-for="apartment in apartmentsWithoutSponsor" :key="apartment.id" :apartment="apartment" :sponsor="false"/>
+            <PostCard v-for="apartment in apartmentsWithoutSponsor" :key="apartment.id" @click="scrollToTop()" :apartment="apartment" :sponsor="false"/>
         </div>
 
     </div>
@@ -110,19 +110,33 @@ export default {
                 services: params.services,
             }}
             ).then((response)=>{
-                if(response.data.results == undefined){
-                    this.areCardLoaded = true;
+
+                console.log(response.data.results);
+                if(response.data.results.length == 0){
+
                     this.noApartmentFound = true;
                     this.apartmentsWithoutSponsor == [];
                     this.apartmentsWithSponsor == [];
+                    this.areCardLoaded = true;
+                }
+                if(response.data.results == undefined){
+
+                    this.noApartmentFound = true;
+                    this.apartmentsWithoutSponsor == [];
+                    this.apartmentsWithSponsor == [];
+                    this.areCardLoaded = true;
                 }
                 else if(response.data.results.length > 0){
                     this.selectApartmentBySponsorship(response.data.results);
                     this.noApartmentFound = false;
                     this.areCardLoaded = true;
+
                 }
                 this.isResearchDone = true;
             })
+        },
+        scrollToTop() {
+            window.scrollTo(0,0);
         },
         getFilterParams(params) {
             this.bathNo = params.bathNo;
@@ -163,7 +177,8 @@ export default {
         }
     },
     created(){
-        this.$_passLocation()
+        this.$_passLocation();
+        this.scrollToTop();
     }
 
 }
@@ -182,5 +197,6 @@ export default {
             margin-block: 6rem;
         }
     }
+
 
 </style>

@@ -108,9 +108,6 @@ export default {
         filter:opacity(50%);
     }
 
-    .title{
-        word-break: break-all;
-    }
 
 
 </style>

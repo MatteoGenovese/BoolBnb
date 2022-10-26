@@ -2530,11 +2530,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           services: params.services
         }
       }).then(function (response) {
-        if (response.data.results == undefined) {
-          _this.areCardLoaded = true;
+        console.log(response.data.results);
+        if (response.data.results.length == 0) {
           _this.noApartmentFound = true;
           _this.apartmentsWithoutSponsor == [];
           _this.apartmentsWithSponsor == [];
+          _this.areCardLoaded = true;
+        }
+        if (response.data.results == undefined) {
+          _this.noApartmentFound = true;
+          _this.apartmentsWithoutSponsor == [];
+          _this.apartmentsWithSponsor == [];
+          _this.areCardLoaded = true;
         } else if (response.data.results.length > 0) {
           _this.selectApartmentBySponsorship(response.data.results);
           _this.noApartmentFound = false;
@@ -2542,6 +2549,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
         _this.isResearchDone = true;
       });
+    },
+    scrollToTop: function scrollToTop() {
+      window.scrollTo(0, 0);
     },
     getFilterParams: function getFilterParams(params) {
       this.bathNo = params.bathNo;
@@ -2571,6 +2581,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   created: function created() {
     this.$_passLocation();
+    this.scrollToTop();
   }
 });
 
@@ -2739,6 +2750,9 @@ __webpack_require__.r(__webpack_exports__);
         console.error(error);
       });
     },
+    scrollToTop: function scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     $_activeNavOnClick: function $_activeNavOnClick(index) {
       this.propertyOverviewNav.forEach(function (item) {
         item.isActive = false;
@@ -2770,6 +2784,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.$_getPropertyData();
     this.$_addNewVisual();
+    this.scrollToTop();
   },
   components: {
     ContactForm: _components_ContactForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3957,6 +3972,11 @@ var render = function render() {
       attrs: {
         apartment: apartment,
         sponsor: true
+      },
+      on: {
+        click: function click($event) {
+          return _vm.scrollToTop();
+        }
       }
     });
   }), _vm._v(" "), _vm._l(_vm.apartmentsWithoutSponsor, function (apartment) {
@@ -3965,6 +3985,11 @@ var render = function render() {
       attrs: {
         apartment: apartment,
         sponsor: false
+      },
+      on: {
+        click: function click($event) {
+          return _vm.scrollToTop();
+        }
       }
     });
   })], 2)], 1);
@@ -4024,7 +4049,10 @@ var render = function render() {
       tabindex: "1"
     }
   }, [_c("div", {
-    staticClass: "img-container position-relative col-10 m-auto"
+    staticClass: "img-container position-relative col-10 m-auto d-flex justify-content-center",
+    attrs: {
+      id: "img-cover"
+    }
   }, [_vm.sponsorApplied == true ? _c("div", {
     staticClass: "position-absolute star text-white"
   }, [_c("svg", {
@@ -4043,7 +4071,7 @@ var render = function render() {
   })])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.property.photos, function (photo) {
     return _c("img", {
       key: photo.id,
-      staticClass: "rounded img-fluid w-100 img-fluid",
+      staticClass: "rounded img-fluid h-100 w-75",
       attrs: {
         src: "/storage/" + photo.file_name,
         alt: _vm.property.title + " cover Photo"
@@ -4490,7 +4518,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Po
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap%27);", ""]);
 
 // module
-exports.push([module.i, ".brand-ft-1[data-v-25279571] {\n  font-family: \"Poppins\", sans-serif;\n}\n.brand-color-prime[data-v-25279571] {\n  color: #0d7a7f;\n}\n.brand-styled-word-prime[data-v-25279571] {\n  padding: 0.4rem 0.6rem;\n  color: white;\n  background-color: #0d7a7f;\n}\n.bg-brand-prime-active-effect[data-v-25279571] {\n  background-color: #0d7a7f;\n  color: white !important;\n}\n.navbar-brand[data-v-25279571] {\n  width: 4rem;\n  height: 4rem;\n}\n.navbar-brand img[data-v-25279571] {\n  -o-object-fit: contain;\n     object-fit: contain;\n  width: 100%;\n  height: 100%;\n}\n.nav-brand-active[data-v-25279571] {\n  color: #0d7a7f;\n}\n.nav-brand-active[data-v-25279571]::after {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  transform: translate(0, 100%);\n  border-bottom: 3px solid #0d7a7f;\n}\n@media screen and (max-width: 992px) {\n.nav-brand-active[data-v-25279571]::after {\n    border-bottom: 0;\n    height: 50%;\n    position: absolute;\n    top: 25%;\n    transform: translate(-5px, 0);\n    border-left: 3px solid #0d7a7f;\n}\n}\n@media screen and (min-width: 576px) {\n.postcard-detail[data-v-25279571] {\n    height: 12.5rem;\n}\n}\n.star[data-v-25279571] {\n  left: 10px;\n  display: inline-block;\n  padding: 10px;\n  background: rgb(184, 0, 0);\n  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n          clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n}\n.star svg[data-v-25279571] {\n  transform: translateY(-7px);\n  color: white;\n}\n.apartment-card-hover[data-v-25279571] {\n  transition: all 0.3s;\n  border-radius: 0.5rem;\n  cursor: pointer;\n}\n.apartment-card-hover[data-v-25279571]:hover {\n  transform: scale(1.1);\n  box-shadow: 0rem 0rem 0.7rem #859db1;\n}\n.apartment-card-hover[data-v-25279571]:active {\n  transform: scale(0.7);\n}\n.imagecontainer[data-v-25279571] {\n  width: 100%;\n  margin: auto;\n  height: 150px;\n}\n.imagecontainer .image[data-v-25279571] {\n  border-radius: 0.5rem;\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.icon[data-v-25279571] {\n  width: 1.5rem;\n  filter: opacity(50%);\n}\n.title[data-v-25279571] {\n  word-break: break-all;\n}", ""]);
+exports.push([module.i, ".brand-ft-1[data-v-25279571] {\n  font-family: \"Poppins\", sans-serif;\n}\n.brand-color-prime[data-v-25279571] {\n  color: #0d7a7f;\n}\n.brand-styled-word-prime[data-v-25279571] {\n  padding: 0.4rem 0.6rem;\n  color: white;\n  background-color: #0d7a7f;\n}\n.bg-brand-prime-active-effect[data-v-25279571] {\n  background-color: #0d7a7f;\n  color: white !important;\n}\n.navbar-brand[data-v-25279571] {\n  width: 4rem;\n  height: 4rem;\n}\n.navbar-brand img[data-v-25279571] {\n  -o-object-fit: contain;\n     object-fit: contain;\n  width: 100%;\n  height: 100%;\n}\n.nav-brand-active[data-v-25279571] {\n  color: #0d7a7f;\n}\n.nav-brand-active[data-v-25279571]::after {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  transform: translate(0, 100%);\n  border-bottom: 3px solid #0d7a7f;\n}\n@media screen and (max-width: 992px) {\n.nav-brand-active[data-v-25279571]::after {\n    border-bottom: 0;\n    height: 50%;\n    position: absolute;\n    top: 25%;\n    transform: translate(-5px, 0);\n    border-left: 3px solid #0d7a7f;\n}\n}\n@media screen and (min-width: 576px) {\n.postcard-detail[data-v-25279571] {\n    height: 12.5rem;\n}\n}\n.star[data-v-25279571] {\n  left: 10px;\n  display: inline-block;\n  padding: 10px;\n  background: rgb(184, 0, 0);\n  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n          clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n}\n.star svg[data-v-25279571] {\n  transform: translateY(-7px);\n  color: white;\n}\n.apartment-card-hover[data-v-25279571] {\n  transition: all 0.3s;\n  border-radius: 0.5rem;\n  cursor: pointer;\n}\n.apartment-card-hover[data-v-25279571]:hover {\n  transform: scale(1.1);\n  box-shadow: 0rem 0rem 0.7rem #859db1;\n}\n.apartment-card-hover[data-v-25279571]:active {\n  transform: scale(0.7);\n}\n.imagecontainer[data-v-25279571] {\n  width: 100%;\n  margin: auto;\n  height: 150px;\n}\n.imagecontainer .image[data-v-25279571] {\n  border-radius: 0.5rem;\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.icon[data-v-25279571] {\n  width: 1.5rem;\n  filter: opacity(50%);\n}", ""]);
 
 // exports
 
@@ -4551,7 +4579,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Po
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap%27);", ""]);
 
 // module
-exports.push([module.i, ".brand-ft-1[data-v-93c1a612] {\n  font-family: \"Poppins\", sans-serif;\n}\n.brand-color-prime[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.brand-styled-word-prime[data-v-93c1a612] {\n  padding: 0.4rem 0.6rem;\n  color: white;\n  background-color: #0d7a7f;\n}\n.bg-brand-prime-active-effect[data-v-93c1a612] {\n  background-color: #0d7a7f;\n  color: white !important;\n}\n.navbar-brand[data-v-93c1a612] {\n  width: 4rem;\n  height: 4rem;\n}\n.navbar-brand img[data-v-93c1a612] {\n  -o-object-fit: contain;\n     object-fit: contain;\n  width: 100%;\n  height: 100%;\n}\n.nav-brand-active[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.nav-brand-active[data-v-93c1a612]::after {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  transform: translate(0, 100%);\n  border-bottom: 3px solid #0d7a7f;\n}\n@media screen and (max-width: 992px) {\n.nav-brand-active[data-v-93c1a612]::after {\n    border-bottom: 0;\n    height: 50%;\n    position: absolute;\n    top: 25%;\n    transform: translate(-5px, 0);\n    border-left: 3px solid #0d7a7f;\n}\n}\n#propertyOverview .img-cover[data-v-93c1a612] {\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: 45rem;\n}\n#propertyOverview .star[data-v-93c1a612] {\n  left: 20px;\n  display: inline-block;\n  padding: 10px;\n  background: rgb(184, 0, 0);\n  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n          clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n}\n#propertyOverview .star svg[data-v-93c1a612] {\n  transform: translateY(-7px);\n  color: white;\n}\n#propertyOverview ul#detailsNavBar[data-v-93c1a612] {\n  background-color: rgba(133, 157, 177, 0.1);\n}\n#propertyOverview ul#detailsNavBar li[data-v-93c1a612] {\n  box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -webkit-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -moz-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n}\n#propertyOverview ul.icons-field[data-v-93c1a612] {\n  margin-left: 0.5rem;\n  list-style: none;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li[data-v-93c1a612] {\n  font-size: 1.2rem;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li img[data-v-93c1a612] {\n  width: 2rem;\n  filter: opacity(50%);\n}\n#propertyOverview ul.icons-field li span[data-v-93c1a612] {\n  color: gray;\n  margin: 0 0.8rem;\n}\n#propertyOverview ul.icons-field #propertyNav[data-v-93c1a612] {\n  margin: 3rem 0;\n}\n#propertyOverview ul.icons-field #propertyNav ul[data-v-93c1a612] {\n  list-style: none;\n}\n#propertyOverview ul.icons-field #propertyNav ul li[data-v-93c1a612] {\n  text-align: center;\n  display: inline-block;\n}\n#propertyOverview #mapSection img[data-v-93c1a612] {\n  display: block;\n  margin: 0 auto;\n}\n@media screen and (max-width: 550px) {\n#propertyOverview #mapSection img[data-v-93c1a612] {\n    max-width: 300px;\n}\n}\n#propertyOverview .title[data-v-93c1a612] {\n  word-break: break-all;\n}", ""]);
+exports.push([module.i, ".brand-ft-1[data-v-93c1a612] {\n  font-family: \"Poppins\", sans-serif;\n}\n.brand-color-prime[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.brand-styled-word-prime[data-v-93c1a612] {\n  padding: 0.4rem 0.6rem;\n  color: white;\n  background-color: #0d7a7f;\n}\n.bg-brand-prime-active-effect[data-v-93c1a612] {\n  background-color: #0d7a7f;\n  color: white !important;\n}\n.navbar-brand[data-v-93c1a612] {\n  width: 4rem;\n  height: 4rem;\n}\n.navbar-brand img[data-v-93c1a612] {\n  -o-object-fit: contain;\n     object-fit: contain;\n  width: 100%;\n  height: 100%;\n}\n.nav-brand-active[data-v-93c1a612] {\n  color: #0d7a7f;\n}\n.nav-brand-active[data-v-93c1a612]::after {\n  content: \" \";\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  transform: translate(0, 100%);\n  border-bottom: 3px solid #0d7a7f;\n}\n@media screen and (max-width: 992px) {\n.nav-brand-active[data-v-93c1a612]::after {\n    border-bottom: 0;\n    height: 50%;\n    position: absolute;\n    top: 25%;\n    transform: translate(-5px, 0);\n    border-left: 3px solid #0d7a7f;\n}\n}\n#propertyOverview #img-cover[data-v-93c1a612] {\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n#propertyOverview .star[data-v-93c1a612] {\n  left: calc(12.5% + 20px);\n  display: inline-block;\n  padding: 10px;\n  background: rgb(184, 0, 0);\n  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n          clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 50% 63%, 100% 100%);\n}\n#propertyOverview .star svg[data-v-93c1a612] {\n  transform: translateY(-7px);\n  color: white;\n}\n#propertyOverview ul#detailsNavBar[data-v-93c1a612] {\n  background-color: rgba(133, 157, 177, 0.1);\n}\n#propertyOverview ul#detailsNavBar li[data-v-93c1a612] {\n  box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -webkit-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n  -moz-box-shadow: -2px 2px 11px -2px rgba(0, 0, 0, 0.29);\n}\n#propertyOverview ul.icons-field[data-v-93c1a612] {\n  margin-left: 0.5rem;\n  list-style: none;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li[data-v-93c1a612] {\n  font-size: 1.2rem;\n  display: inline-block;\n}\n#propertyOverview ul.icons-field li img[data-v-93c1a612] {\n  width: 2rem;\n  filter: opacity(50%);\n}\n#propertyOverview ul.icons-field li span[data-v-93c1a612] {\n  color: gray;\n  margin: 0 0.8rem;\n}\n#propertyOverview ul.icons-field #propertyNav[data-v-93c1a612] {\n  margin: 3rem 0;\n}\n#propertyOverview ul.icons-field #propertyNav ul[data-v-93c1a612] {\n  list-style: none;\n}\n#propertyOverview ul.icons-field #propertyNav ul li[data-v-93c1a612] {\n  text-align: center;\n  display: inline-block;\n}\n#propertyOverview #mapSection img[data-v-93c1a612] {\n  display: block;\n  margin: 0 auto;\n}\n@media screen and (max-width: 550px) {\n#propertyOverview #mapSection img[data-v-93c1a612] {\n    max-width: 300px;\n}\n}", ""]);
 
 // exports
 

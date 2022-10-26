@@ -13,7 +13,7 @@
                     :alt="property.title + ' cover Photo'">
             </div>
             <div class="col-12">
-                <h3 class="my-3 mt-5 text-capitalize">
+                <h3 class="my-3 mt-5 text-capitalize title">
                     {{ property.title }}
                 </h3>
                 <h5>
@@ -425,6 +425,10 @@ export default {
                 max-width: 300px;
             }
         }
+    }
+
+    .title{
+        word-break: break-all;
     }
 }
 

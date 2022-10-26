@@ -19,16 +19,16 @@
                 <div class="p-3 align-items-center border-bottom">
 
                     <div class="row">
-                        <a class="col-12 col-md-6 d-block" href="{{ route('user.apartments.show', $apartment->id) }}">
-                                <h6>
-                                    Id: {{ $apartment->id }}
-                                </h6>
-                                <h4>
-                                    {{ strlen($apartment->title) > 20 ? substr($apartment->title, 0, 20) ."..." : $apartment->title }}
-                                </h4>
-                                <h6>
-                                    {{ $apartment->address }}
-                                </h6>
+                        <a class="col-12 col-md-6 d-block text-center text-md-start mb-3" href="{{ route('user.apartments.show', $apartment->id) }}">
+                            <h4>
+                                {{ strlen($apartment->title) > 20 ? substr($apartment->title, 0, 20) ."..." : $apartment->title }}
+                            </h4>
+                            <h6>
+                                {{ $apartment->address }}
+                            </h6>
+                            <div class="text-secondary">
+                                Id: {{ $apartment->id }}
+                            </div>
                         </a>
                         
                     

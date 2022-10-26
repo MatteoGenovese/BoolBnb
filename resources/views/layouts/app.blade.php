@@ -59,7 +59,7 @@
             </ul>
             @guest
                 <div class="d-lg-flex">
-                    <div class="nav-item d-block d-lg-inline position-relative text-secondary mx-2">
+                    <div class="nav-item d-block d-lg-inline position-relative text-secondary mx-lg-2">
                         <a class="nav-link mx-lg-2 {{ request()->routeIs('login') ? 'nav-brand-active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </div>
                     @if (Route::has('register'))

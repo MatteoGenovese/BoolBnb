@@ -13,7 +13,7 @@
             <div class="postcard-detail d-flex flex-column justify-content-sm-between mt-1 ">
                 <div>
                     <p class="brand-color-prime">Disponibile</p>
-                    <h6 class="text-capitalize">{{ apartment.title.toLowerCase() }}</h6>
+                    <h6 class="text-capitalize title">{{ apartment.title.toLowerCase() }}</h6>
                     <h6 class="fw-bold">{{ apartment.address }}</h6>
                 </div>
 
@@ -106,6 +106,10 @@ export default {
     .icon{
         width: 1.5rem;
         filter:opacity(50%);
+    }
+
+    .title{
+        word-break: break-all;
     }
 
 

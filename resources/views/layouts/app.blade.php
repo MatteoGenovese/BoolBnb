@@ -22,55 +22,76 @@
 <body>
     <div id="app">
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg bg-light">
             <div class="container">
-                <div class="collapse navbar-collapse d-flex list-unstyled justify-content-between" id="navbarSupportedContent">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        BoolBNB
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('storage/asset/img/logo.jpg') }}" alt="brand logo">
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link text-decoration-none text-secondary" href="{{ url('/') }}">
+                        Home
                     </a>
-                    @auth()
-                        <a class="navbar-item me-auto" href="{{ route("user.apartments.index") }}">
-                            I tuoi annunci
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-decoration-none text-secondary mx-lg-2" href="{{ url('/ricerca-avanzata') }}">
+                        Ricerca
+                    </a>
+                  </li>
+                  @auth()
+                    <li class="nav-item">
+                        <a class="nav-link text-decoration-none text-secondary position-relative" href="{{ route("user.apartments.index") }}">
+                            <span class=" {{ request()->routeIs('user.apartments.index') ? 'nav-brand-active' : '' }}">I tuoi annunci</span>
                         </a>
-                    @endauth
-                    <!-- Right Side Of Navbar -->
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item ms-auto me-5">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Registrati</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item">
-                                <a href="{{ route('user.apartments.create') }}" class="btn btn-success me-3">Crea</a>
-                            </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-decoration-none text-secondary position-relative mx-lg-2" href="{{ route('user.apartments.create') }}">
+                            <span class=" {{ request()->routeIs('user.apartments.create') ? 'nav-brand-active' : '' }}">Crea</span>
+                        </a>
+                    </li>
+                  @endauth
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{ Auth::user()->name }}
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-                                        </li>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </ul>
-                                </li>
-                                
-                        @endguest
+                <!-- Guest not registered, Authentication Links -->
+            </ul>
+            @guest
+                <div class="d-lg-flex">
+                    <div class="nav-item d-block d-lg-inline position-relative text-secondary mx-2">
+                        <a class="nav-link mx-lg-2 {{ request()->routeIs('login') ? 'nav-brand-active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </div>
+                    @if (Route::has('register'))
+                        <div class="nav-item d-block d-lg-inline position-relative text-secondary my-2 m-lg-0">
+                            <a class="nav-link mx-lg-2 {{ request()->routeIs('register') ? 'nav-brand-active' : '' }}" href="{{ route('register') }}">Registrati</a>
+                        </div>
+                    @endif
                 </div>
+                
+            @else
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle brand-color-prime" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </ul>
+                </div>
+            @endguest
+              </div>
             </div>
-        </nav>
+          </nav>
+
         <main class="py-4">
             @yield('content')
         </main>

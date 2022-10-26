@@ -14,17 +14,17 @@ class SponsorshipsTableSeeder extends Seeder
     {
         $sponsorships = [
             [
-                'name' => 'bronze',
+                'name' => 'Bronze',
                 'price' => 2.99,
                 'duration' => 1,
             ],
             [
-                'name' => 'silver',
+                'name' => 'Silver',
                 'price' => 5.99,
                 'duration' => 3,
             ],
             [
-                'name' => 'gold',
+                'name' => 'Gold',
                 'price' => 9.99,
                 'duration' => 6,
             ]

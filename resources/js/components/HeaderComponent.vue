@@ -20,7 +20,7 @@
         <ul class="navbar-nav">
           <li class="nav-item position-relative"
            v-for="(link, index) in navLinks" :key="index">
-            <router-link class="nav-link" :to="{ name: link.pathTo }">
+            <router-link class="nav-link" :to="{ name: link.pathTo }" :class=" $route.name === link.pathTo ? 'router-link-exact-active' : '' ">
               {{ link.name }}
             </router-link>
           </li>
@@ -75,17 +75,6 @@ export default {
         transform: translate(-5px ,0);
         border-left: 3px solid $primary;
       }
-    }
-  }
-
-  .navbar-brand{
-    width: 4rem;
-    height: 4rem;
-
-    img{
-      object-fit:contain;  
-      width: 100%;
-      height: 100%;
     }
   }
 

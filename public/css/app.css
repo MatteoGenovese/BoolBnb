@@ -10915,6 +10915,31 @@ textarea.form-control-lg {
   }
 }
 
+.apartment-card > div > div.row {
+  min-height: 120px;
+}
+.apartment-card a {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+.apartment-card::before {
+  z-index: -2;
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: lightgrey;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.apartment-card:hover::before {
+  opacity: 0.3;
+}
+
 * {
   font-family: "Poppins", sans-serif;
 }

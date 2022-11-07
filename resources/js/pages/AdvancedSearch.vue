@@ -1,9 +1,9 @@
 <template>
     <div id="advancedSearch" class="container">
         <h1>Ricerca avanzata</h1>
-        <SearchBar @sentDataFromDownLevel="$_getLatAndLon" />
+        <SearchBar @sentDataFromDownLevel="$_getApartment" />
 
-        <FiltersComponent class="m-3" @sendFilters="$_getApartment" />
+        <FiltersComponent class="m-3" @sendFilters=" $_getApartment" />
 
 
         <div v-if="isResearchDone==false">
@@ -91,28 +91,19 @@ export default {
 
         },
 
-        $_getLatAndLon(params){
-
-            let { lat, lon } = params.position;
-
-            this.lat = lat;
-            this.lon = lon;
-
-        },
-
         $_getApartment(params = {}){
             this.areCardLoaded = false;
-            // console.log(this.$route, )
-            if(this.$route.query.hasOwnProperty('lat', 'lon')){ 
+            console.log(params, 'filtri')
+            if(this.$route.query.hasOwnProperty('lat', 'lon') || params.hasOwnProperty('position')){ 
                 axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
                         {
                             params:{
-                                lat: this.$route.query.lat,
-                                lon: this.$route.query.lon,
-                                services: this.$route.query.services,
-                                bedNo:  this.$route.query.bedNo,
-                                range: this.$route.query.range,
-                                roomNo: this.$route.query.roomNo,
+                                lat: params.position ? params.position.lat : this.$route.query.lat,
+                                lon: params.position ? params.position.lon : this.$route.query.lon,
+                                services: params.services ? params.services : this.$route.query.services,
+                                bedNo: params.bedNo ? params.bedNo : this.$route.query.bedNo,
+                                range: params.range ? params.range : this.$route.query.range,
+                                roomNo: params.roomNo ? params.roomNo : this.$route.query.roomNo,
                             }
                         }
                 ).then((response)=>{

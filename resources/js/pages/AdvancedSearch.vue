@@ -102,43 +102,46 @@ export default {
 
         $_getApartment(params = {}){
             this.areCardLoaded = false;
-
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
-                    {
-                        params:{
-                            lat: this.$route.query.lat,
-                            lon: this.$route.query.lon,
-                            services: this.$route.query.services,
-                            bedNo:  this.$route.query.bedNo,
-                            range: this.$route.query.range,
-                            roomNo: this.$route.query.roomNo,
+            console.log(this.$route)
+            if(this.$route.query.hasOwnProperty('lat', 'lon')){ 
+                axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
+                        {
+                            params:{
+                                lat: this.$route.query.lat,
+                                lon: this.$route.query.lon,
+                                services: this.$route.query.services,
+                                bedNo:  this.$route.query.bedNo,
+                                range: this.$route.query.range,
+                                roomNo: this.$route.query.roomNo,
+                            }
                         }
+                ).then((response)=>{
+
+                    console.log(response.data.results);
+                    if(response.data.results.length == 0){
+
+                        this.noApartmentFound = true;
+                        this.apartmentsWithoutSponsor == [];
+                        this.apartmentsWithSponsor == [];
+                        this.areCardLoaded = true;
                     }
-            ).then((response)=>{
+                    if(response.data.results == undefined){
 
-                console.log(response.data.results);
-                if(response.data.results.length == 0){
+                        this.noApartmentFound = true;
+                        this.apartmentsWithoutSponsor == [];
+                        this.apartmentsWithSponsor == [];
+                        this.areCardLoaded = true;
+                    }
+                    else if(response.data.results.length > 0){
+                        this.selectApartmentBySponsorship(response.data.results);
+                        this.noApartmentFound = false;
+                        this.areCardLoaded = true;
 
-                    this.noApartmentFound = true;
-                    this.apartmentsWithoutSponsor == [];
-                    this.apartmentsWithSponsor == [];
-                    this.areCardLoaded = true;
-                }
-                if(response.data.results == undefined){
-
-                    this.noApartmentFound = true;
-                    this.apartmentsWithoutSponsor == [];
-                    this.apartmentsWithSponsor == [];
-                    this.areCardLoaded = true;
-                }
-                else if(response.data.results.length > 0){
-                    this.selectApartmentBySponsorship(response.data.results);
-                    this.noApartmentFound = false;
-                    this.areCardLoaded = true;
+                    }
+                    this.isResearchDone = true;
+                })
 
                 }
-                this.isResearchDone = true;
-            })
         },
         scrollToTop() {
             window.scrollTo(0,0);

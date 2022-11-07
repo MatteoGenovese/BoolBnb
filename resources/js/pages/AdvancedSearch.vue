@@ -102,14 +102,20 @@ export default {
 
         $_getApartment(params){
             this.areCardLoaded = false;
-            
-            axios.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon , { params: {
-                range: params.range,
-                bedNo: params.bedNo,
-                roomNo: params.roomNo,
-                services: params.services,
-            }}
 
+
+
+            axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
+                    {
+                        params:{
+                            lat: this.$route.query.lat,
+                            lon: this.$route.query.lon,
+                            services: this.$route.query.services,
+                            bedNo:  this.$route.query.bedNo,
+                            range: this.$route.query.range,
+                            roomNo: this.$route.query.roomNo,
+                        }
+                    }
             ).then((response)=>{
 
                 console.log(response.data.results);
@@ -184,8 +190,8 @@ export default {
 
 
                 console.log('dentro')
-  
-                axios.get('http://127.0.0.1:8000/api/apartments/search/' , 
+
+                axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
                     {
                         params:{
                             lat: this.$route.query.lat,

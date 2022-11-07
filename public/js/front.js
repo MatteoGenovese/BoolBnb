@@ -2166,7 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
         name: 'AdvancedSearch',
         params: {
           addressSelected: addressSelected,
-          query: addressSelected.city
+          query: 'lat=' + addressSelected.position.lat + '&lon=' + addressSelected.position.lon
         }
       });
     }
@@ -2522,12 +2522,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     $_getApartment: function $_getApartment(params) {
       var _this = this;
       this.areCardLoaded = false;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:8000/api/apartments/search/' + this.lat + '&' + this.lon, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:8000/api/apartments/search/', {
         params: {
-          range: params.range,
-          bedNo: params.bedNo,
-          roomNo: params.roomNo,
-          services: params.services
+          lat: this.$route.query.lat,
+          lon: this.$route.query.lon,
+          services: this.$route.query.services,
+          bedNo: this.$route.query.bedNo,
+          range: this.$route.query.range,
+          roomNo: this.$route.query.roomNo
         }
       }).then(function (response) {
         console.log(response.data.results);
@@ -2577,11 +2579,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       console.warn(this.apartmentsWithSponsor);
       console.warn(this.apartmentsWithoutSponsor);
+    },
+    $_callWithUrl: function $_callWithUrl() {
+      if (this.$route.params.query != undefined) {
+        console.log('dentro');
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:8000/api/apartments/search/', {
+          params: {
+            lat: this.$route.query.lat,
+            lon: this.$route.query.lon,
+            services: this.$route.query.services,
+            bedNo: this.$route.query.bedNo,
+            range: this.$route.query.range,
+            roomNo: this.$route.query.roomNo
+          }
+        }).then(function (response) {
+          console.log(response.data.results, 'response with url');
+        })["catch"](function (error) {
+          console.error(error);
+        });
+      }
     }
   },
   created: function created() {
     this.$_passLocation();
     this.scrollToTop();
+    this.$_callWithUrl();
   }
 });
 

@@ -60,7 +60,8 @@ class ApartmentController extends Controller
         ]);
     }
 
-    public function filteredIndex(Request $request, $latitude, $longitude) {
+    public function filteredIndex(Request $request) {
+
 
         function degreesToRadians($degrees) {
             return $degrees * pi() / 180;
@@ -98,6 +99,18 @@ class ApartmentController extends Controller
             } else return false;
         }
 
+        if($request->has("lat")) {
+            $latitude = $request->lat;
+        } else {
+            $latitude = '';
+        }
+
+        if($request->has("lon")) {
+            $longitude = $request->lon;
+        } else {
+            $longitude = '';
+        }
+
 
         if($request->has("services")) {
             $servicesIds = explode("-", $request->services);
@@ -122,6 +135,7 @@ class ApartmentController extends Controller
         }else{
             $rangeInMeters = 20;
         }
+
 
 
 

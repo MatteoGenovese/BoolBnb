@@ -84,9 +84,9 @@ export default {
 
             let addressSelected = this.suggestedCities[index];
 
-             this.$router.push(
+            this.$router.push(
                 {
-                    name: 'AdvancedSearch', params : { addressSelected : addressSelected, query: addressSelected.city }
+                    name: 'AdvancedSearch', params : { addressSelected : addressSelected, query: 'lat='+ addressSelected.position.lat + '&lon=' + addressSelected.position.lon}
                 })
         }
     }

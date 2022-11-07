@@ -66,7 +66,7 @@ export default {
             if(this.$route.name == 'HomePage'){
                 this.$router.push(
                     {
-                        name: 'AdvancedSearch', params : { addressSelected : this.addressSelected, query : this.needle }
+                        name: 'AdvancedSearch', query : { lat: this.addressSelected.position.lat, lon: this.addressSelected.position.lon }
                     })
             }
             if(this.$route.name == 'AdvancedSearch'){

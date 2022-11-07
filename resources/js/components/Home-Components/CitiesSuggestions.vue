@@ -86,7 +86,7 @@ export default {
 
             this.$router.push(
                 {
-                    name: 'AdvancedSearch', params : { addressSelected : addressSelected, query: 'lat='+ addressSelected.position.lat + '&lon=' + addressSelected.position.lon}
+                    name: 'AdvancedSearch', query: { lat: addressSelected.position.lat, lon:  addressSelected.position.lon} 
                 })
         }
     }

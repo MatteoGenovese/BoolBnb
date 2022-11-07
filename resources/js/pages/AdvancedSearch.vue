@@ -57,7 +57,7 @@ export default {
         lat(oldLat, newLat){
             if(newLat != oldLat){
 
-                this.$_getApartment({});
+                this.$_getApartment();
             }
         }
     },
@@ -86,7 +86,7 @@ export default {
                 this.lat = this.addressSelected.position.lat;
                 this.lon = this.addressSelected.position.lon;
                 this.areCardLoaded= false,
-                this.$_getApartment({})
+                this.$_getApartment()
             }
 
         },
@@ -100,10 +100,8 @@ export default {
 
         },
 
-        $_getApartment(params){
+        $_getApartment(params = {}){
             this.areCardLoaded = false;
-
-
 
             axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
                     {
@@ -178,47 +176,14 @@ export default {
                     this.apartmentsWithoutSponsor.push(apartment);
                 }
             });
-            console.warn(this.apartmentsWithSponsor);
-            console.warn(this.apartmentsWithoutSponsor);
 
         },
-
-        $_callWithUrl(){
-
-            if(this.$route.params.query != undefined){
-
-
-
-                console.log('dentro')
-
-                axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
-                    {
-                        params:{
-                            lat: this.$route.query.lat,
-                            lon: this.$route.query.lon,
-                            services: this.$route.query.services,
-                            bedNo:  this.$route.query.bedNo,
-                            range: this.$route.query.range,
-                            roomNo: this.$route.query.roomNo,
-                        }
-                    }
-                )
-                .then((response) =>{
-                    console.log(response.data.results, 'response with url')
-
-                })
-                .catch((error)=>{
-                    console.error(error)
-                })
-
-            }
-        }
     },
     created(){
         this.$_passLocation();
         this.scrollToTop();
 
-        this.$_callWithUrl();
+        this.$_getApartment();
 
     }
 

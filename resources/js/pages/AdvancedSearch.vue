@@ -93,7 +93,7 @@ export default {
 
         $_getApartment(params = {}){
             this.areCardLoaded = false;
-            console.log(params, 'filtri')
+            
             if(this.$route.query.hasOwnProperty('lat', 'lon') || params.hasOwnProperty('position')){ 
                 axios.get('http://127.0.0.1:8000/api/apartments/search/' ,
                         {

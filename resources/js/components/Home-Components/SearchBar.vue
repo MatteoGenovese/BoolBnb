@@ -63,11 +63,11 @@ export default {
         },
 
         $_searchRedirect(){
-            if(this.$route.name == 'HomePage'){
-                this.$router.push(
-                    {
-                        name: 'AdvancedSearch', query : { lat: this.addressSelected.position.lat, lon: this.addressSelected.position.lon }
-                    })
+            if((this.$route.query.lat != this.addressSelected.position.lat) && (this.$route.query.lon != this.addressSelected.position.lon)){
+            this.$router.push(
+                {
+                    name: 'AdvancedSearch', query : { lat: this.addressSelected.position.lat, lon: this.addressSelected.position.lon }
+                })
             }
             if(this.$route.name == 'AdvancedSearch'){
                 this.$emit("sentDataFromDownLevel", this.addressSelected);

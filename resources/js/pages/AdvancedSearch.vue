@@ -3,7 +3,7 @@
         <h1>Ricerca avanzata</h1>
         <SearchBar @sentDataFromDownLevel="$_getApartment" />
 
-        <FiltersComponent class="m-3" @sendFilters=" $_getApartment" />
+        <FiltersComponent class="m-3" @sendFilters=" $_getApartment" :lat="this.$route.query.lat" :lon="this.$route.query.lon"/>
 
 
         <div v-if="isResearchDone==false">

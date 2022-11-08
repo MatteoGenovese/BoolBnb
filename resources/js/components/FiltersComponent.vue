@@ -75,6 +75,16 @@ export default {
             apartmentServices: [],
         }
     },
+    props:{
+        lat: {
+            type: [String, Number], 
+            required: false,
+        },
+        lon: {
+            type: [String, Number], 
+            required: false,
+        },
+    },
     methods: {
         getServices() {
             axios.get("http://127.0.0.1:8000/api/services")
@@ -98,11 +108,22 @@ export default {
                 });
             }
 
+             this.$router.push(
+                {
+                    name: 'AdvancedSearch', query : 
+                    {
+                        lat: this.lat,
+                        lon: this.lon,
+                        roomNo: this.roomNo,
+                        bedNo: this.bedNo,
+                        range: this.searchRange,
+                        services: services,
+                    }
+                })
+
             this.$emit("sendFilters", {
-                // bathNo: this.bathNo,
                 roomNo: this.roomNo,
                 bedNo: this.bedNo,
-                // squareMeters: this.squareMeters,
                 range: this.searchRange,
                 services: services,
             })

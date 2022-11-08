@@ -80,16 +80,16 @@ export default {
         }
     },
     methods:{
-        $_passLocation(){
+        // $_passLocation(){
 
-            if(typeof(this.$route.params.addressSelected) != "undefined") {
-                this.lat = this.addressSelected.position.lat;
-                this.lon = this.addressSelected.position.lon;
-                this.areCardLoaded= false,
-                this.$_getApartment()
-            }
+        //     if(typeof(this.$route.params.addressSelected) != "undefined") {
+        //         this.lat = this.addressSelected.position.lat;
+        //         this.lon = this.addressSelected.position.lon;
+        //         this.areCardLoaded= false,
+        //         this.$_getApartment()
+        //     }
 
-        },
+        // },
 
         $_getApartment(params = {}){
             this.areCardLoaded = false;
@@ -108,19 +108,12 @@ export default {
                         }
                 ).then((response)=>{
 
-                    console.log(response.data.results);
-                    if(response.data.results.length == 0){
+                    console.log(response.data.results, 'search result');
+                    if(response.data.results == undefined || response.data.results.length == 0){
 
                         this.noApartmentFound = true;
-                        this.apartmentsWithoutSponsor == [];
-                        this.apartmentsWithSponsor == [];
-                        this.areCardLoaded = true;
-                    }
-                    if(response.data.results == undefined){
-
-                        this.noApartmentFound = true;
-                        this.apartmentsWithoutSponsor == [];
-                        this.apartmentsWithSponsor == [];
+                        this.apartmentsWithoutSponsor = [];
+                        this.apartmentsWithSponsor = [];
                         this.areCardLoaded = true;
                     }
                     else if(response.data.results.length > 0){
@@ -174,7 +167,7 @@ export default {
         },
     },
     created(){
-        this.$_passLocation();
+        // this.$_passLocation();
         this.scrollToTop();
 
         this.$_getApartment();

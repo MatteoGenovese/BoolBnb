@@ -108,17 +108,26 @@ export default {
                 });
             }
 
+            let filteredQueryKeys = {
+                lat: this.lat,
+                lon: this.lon,
+            }
+
+            function filteringQueryKeys(key, value) {
+                if(value > 0){
+                   filteredQueryKeys[key]= value;
+                }
+            }
+
+            filteringQueryKeys('roomNo', this.roomNo);
+            filteringQueryKeys('bedNo', this.bedNo);
+            filteringQueryKeys('range', this.range);
+            filteringQueryKeys('services', services);
+
              this.$router.push(
                 {
                     name: 'AdvancedSearch', query : 
-                    {
-                        lat: this.lat,
-                        lon: this.lon,
-                        roomNo: this.roomNo,
-                        bedNo: this.bedNo,
-                        range: this.searchRange,
-                        services: services,
-                    }
+                    filteredQueryKeys
                 })
 
             this.$emit("sendFilters", {
